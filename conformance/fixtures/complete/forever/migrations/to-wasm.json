@@ -1,0 +1,63 @@
+{
+  "foreverVersion": "0.1",
+  "id": "migration.old-to-wasm",
+  "kind": "migration",
+  "sourceImplementation": "implementation.old-streamer",
+  "targetImplementation": "implementation.wasm-streamer",
+  "reason": "Replace an unmaintained dependency.",
+  "preservedCapabilities": [
+    "capability.streaming",
+    "capability.resumability"
+  ],
+  "preservedInvariants": [
+    "invariant.bounded-memory"
+  ],
+  "compatibilityImpact": [
+    "compatibility.configuration-v1"
+  ],
+  "assumptionsRetired": [
+    "Node package availability"
+  ],
+  "verification": [
+    "evidence.streaming-test",
+    "evidence.resume-test",
+    "evidence.config-fixture"
+  ],
+  "claims": [
+    {
+      "requirement": "capability.streaming",
+      "status": "pass",
+      "evidence": [
+        "evidence.streaming-test"
+      ]
+    },
+    {
+      "requirement": "capability.resumability",
+      "status": "pass",
+      "evidence": [
+        "evidence.resume-test"
+      ]
+    },
+    {
+      "requirement": "invariant.bounded-memory",
+      "status": "unknown",
+      "reason": "Benchmark pending"
+    },
+    {
+      "requirement": "compatibility.configuration-v1",
+      "status": "pass",
+      "evidence": [
+        "evidence.config-fixture"
+      ]
+    }
+  ],
+  "rollbackNotes": "Retain old implementation until benchmark passes.",
+  "status": "verifying",
+  "dateVersion": "0.1",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "project author",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

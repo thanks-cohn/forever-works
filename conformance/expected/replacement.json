@@ -1,0 +1,46 @@
+{
+  "candidate": "implementation.wasm-streamer",
+  "checks": [
+    {
+      "evidence": [
+        "evidence.streaming-test"
+      ],
+      "requirement": "capability.streaming",
+      "status": "pass"
+    },
+    {
+      "evidence": [
+        "evidence.resume-test"
+      ],
+      "requirement": "capability.resumability",
+      "status": "pass"
+    },
+    {
+      "reason": "No candidate benchmark evidence supplied",
+      "requirement": "invariant.bounded-memory",
+      "status": "unknown"
+    },
+    {
+      "evidence": [
+        "evidence.portability-review"
+      ],
+      "requirement": "constraint.portable",
+      "status": "pass"
+    },
+    {
+      "evidence": [
+        "evidence.config-fixture"
+      ],
+      "requirement": "requirement.configuration-compatible",
+      "status": "pass"
+    },
+    {
+      "evidence": [
+        "evidence.config-fixture"
+      ],
+      "requirement": "compatibility.configuration-v1",
+      "status": "pass"
+    }
+  ],
+  "result": "partial"
+}

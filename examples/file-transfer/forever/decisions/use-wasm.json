@@ -1,0 +1,37 @@
+{
+  "foreverVersion": "0.1",
+  "id": "decision.use-wasm",
+  "kind": "decision",
+  "title": "Evaluate a portable streaming core",
+  "status": "accepted",
+  "context": "The original package is unmaintained.",
+  "decision": "Evaluate the WASM implementation against enduring requirements.",
+  "alternativesConsidered": [
+    "retain unsupported package"
+  ],
+  "rationale": "Portable while leaving host integrations replaceable.",
+  "assumptions": [
+    "WASM runtimes remain optional implementation detail"
+  ],
+  "mayChange": [
+    "runtime host"
+  ],
+  "mustSurvive": [
+    "capability.streaming",
+    "invariant.bounded-memory"
+  ],
+  "revisitConditions": [
+    "a simpler portable engine exists"
+  ],
+  "relatedEntities": [
+    "dependency.old-streamer",
+    "implementation.wasm-streamer"
+  ],
+  "dateVersion": "2026-10-03",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "project author",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

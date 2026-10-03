@@ -1,0 +1,9 @@
+{
+  "foreverVersion": "0.0",
+  "projectId": "old-schema-version",
+  "records": {
+    "intent": [
+      "record.json"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "foreverVersion": "0.1",
+  "id": "evidence.portability-review",
+  "kind": "evidence",
+  "type": "manual-review",
+  "source": "reviews/portable",
+  "statementSupported": "No mandatory vendor.",
+  "confidence": 1,
+  "timestampVersion": "2026-10-03",
+  "immutableReference": "reviews/portable",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "project author",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

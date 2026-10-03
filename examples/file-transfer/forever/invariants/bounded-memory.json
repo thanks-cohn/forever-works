@@ -1,0 +1,34 @@
+{
+  "foreverVersion": "0.1",
+  "id": "invariant.bounded-memory",
+  "kind": "invariant",
+  "name": "Bounded memory",
+  "statement": "Peak transfer memory remains below 256 MiB.",
+  "scope": [
+    "capability.streaming"
+  ],
+  "verification": [
+    {
+      "type": "benchmark",
+      "expected": "peak memory <= 256 MiB",
+      "command": "run transfer-memory benchmark",
+      "evidence": [
+        "evidence.old-benchmark"
+      ]
+    }
+  ],
+  "thresholds": {
+    "peakMemoryMiB": 256
+  },
+  "changePolicy": "implementation may change; threshold may not",
+  "severity": "critical",
+  "relatedCapabilities": [
+    "capability.streaming"
+  ],
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "project author",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

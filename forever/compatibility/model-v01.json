@@ -1,0 +1,25 @@
+{
+  "foreverVersion": "0.1",
+  "id": "compatibility.model-v0-1",
+  "kind": "compatibility",
+  "contractType": "file-format",
+  "boundary": "Forever Works 0.1 JSON model",
+  "mustPreserve": [
+    "Unknown fields are tolerated",
+    "Stable IDs retain meaning"
+  ],
+  "mayChange": [
+    "binding convenience APIs"
+  ],
+  "migrationPolicy": "Major changes require explicit migration guidance.",
+  "version": "0.1",
+  "validationReferences": [
+    "evidence.foundation-tests"
+  ],
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "foundational proposal",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

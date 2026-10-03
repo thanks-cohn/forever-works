@@ -1,0 +1,24 @@
+{
+  "foreverVersion": "0.1",
+  "id": "capability.canonical-model",
+  "kind": "capability",
+  "name": "Canonical intent model",
+  "statement": "Represent intent through evidence in neutral JSON.",
+  "relatedInvariants": [
+    "invariant.language-neutral-core",
+    "invariant.plain-readable-format",
+    "invariant.provenance-preserved"
+  ],
+  "relatedImplementations": [
+    "implementation.schemas"
+  ],
+  "verification": [],
+  "criticality": "essential",
+  "status": "active",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "foundational proposal",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

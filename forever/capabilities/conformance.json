@@ -1,0 +1,32 @@
+{
+  "foreverVersion": "0.1",
+  "id": "capability.cross-language-conformance",
+  "kind": "capability",
+  "name": "Cross-language conformance",
+  "statement": "Interpret shared fixtures consistently.",
+  "relatedInvariants": [
+    "invariant.binding-conformance",
+    "invariant.backward-aware"
+  ],
+  "relatedImplementations": [
+    "implementation.bindings"
+  ],
+  "verification": [
+    {
+      "type": "external-conformance-suite",
+      "expected": "all bindings pass",
+      "command": "make test",
+      "evidence": [
+        "evidence.foundation-tests"
+      ]
+    }
+  ],
+  "criticality": "essential",
+  "status": "active",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "foundational proposal",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "foreverVersion": "0.1",
+  "id": "capability.streaming",
+  "kind": "capability",
+  "name": "Streaming transfer",
+  "statement": "Transfer incrementally with backpressure.",
+  "inputs": [
+    "remote byte stream"
+  ],
+  "outputs": [
+    "destination byte stream"
+  ],
+  "requiredProperties": [
+    "backpressure"
+  ],
+  "relatedInvariants": [
+    "invariant.bounded-memory"
+  ],
+  "relatedImplementations": [
+    "implementation.old-streamer",
+    "implementation.wasm-streamer"
+  ],
+  "verification": [],
+  "criticality": "essential",
+  "status": "active",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "project author",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

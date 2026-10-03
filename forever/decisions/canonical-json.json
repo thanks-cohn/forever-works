@@ -1,0 +1,36 @@
+{
+  "foreverVersion": "0.1",
+  "id": "decision.canonical-json",
+  "kind": "decision",
+  "title": "Use UTF-8 JSON as canonical interchange",
+  "status": "accepted",
+  "context": "The model must outlive current runtimes.",
+  "decision": "Use documented JSON plus JSON Schema.",
+  "alternativesConsidered": [
+    "runtime-specific object serialization",
+    "database-only storage"
+  ],
+  "rationale": "Plain, open, and implementable in old and future languages.",
+  "assumptions": [
+    "JSON remains documented or mechanically recoverable"
+  ],
+  "mayChange": [
+    "convenience authoring formats"
+  ],
+  "mustSurvive": [
+    "invariant.plain-readable-format"
+  ],
+  "revisitConditions": [
+    "a more durable universally readable format is standardized"
+  ],
+  "relatedEntities": [
+    "implementation.schemas"
+  ],
+  "dateVersion": "0.1",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "foundational proposal",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

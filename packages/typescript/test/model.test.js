@@ -1,0 +1,3 @@
+import test from "node:test"; import assert from "node:assert/strict"; import {loadModel} from "../dist/index.js";
+test("loads, traces, and conservatively evaluates shared fixture",async()=>{const m=await loadModel("conformance/fixtures/complete/forever");assert.deepEqual(m.validate(),[]);assert.ok(m.traceEntity("dependency.old-streamer").some(x=>x.id==="intent.remote-transfer"));const result=m.evaluateReplacement("dependency.old-streamer","implementation.wasm-streamer");assert.equal(result.result,"partial");assert.equal(result.checks.find(x=>x.requirement==="invariant.bounded-memory").status,"unknown")});
+test("normalization is deterministic",async()=>{const m=await loadModel("conformance/fixtures/minimal/forever");assert.equal(m.normalized(),m.normalized())});

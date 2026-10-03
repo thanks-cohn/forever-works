@@ -1,0 +1,9 @@
+{
+  "foreverVersion": "0.1",
+  "projectId": "inferred-provenance",
+  "records": {
+    "intent": [
+      "record.json"
+    ]
+  }
+}

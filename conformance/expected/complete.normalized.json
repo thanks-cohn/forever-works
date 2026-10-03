@@ -1,0 +1,501 @@
+{
+  "foreverVersion": "0.1",
+  "projectId": "remote-transfer",
+  "records": [
+    {
+      "criticality": "essential",
+      "foreverVersion": "0.1",
+      "id": "capability.resumability",
+      "kind": "capability",
+      "name": "Resumability",
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "relatedImplementations": [
+        "implementation.old-streamer",
+        "implementation.wasm-streamer"
+      ],
+      "relatedInvariants": [],
+      "statement": "Resume interrupted transfers.",
+      "status": "active",
+      "verification": []
+    },
+    {
+      "criticality": "essential",
+      "foreverVersion": "0.1",
+      "id": "capability.streaming",
+      "inputs": [
+        "remote byte stream"
+      ],
+      "kind": "capability",
+      "name": "Streaming transfer",
+      "outputs": [
+        "destination byte stream"
+      ],
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "relatedImplementations": [
+        "implementation.old-streamer",
+        "implementation.wasm-streamer"
+      ],
+      "relatedInvariants": [
+        "invariant.bounded-memory"
+      ],
+      "requiredProperties": [
+        "backpressure"
+      ],
+      "statement": "Transfer incrementally with backpressure.",
+      "status": "active",
+      "verification": []
+    },
+    {
+      "boundary": "transfer configuration JSON",
+      "contractType": "file-format",
+      "foreverVersion": "0.1",
+      "id": "compatibility.configuration-v1",
+      "kind": "compatibility",
+      "mayChange": [
+        "internal parser"
+      ],
+      "migrationPolicy": "Non-destructive automatic upgrades only.",
+      "mustPreserve": [
+        "Existing version 1 configuration remains readable"
+      ],
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "validationReferences": [
+        "evidence.config-fixture"
+      ],
+      "version": "1"
+    },
+    {
+      "category": "portability",
+      "classification": "hard",
+      "foreverVersion": "0.1",
+      "id": "constraint.portable",
+      "kind": "constraint",
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "rationale": "Avoid vendor lock-in.",
+      "scope": [
+        "intent.remote-transfer"
+      ],
+      "statement": "Run without a mandatory vendor service.",
+      "verification": []
+    },
+    {
+      "alternativesConsidered": [
+        "retain unsupported package"
+      ],
+      "assumptions": [
+        "WASM runtimes remain optional implementation detail"
+      ],
+      "context": "The original package is unmaintained.",
+      "dateVersion": "2026-10-03",
+      "decision": "Evaluate the WASM implementation against enduring requirements.",
+      "foreverVersion": "0.1",
+      "id": "decision.use-wasm",
+      "kind": "decision",
+      "mayChange": [
+        "runtime host"
+      ],
+      "mustSurvive": [
+        "capability.streaming",
+        "invariant.bounded-memory"
+      ],
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "rationale": "Portable while leaving host integrations replaceable.",
+      "relatedEntities": [
+        "dependency.old-streamer",
+        "implementation.wasm-streamer"
+      ],
+      "revisitConditions": [
+        "a simpler portable engine exists"
+      ],
+      "status": "accepted",
+      "title": "Evaluate a portable streaming core"
+    },
+    {
+      "compatibilityObligations": [
+        "compatibility.configuration-v1"
+      ],
+      "currentImplementation": "implementation.old-streamer",
+      "dependencyName": "old-streamer",
+      "dependencyType": "library",
+      "deprecationState": "unmaintained",
+      "foreverVersion": "0.1",
+      "historicalContext": "Selected when it was actively maintained.",
+      "id": "dependency.old-streamer",
+      "kind": "dependency",
+      "protectedInvariants": [
+        "invariant.bounded-memory"
+      ],
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "purpose": "Stream remote files with backpressure and restart support.",
+      "reasonSelected": "It provided streaming and resumability with low integration cost.",
+      "relatedConstraints": [
+        "constraint.portable"
+      ],
+      "replacementClassification": "CAPABILITY",
+      "replacementRequirements": [
+        "requirement.configuration-compatible"
+      ],
+      "requiredCapabilities": [
+        "capability.streaming",
+        "capability.resumability"
+      ]
+    },
+    {
+      "confidence": 1,
+      "foreverVersion": "0.1",
+      "id": "evidence.config-fixture",
+      "immutableReference": "fixtures/config-v1.json",
+      "kind": "evidence",
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "source": "fixtures/config-v1.json",
+      "statementSupported": "Version 1 configuration loads.",
+      "timestampVersion": "2026-10-03",
+      "type": "compatibility-fixture"
+    },
+    {
+      "confidence": 1,
+      "foreverVersion": "0.1",
+      "id": "evidence.old-benchmark",
+      "immutableReference": "bench/old.json",
+      "kind": "evidence",
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "source": "bench/old.json",
+      "statementSupported": "Old implementation stays below threshold.",
+      "timestampVersion": "2026-10-03",
+      "type": "benchmark"
+    },
+    {
+      "confidence": 1,
+      "foreverVersion": "0.1",
+      "id": "evidence.portability-review",
+      "immutableReference": "reviews/portable",
+      "kind": "evidence",
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "source": "reviews/portable",
+      "statementSupported": "No mandatory vendor.",
+      "timestampVersion": "2026-10-03",
+      "type": "manual-review"
+    },
+    {
+      "confidence": 1,
+      "foreverVersion": "0.1",
+      "id": "evidence.resume-test",
+      "immutableReference": "tests/resume",
+      "kind": "evidence",
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "source": "tests/resume",
+      "statementSupported": "Candidate resumes.",
+      "timestampVersion": "2026-10-03",
+      "type": "integration-test"
+    },
+    {
+      "confidence": 1,
+      "foreverVersion": "0.1",
+      "id": "evidence.streaming-test",
+      "immutableReference": "tests/streaming",
+      "kind": "evidence",
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "source": "tests/streaming",
+      "statementSupported": "Candidate streams.",
+      "timestampVersion": "2026-10-03",
+      "type": "integration-test"
+    },
+    {
+      "compatibilityContracts": [
+        "compatibility.configuration-v1"
+      ],
+      "constrainedByInvariants": [
+        "invariant.bounded-memory"
+      ],
+      "foreverVersion": "0.1",
+      "id": "implementation.old-streamer",
+      "kind": "implementation",
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "replaceability": "CAPABILITY",
+      "runtimeRequirements": [
+        "historical Node runtime"
+      ],
+      "satisfiesCapabilities": [
+        "capability.streaming",
+        "capability.resumability"
+      ],
+      "satisfiesConstraints": [
+        "constraint.portable"
+      ],
+      "sourceLocations": [
+        "src/transfer"
+      ],
+      "technology": "old Node streaming package",
+      "type": "library",
+      "version": "4.2.1"
+    },
+    {
+      "claims": [
+        {
+          "evidence": [
+            "evidence.streaming-test"
+          ],
+          "requirement": "capability.streaming",
+          "status": "pass"
+        },
+        {
+          "evidence": [
+            "evidence.resume-test"
+          ],
+          "requirement": "capability.resumability",
+          "status": "pass"
+        },
+        {
+          "reason": "No candidate benchmark evidence supplied",
+          "requirement": "invariant.bounded-memory",
+          "status": "unknown"
+        },
+        {
+          "evidence": [
+            "evidence.portability-review"
+          ],
+          "requirement": "constraint.portable",
+          "status": "pass"
+        },
+        {
+          "evidence": [
+            "evidence.config-fixture"
+          ],
+          "requirement": "requirement.configuration-compatible",
+          "status": "pass"
+        },
+        {
+          "evidence": [
+            "evidence.config-fixture"
+          ],
+          "requirement": "compatibility.configuration-v1",
+          "status": "pass"
+        }
+      ],
+      "compatibilityContracts": [
+        "compatibility.configuration-v1"
+      ],
+      "constrainedByInvariants": [
+        "invariant.bounded-memory"
+      ],
+      "foreverVersion": "0.1",
+      "id": "implementation.wasm-streamer",
+      "kind": "implementation",
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "replaceability": "CAPABILITY",
+      "runtimeRequirements": [
+        "WASM host"
+      ],
+      "satisfiesCapabilities": [
+        "capability.streaming",
+        "capability.resumability"
+      ],
+      "satisfiesConstraints": [
+        "constraint.portable"
+      ],
+      "sourceLocations": [
+        "candidate/wasm"
+      ],
+      "technology": "WebAssembly streaming engine",
+      "type": "module",
+      "version": "candidate-1"
+    },
+    {
+      "foreverVersion": "0.1",
+      "id": "intent.remote-transfer",
+      "kind": "intent",
+      "name": "Remote Transfer",
+      "nonGoals": [
+        "vendor lock-in"
+      ],
+      "priorities": [
+        "bounded memory",
+        "resumability",
+        "portability"
+      ],
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "purpose": [
+        "Stream remote files directly to destinations"
+      ],
+      "relatedCapabilities": [
+        "capability.streaming",
+        "capability.resumability"
+      ],
+      "relatedConstraints": [
+        "constraint.portable"
+      ],
+      "statement": "Move remote files without local staging.",
+      "status": "active",
+      "supportedEnvironments": [
+        "memory-constrained desktop"
+      ]
+    },
+    {
+      "changePolicy": "implementation may change; threshold may not",
+      "foreverVersion": "0.1",
+      "id": "invariant.bounded-memory",
+      "kind": "invariant",
+      "name": "Bounded memory",
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "relatedCapabilities": [
+        "capability.streaming"
+      ],
+      "scope": [
+        "capability.streaming"
+      ],
+      "severity": "critical",
+      "statement": "Peak transfer memory remains below 256 MiB.",
+      "thresholds": {
+        "peakMemoryMiB": 256
+      },
+      "verification": [
+        {
+          "command": "run transfer-memory benchmark",
+          "evidence": [
+            "evidence.old-benchmark"
+          ],
+          "expected": "peak memory <= 256 MiB",
+          "type": "benchmark"
+        }
+      ]
+    },
+    {
+      "assumptionsRetired": [
+        "Node package availability"
+      ],
+      "claims": [
+        {
+          "evidence": [
+            "evidence.streaming-test"
+          ],
+          "requirement": "capability.streaming",
+          "status": "pass"
+        },
+        {
+          "evidence": [
+            "evidence.resume-test"
+          ],
+          "requirement": "capability.resumability",
+          "status": "pass"
+        },
+        {
+          "reason": "Benchmark pending",
+          "requirement": "invariant.bounded-memory",
+          "status": "unknown"
+        },
+        {
+          "evidence": [
+            "evidence.config-fixture"
+          ],
+          "requirement": "compatibility.configuration-v1",
+          "status": "pass"
+        }
+      ],
+      "compatibilityImpact": [
+        "compatibility.configuration-v1"
+      ],
+      "dateVersion": "0.1",
+      "foreverVersion": "0.1",
+      "id": "migration.old-to-wasm",
+      "kind": "migration",
+      "preservedCapabilities": [
+        "capability.streaming",
+        "capability.resumability"
+      ],
+      "preservedInvariants": [
+        "invariant.bounded-memory"
+      ],
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "reason": "Replace an unmaintained dependency.",
+      "rollbackNotes": "Retain old implementation until benchmark passes.",
+      "sourceImplementation": "implementation.old-streamer",
+      "status": "verifying",
+      "targetImplementation": "implementation.wasm-streamer",
+      "verification": [
+        "evidence.streaming-test",
+        "evidence.resume-test",
+        "evidence.config-fixture"
+      ]
+    }
+  ]
+}

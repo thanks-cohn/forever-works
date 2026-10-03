@@ -1,0 +1,26 @@
+{
+  "foreverVersion": "0.1",
+  "id": "implementation.bindings",
+  "kind": "implementation",
+  "type": "reference-bindings",
+  "technology": "TypeScript, C, Python, and C++",
+  "version": "0.1",
+  "satisfiesCapabilities": [
+    "capability.cross-language-conformance"
+  ],
+  "constrainedByInvariants": [
+    "invariant.binding-conformance"
+  ],
+  "replaceability": "CAPABILITY",
+  "sourceLocations": [
+    "packages/typescript",
+    "bindings"
+  ],
+  "runtimeRequirements": [],
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "foundational proposal",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}
