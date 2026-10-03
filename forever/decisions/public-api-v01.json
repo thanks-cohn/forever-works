@@ -1,0 +1,41 @@
+{
+  "foreverVersion": "0.1",
+  "id": "decision.public-api-v01",
+  "kind": "decision",
+  "title": "Define a transport-neutral public semantic API",
+  "status": "accepted",
+  "context": "Cold inheritors need a discoverable interrogation surface without learning a particular binding or transport.",
+  "decision": "Public API v0.1 defines semantic operations and capability discovery above bindings. Specification and conformance remain authoritative; JavaScript, TypeScript, and CLI are adapters or proof implementations. CLI JSON is the lowest-common-denominator path. Missing evidence remains unknown. HTTP and MCP are intentionally not canonical transports.",
+  "alternativesConsidered": [
+    "Make a JavaScript class layout canonical",
+    "Choose HTTP or MCP as the canonical API"
+  ],
+  "rationale": "Stable, discoverable semantics support cold inheritance while transports and implementations remain replaceable.",
+  "assumptions": [
+    "Plain UTF-8 JSON remains sufficient for cross-language exchange"
+  ],
+  "mayChange": [
+    "adapter ergonomics",
+    "implementation identity metadata",
+    "future transport mappings"
+  ],
+  "mustSurvive": [
+    "constraint.transport-independent",
+    "invariant.language-neutral-core",
+    "invariant.provenance-preserved"
+  ],
+  "revisitConditions": [
+    "A backward-incompatible Public API revision is proposed"
+  ],
+  "relatedEntities": [
+    "implementation.javascript-binding",
+    "implementation.reference-bindings"
+  ],
+  "dateVersion": "2026-10-03",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "docs/API/PUBLIC_API_V0_1.md",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

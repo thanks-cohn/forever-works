@@ -26,7 +26,8 @@
     ],
     "decisions": [
       "decisions/canonical-json.json",
-      "decisions/javascript-first-class.json"
+      "decisions/javascript-first-class.json",
+      "decisions/public-api-v01.json"
     ],
     "compatibility": [
       "compatibility/model-v01.json"
