@@ -11,3 +11,5 @@ Read `docs/FOUNDATIONAL_PROPOSAL.md` and `docs/STANDARD.md` before changing sema
 * Keep the core model usable through plain UTF-8 JSON and understandable without proprietary tools.
 * **JavaScript is a first-class proof target, separate from TypeScript.** A successful TypeScript build or TypeScript conformance run does not establish JavaScript conformance.
 * Plain JavaScript consumption must not require a TypeScript compiler. Maintain dedicated JavaScript tests, examples, packaging/consumer proof, and conformance evidence as the JavaScript target is implemented and evolved.
+
+* When public API semantics, operations, errors, versioning, CLI mappings, or adapter obligations change, update the official documentation under `docs/API/` in the same coherent change. Planning and handoff documents do not replace the official API reference.

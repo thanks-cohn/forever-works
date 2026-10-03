@@ -34,6 +34,7 @@ Before changing anything, read completely:
 - `docs/VISION_ADOPTION_AND_COMPETITIVE_STRATEGY_PROPOSAL.md`
 - `docs/CODEX_HANDOFF_JAVASCRIPT.md`
 - `docs/public-api-v0.1/PROPOSAL.md`
+- `docs/API/README.md`
 
 Inspect the current JavaScript, TypeScript, Python, CLI, conformance, schema, and self-hosted `forever/` implementations before deciding exact code changes.
 
@@ -93,11 +94,18 @@ If an existing implementation conflicts with the standard, preserve the standard
 
 ## 1. Define the Public API v0.1
 
-Create:
+Create and maintain the official API documentation under the permanent API documentation directory:
 
-`docs/public-api-v0.1/PUBLIC_API_V0_1.md`
+`docs/API/`
 
-This should be a serious, implementation-independent API contract.
+For this run, create or update at minimum:
+
+- `docs/API/README.md` — official API documentation index and version/status guide.
+- `docs/API/PUBLIC_API_V0_1.md` — the authoritative human-facing Public API v0.1 reference.
+
+The existing `docs/public-api-v0.1/` directory is planning, implementation-request, and handoff material. It is **not** the permanent public API documentation location.
+
+`docs/API/PUBLIC_API_V0_1.md` should be a serious, implementation-independent API contract.
 
 Define at minimum:
 
@@ -135,6 +143,27 @@ The initial semantic operations should cover, at minimum where supported by the 
 You may refine names if doing so creates a demonstrably clearer durable API, but avoid unnecessary proliferation.
 
 Do not add a method merely because one binding happens to expose it easily.
+
+## 1.1 Official API documentation maintenance rule
+
+The public API documentation under `docs/API/` is a first-class release artifact.
+
+Any code, schema, conformance, CLI, binding, or semantic change made during this run that changes the public API MUST update the relevant file under `docs/API/` in the same coherent change.
+
+Do not leave the official API documentation describing an older API than the implementation.
+
+Future API-changing runs should follow the same rule: **change the API, change `docs/API/`.**
+
+The official API documentation should clearly distinguish:
+
+- normative Forever Works semantics,
+- Public API versioning,
+- adapter-specific examples,
+- currently implemented operations,
+- optional/deferred transports,
+- and experimental or future ideas.
+
+Do not document unimplemented behavior as available.
 
 ## 2. Add explicit discovery
 
@@ -364,7 +393,7 @@ The handoff is a first-class deliverable.
 
 A strong completion should satisfy as many of these as possible without sacrificing correctness:
 
-1. A written transport-neutral Public API v0.1 exists.
+1. A written transport-neutral Public API v0.1 exists under the official `docs/API/` directory.
 2. API/version/capability discovery exists.
 3. JavaScript exposes a stable façade above internal model details.
 4. Plain JavaScript consumers still require no TypeScript compiler.
@@ -379,6 +408,7 @@ A strong completion should satisfy as many of these as possible without sacrific
 13. Existing JavaScript, TypeScript, Python, C, and C++ proof behavior is not weakened.
 14. No HTTP/MCP transport is made canonical.
 15. The mandatory handoff is committed on `main`.
+16. `docs/API/README.md` and `docs/API/PUBLIC_API_V0_1.md` accurately reflect the API actually implemented by the end of the run.
 
 ## 15. Design test
 

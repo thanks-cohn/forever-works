@@ -60,6 +60,21 @@ The API must not expose implementation details merely because a current binding 
 
 A public operation belongs in the API only when it corresponds to a durable Forever Works concept.
 
+## 3.1 Official API documentation home
+
+The permanent public documentation for the Forever Works API should live under:
+
+`docs/API/`
+
+This directory is the official human- and agent-readable API documentation surface. Planning notes, implementation requests, and handoffs may live elsewhere, but a released or changed public API must be reflected in `docs/API/`.
+
+The initial structure should include:
+
+- `docs/API/README.md` — API index, current version, compatibility/status guidance, and links.
+- `docs/API/PUBLIC_API_V0_1.md` — Public API v0.1 contract and reference.
+
+Any future change to public API semantics, operations, errors, versioning, or adapter obligations should update the relevant official API documentation in the same change.
+
 ## 4. Proposed Public API v0.1 surface
 
 The first API should remain intentionally compact.
