@@ -17,11 +17,17 @@ Read these files completely before changing anything:
 - `docs/LANGUAGE_BINDINGS.md`
 - `AGENTS.md`
 
-Work from the current `main` branch by creating a new implementation branch named:
+## Main-only execution rule
 
-`codex/javascript-first-class-target`
+Work **directly on the current `main` branch for the entire task**.
 
-Do not implement directly on `main`.
+Do not create an implementation branch. Do not switch to another branch. Do not open a pull request for this task.
+
+All implementation, tests, documentation, conformance updates, self-hosting records, and the final handoff must be written and committed directly to `main`.
+
+Before changing anything, confirm that the working branch is `main` and that it contains this request. If the environment normally prefers branch-based work, this request intentionally overrides that preference for this task.
+
+Keep commits coherent and leave `main` in a tested, continuation-ready state.
 
 ## Non-negotiable design rule
 
@@ -280,22 +286,23 @@ Document:
 - files changed,
 - any intentionally deferred work,
 - any remaining differences between JavaScript and the other bindings,
-- current branch,
-- latest commit SHA,
-- PR URL if opened,
+- confirmation that the work was performed directly on `main`,
+- latest `main` commit SHA,
 - exact next recommended work.
 
-## Pull request
+## Commit and completion workflow
 
-Open a PR from:
+Do not create a branch and do not open a pull request.
 
-`codex/javascript-first-class-target`
+Implement and commit directly to `main`. Before finishing:
 
-into:
+1. run the full required verification suite,
+2. fix regressions instead of weakening tests,
+3. create/update `docs/CODEX_HANDOFF_JAVASCRIPT.md`,
+4. commit the completed implementation and handoff directly to `main`,
+5. report the latest `main` commit SHA in the handoff.
 
-`main`
-
-Do not merge it yourself unless explicitly instructed.
+The task is complete when the working implementation and handoff are present on `main`, not on a side branch.
 
 ## Acceptance criteria
 
