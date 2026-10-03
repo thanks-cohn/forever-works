@@ -1,0 +1,34 @@
+{
+  "candidate": "migration.old-to-wasm",
+  "checks": [
+    {
+      "evidence": [
+        "evidence.streaming-test"
+      ],
+      "requirement": "capability.streaming",
+      "status": "pass"
+    },
+    {
+      "evidence": [
+        "evidence.resume-test"
+      ],
+      "requirement": "capability.resumability",
+      "status": "pass"
+    },
+    {
+      "evidence": [
+        "evidence.candidate-benchmark"
+      ],
+      "requirement": "invariant.bounded-memory",
+      "status": "pass"
+    },
+    {
+      "evidence": [
+        "evidence.config-fixture"
+      ],
+      "requirement": "compatibility.configuration-v1",
+      "status": "pass"
+    }
+  ],
+  "result": "pass"
+}

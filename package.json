@@ -1,0 +1,13 @@
+{
+  "name": "forever-works",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p packages/typescript",
+    "test": "npm run build && node --test packages/typescript/test/*.test.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@types/node": "^20.17.0"
+  }
+}

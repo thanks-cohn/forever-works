@@ -1,0 +1,24 @@
+{
+  "foreverVersion": "0.1",
+  "id": "compatibility.configuration-v1",
+  "kind": "compatibility",
+  "contractType": "file-format",
+  "boundary": "transfer configuration JSON",
+  "mustPreserve": [
+    "Existing version 1 configuration remains readable"
+  ],
+  "mayChange": [
+    "internal parser"
+  ],
+  "migrationPolicy": "Non-destructive automatic upgrades only.",
+  "version": "1",
+  "validationReferences": [
+    "evidence.config-fixture"
+  ],
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "project author",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

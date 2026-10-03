@@ -1,0 +1,10 @@
+{
+  "foreverVersion": "0.1",
+  "projectId": "circle",
+  "records": {
+    "capabilities": [
+      "capabilities/a.json",
+      "capabilities/b.json"
+    ]
+  }
+}

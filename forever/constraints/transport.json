@@ -1,0 +1,19 @@
+{
+  "foreverVersion": "0.1",
+  "id": "constraint.transport-independent",
+  "kind": "constraint",
+  "statement": "No transport or agent protocol is canonical.",
+  "category": "portability",
+  "scope": [
+    "intent.forever-works"
+  ],
+  "classification": "hard",
+  "verification": [],
+  "rationale": "Transports are replaceable adapters.",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "foundational proposal",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

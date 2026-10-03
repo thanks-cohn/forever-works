@@ -1,0 +1,35 @@
+{
+  "candidate": "migration.old-to-wasm",
+  "checks": [
+    {
+      "evidence": [
+        "evidence.streaming-test"
+      ],
+      "requirement": "capability.streaming",
+      "status": "pass"
+    },
+    {
+      "evidence": [
+        "evidence.resume-test"
+      ],
+      "requirement": "capability.resumability",
+      "status": "pass"
+    },
+    {
+      "evidence": [
+        "evidence.old-benchmark"
+      ],
+      "reason": "Candidate exceeded threshold",
+      "requirement": "invariant.bounded-memory",
+      "status": "fail"
+    },
+    {
+      "evidence": [
+        "evidence.config-fixture"
+      ],
+      "requirement": "compatibility.configuration-v1",
+      "status": "pass"
+    }
+  ],
+  "result": "fail"
+}

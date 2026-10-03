@@ -1,0 +1,31 @@
+{
+  "foreverVersion": "0.1",
+  "id": "invariant.language-neutral-core",
+  "kind": "invariant",
+  "name": "Language-neutral core",
+  "statement": "The canonical standard does not require a programming language.",
+  "scope": [
+    "intent.forever-works"
+  ],
+  "verification": [
+    {
+      "type": "external-conformance-suite",
+      "expected": "documented and tested",
+      "command": "make test",
+      "evidence": [
+        "evidence.foundation-tests"
+      ]
+    }
+  ],
+  "changePolicy": "foundational; explicit major decision required",
+  "severity": "critical",
+  "relatedCapabilities": [
+    "capability.canonical-model"
+  ],
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "foundational proposal",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

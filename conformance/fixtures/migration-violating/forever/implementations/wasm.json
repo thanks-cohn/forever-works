@@ -1,0 +1,76 @@
+{
+  "foreverVersion": "0.1",
+  "id": "implementation.wasm-streamer",
+  "kind": "implementation",
+  "type": "module",
+  "technology": "WebAssembly streaming engine",
+  "version": "candidate-1",
+  "satisfiesCapabilities": [
+    "capability.streaming",
+    "capability.resumability"
+  ],
+  "constrainedByInvariants": [
+    "invariant.bounded-memory"
+  ],
+  "satisfiesConstraints": [
+    "constraint.portable"
+  ],
+  "compatibilityContracts": [
+    "compatibility.configuration-v1"
+  ],
+  "replaceability": "CAPABILITY",
+  "sourceLocations": [
+    "candidate/wasm"
+  ],
+  "runtimeRequirements": [
+    "WASM host"
+  ],
+  "claims": [
+    {
+      "requirement": "capability.streaming",
+      "status": "pass",
+      "evidence": [
+        "evidence.streaming-test"
+      ]
+    },
+    {
+      "requirement": "capability.resumability",
+      "status": "pass",
+      "evidence": [
+        "evidence.resume-test"
+      ]
+    },
+    {
+      "requirement": "invariant.bounded-memory",
+      "status": "unknown",
+      "reason": "No candidate benchmark evidence supplied"
+    },
+    {
+      "requirement": "constraint.portable",
+      "status": "pass",
+      "evidence": [
+        "evidence.portability-review"
+      ]
+    },
+    {
+      "requirement": "requirement.configuration-compatible",
+      "status": "pass",
+      "evidence": [
+        "evidence.config-fixture"
+      ]
+    },
+    {
+      "requirement": "compatibility.configuration-v1",
+      "status": "pass",
+      "evidence": [
+        "evidence.config-fixture"
+      ]
+    }
+  ],
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "project author",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

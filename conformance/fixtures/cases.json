@@ -1,0 +1,46 @@
+{
+  "cases": [
+    {
+      "name": "minimal",
+      "valid": true
+    },
+    {
+      "name": "complete",
+      "valid": true
+    },
+    {
+      "name": "invalid-missing-id",
+      "valid": false,
+      "error": "missing-required"
+    },
+    {
+      "name": "invalid-reference",
+      "valid": false,
+      "error": "broken-reference"
+    },
+    {
+      "name": "unknown-future-field",
+      "valid": true
+    },
+    {
+      "name": "inferred-provenance",
+      "valid": true
+    },
+    {
+      "name": "circular-relationship",
+      "valid": true
+    },
+    {
+      "name": "old-schema-version",
+      "valid": true
+    },
+    {
+      "name": "migration-violating",
+      "valid": true
+    },
+    {
+      "name": "migration-preserving",
+      "valid": true
+    }
+  ]
+}

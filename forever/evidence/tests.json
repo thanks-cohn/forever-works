@@ -1,0 +1,17 @@
+{
+  "foreverVersion": "0.1",
+  "id": "evidence.foundation-tests",
+  "kind": "evidence",
+  "type": "conformance-suite",
+  "source": "make test",
+  "statementSupported": "Reference bindings interpret canonical fixtures.",
+  "confidence": 1,
+  "timestampVersion": "0.1",
+  "immutableReference": "conformance/fixtures",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "foundational proposal",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

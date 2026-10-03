@@ -1,0 +1,29 @@
+{
+  "foreverVersion": "0.1",
+  "id": "dependency.typescript-compiler",
+  "kind": "dependency",
+  "dependencyName": "TypeScript compiler",
+  "dependencyType": "development-tool",
+  "currentImplementation": "implementation.bindings",
+  "purpose": "Compile the TypeScript proof binding to JavaScript.",
+  "reasonSelected": "Widely portable compiler for the requested proof binding.",
+  "requiredCapabilities": [
+    "capability.cross-language-conformance"
+  ],
+  "protectedInvariants": [
+    "invariant.binding-conformance"
+  ],
+  "replacementClassification": "CAPABILITY",
+  "replacementRequirements": [
+    "requirement.compile-typescript-binding"
+  ],
+  "compatibilityObligations": [],
+  "historicalContext": "A proof tool, not part of the canonical format.",
+  "deprecationState": "active",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "foundational proposal",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

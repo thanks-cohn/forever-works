@@ -1,0 +1,6 @@
+node_modules/
+packages/typescript/dist/
+bindings/c/build/
+bindings/cpp/build/
+__pycache__/
+*.pyc

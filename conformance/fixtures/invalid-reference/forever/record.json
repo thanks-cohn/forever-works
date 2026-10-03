@@ -1,0 +1,17 @@
+{
+  "foreverVersion": "0.1",
+  "id": "intent.invalid-ref",
+  "kind": "intent",
+  "name": "Case",
+  "statement": "Fixture.",
+  "purpose": [
+    "Test"
+  ],
+  "provenance": {
+    "sourceType": "explicit",
+    "confidence": 1
+  },
+  "relatedCapabilities": [
+    "capability.absent"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "foreverVersion": "0.1",
+  "projectId": "remote-transfer",
+  "records": {
+    "intent": [
+      "project.intent.json"
+    ],
+    "capabilities": [
+      "capabilities/resumability.json",
+      "capabilities/streaming.json"
+    ],
+    "invariants": [
+      "invariants/bounded-memory.json"
+    ],
+    "constraints": [
+      "constraints/portable.json"
+    ],
+    "dependencies": [
+      "dependencies/old-streamer.json"
+    ],
+    "decisions": [
+      "decisions/use-wasm.json"
+    ],
+    "compatibility": [
+      "compatibility/configuration.json"
+    ],
+    "migrations": [
+      "migrations/to-wasm.json"
+    ],
+    "implementations": [
+      "implementations/old.json",
+      "implementations/wasm.json"
+    ],
+    "evidence": [
+      "evidence/candidate-benchmark.json",
+      "evidence/config-fixture.json",
+      "evidence/old-benchmark.json",
+      "evidence/portability-review.json",
+      "evidence/resume-test.json",
+      "evidence/streaming-test.json"
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "foreverVersion": "0.1",
+  "projectId": "forever-works",
+  "records": {
+    "intent": [
+      "project.intent.json"
+    ],
+    "capabilities": [
+      "capabilities/canonical-model.json",
+      "capabilities/conformance.json"
+    ],
+    "invariants": [
+      "invariants/agent-independent.json",
+      "invariants/backward-aware.json",
+      "invariants/binding-conformance.json",
+      "invariants/language-neutral-core.json",
+      "invariants/plain-readable-format.json",
+      "invariants/provenance-preserved.json"
+    ],
+    "constraints": [
+      "constraints/transport.json"
+    ],
+    "dependencies": [
+      "dependencies/typescript.json"
+    ],
+    "decisions": [
+      "decisions/canonical-json.json"
+    ],
+    "compatibility": [
+      "compatibility/model-v01.json"
+    ],
+    "migrations": [],
+    "implementations": [
+      "implementations/bindings.json",
+      "implementations/schemas.json"
+    ],
+    "evidence": [
+      "evidence/tests.json"
+    ]
+  }
+}
