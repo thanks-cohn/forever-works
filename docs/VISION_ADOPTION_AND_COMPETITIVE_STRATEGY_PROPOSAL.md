@@ -59,6 +59,22 @@ A successful Forever Works project should remain intelligible when:
 - the hosting environment has changed,
 - and a future maintainer must decide what can be replaced without destroying the project's purpose.
 
+## 2.1 Autonomous Inheritance Design Goal
+
+A central design goal for Forever Works is:
+
+> **A sufficiently capable agent should be able to inherit the repository cold, understand it, repair it, modernize it, verify the repair, and leave it in a better documented state without needing the original developers.**
+
+This is not merely an aspirational slogan. It should function as a design test for the standard itself.
+
+Whenever Forever Works adds a concept, schema, command, evidence model, recovery mechanism, or interoperability feature, the project should ask whether that addition improves the ability of a capable future agent to inherit a repository with no prior conversation, no institutional memory, and no access to the original authors.
+
+The repository should contain enough durable intent, executable verification, provenance, compatibility information, recovery knowledge, dependency purpose, and implementation boundaries that a capable agent can reconstruct what matters without depending on undocumented human memory.
+
+This does not imply that every possible failure can be repaired autonomously. Missing external credentials, unavailable proprietary services, lost data, physical hardware dependencies, or genuinely new product decisions may still require human judgment or outside resources. The design objective is to eliminate avoidable dependence on the original developers wherever the repository itself can preserve the knowledge required for safe continuation.
+
+This goal turns Forever Works from a documentation format into an **inheritance substrate for autonomous maintenance**.
+
 Forever Works should therefore sit **beneath** individual agents and tools.
 
 ```text
