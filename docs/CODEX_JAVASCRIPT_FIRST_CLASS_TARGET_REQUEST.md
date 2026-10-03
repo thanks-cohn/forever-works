@@ -29,6 +29,22 @@ Before changing anything, confirm that the working branch is `main` and that it 
 
 Keep commits coherent and leave `main` in a tested, continuation-ready state.
 
+## 30-minute execution and handoff requirement
+
+This task has an **approximately 30-minute implementation window**.
+
+Use the time deliberately:
+
+- Spend the early portion on the highest-value JavaScript-first work that establishes independent plain-JavaScript capability and conformance.
+- As the time window approaches its final several minutes, prioritize stabilization, targeted verification, coherent commits, and the handoff over beginning another large subsystem.
+- At approximately 30 minutes, produce and commit `docs/CODEX_HANDOFF_JAVASCRIPT.md` even if every acceptance criterion has not yet been completed.
+- The handoff is mandatory. Incomplete implementation is acceptable; an absent or vague handoff is not.
+- Preserve partially completed work in a clean, understandable state so the next Codex run can continue immediately.
+- Clearly distinguish completed, partially completed, deferred, failing, and unverified work.
+- Do not claim tests or conformance passed unless they were actually run successfully.
+
+The handoff should be treated as a deliverable equal in importance to the code. Reserve enough of the time window to make it useful.
+
 ## Non-negotiable design rule
 
 A successful TypeScript build is **not** evidence that the JavaScript target works.
@@ -271,9 +287,11 @@ Fix regressions rather than weakening tests.
 
 ## Handoff
 
-Create or update:
+By approximately the end of the 30-minute implementation window, create or update and commit:
 
 `docs/CODEX_HANDOFF_JAVASCRIPT.md`
+
+This handoff is required whether the JavaScript-first-class work is complete or partial.
 
 Document:
 
@@ -288,21 +306,28 @@ Document:
 - any remaining differences between JavaScript and the other bindings,
 - confirmation that the work was performed directly on `main`,
 - latest `main` commit SHA,
-- exact next recommended work.
+- exact next recommended work,
+- acceptance criteria completed versus still outstanding,
+- any work that was started but not fully verified,
+- the most useful continuation point for the next Codex run.
 
 ## Commit and completion workflow
 
 Do not create a branch and do not open a pull request.
 
-Implement and commit directly to `main`. Before finishing:
+Implement and commit directly to `main`.
 
-1. run the full required verification suite,
-2. fix regressions instead of weakening tests,
+Use the 30-minute window to produce the strongest coherent JavaScript foundation possible. As the handoff window approaches, prioritize the most relevant verification that can be completed reliably, fix regressions where practical, and preserve unresolved failures explicitly in the handoff rather than hiding them.
+
+By approximately 30 minutes:
+
+1. have the current implementation committed coherently to `main`,
+2. run the strongest relevant verification that fits within the time window,
 3. create/update `docs/CODEX_HANDOFF_JAVASCRIPT.md`,
-4. commit the completed implementation and handoff directly to `main`,
+4. commit the handoff directly to `main`,
 5. report the latest `main` commit SHA in the handoff.
 
-The task is complete when the working implementation and handoff are present on `main`, not on a side branch.
+The deliverable for this run is **working progress plus a precise continuation handoff on `main`**. Full acceptance may continue in a later run if the 30-minute window is reached first.
 
 ## Acceptance criteria
 
