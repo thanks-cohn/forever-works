@@ -8,11 +8,11 @@ Forever Works defines a transport-neutral semantic API. JavaScript, TypeScript, 
 
 The current API initiative is **Public API v0.1**.
 
-During the Public API v0.1 implementation run, the authoritative reference will be created and maintained at:
+The authoritative reference is:
 
 - [PUBLIC_API_V0_1.md](PUBLIC_API_V0_1.md)
 
-Until that reference is created, the design work lives in:
+Historical design and implementation material lives in:
 
 - [Public API v0.1 proposal](../public-api-v0.1/PROPOSAL.md)
 - [Codex implementation request](../public-api-v0.1/CODEX_REQUEST.md)
@@ -24,3 +24,7 @@ Any change to public API semantics, operation names, inputs, outputs, errors, ve
 **Change the API, change `docs/API/`.**
 
 Official API documentation must describe what is actually implemented and must distinguish stable behavior from experimental, deferred, or future work.
+
+## Implemented adapters
+
+Public API v0.1 is currently implemented by the dependency-free JavaScript package. Its Node entry point loads a model from a directory and its `./core` export wraps already-parsed JSON without filesystem coupling. The Python CLI exposes most model operations, but does not yet implement Public API discovery and is therefore not a complete v0.1 adapter. TypeScript remains a model-level proof binding; public-facade parity is deferred.

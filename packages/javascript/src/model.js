@@ -31,9 +31,60 @@ function sorted(value) {
 /** Return canonical, deterministic Forever Works JSON. */
 export function normalize(value) { return `${JSON.stringify(sorted(value), null, 2)}\n`; }
 
+/** Stable public error. Codes, rather than messages, are the compatibility surface. */
+export class ForeverApiError extends Error {
+  constructor(code, message, details = {}) {
+    super(message);
+    this.name = "ForeverApiError";
+    this.code = code;
+    this.details = details;
+  }
+  toJSON() { return {error: {code: this.code, message: this.message, details: this.details}}; }
+}
+
 function overall(checks) {
   const statuses = new Set(checks.map(check => check.status));
   return statuses.has("fail") ? "fail" : checks.length && statuses.size === 1 && statuses.has("pass") ? "pass" : "partial";
+}
+
+const OPERATIONS = Object.freeze(["audit", "describe", "evaluateReplacement", "explainDependency", "getEntity", "getProjectIntent", "listCapabilities", "listDependencies", "listImplementations", "listInvariants", "normalize", "traceEntity", "validateModel", "verifyMigration"]);
+
+/** Create the transport-neutral v0.1 facade around an already-loaded Model. */
+export function createForeverApiFromModel(model, adapter = {name: "javascript-core"}) {
+  const entity = (id) => {
+    const value = model.getEntity(id);
+    if (!value) throw new ForeverApiError("entity-not-found", `entity not found: ${id}`, {id});
+    return value;
+  };
+  const translate = (operation, fn) => {
+    try { return fn(); }
+    catch (error) {
+      if (error instanceof ForeverApiError) throw error;
+      const match = /^(entity|dependency|implementation|migration) not found: (.+)$/.exec(error?.message ?? "");
+      if (match) throw new ForeverApiError(`${match[1]}-not-found`, error.message, {id: match[2], operation});
+      throw error;
+    }
+  };
+  return Object.freeze({
+    describe: () => ({foreverApiVersion: "0.1", supportedModelVersions: ["0.1"], operations: [...OPERATIONS], implementation: {name: "@forever-works/javascript", version: "0.1.0"}, adapter}),
+    getProjectIntent: () => {
+      const intents = model.list("intent");
+      if (!intents.length) throw new ForeverApiError("project-intent-not-found", "project intent not found", {});
+      return intents[0];
+    },
+    getEntity: (id) => entity(id),
+    listCapabilities: () => model.list("capability"),
+    listInvariants: () => model.list("invariant"),
+    listDependencies: () => model.list("dependency"),
+    listImplementations: () => model.list("implementation"),
+    traceEntity: (id) => translate("traceEntity", () => model.traceEntity(id)),
+    explainDependency: (id) => translate("explainDependency", () => model.explainDependency(id)),
+    validateModel: () => ({valid: model.validate().length === 0, errors: model.validate()}),
+    audit: () => { const issues = model.audit(); return {issues, issueCount: issues.length}; },
+    evaluateReplacement: (current, candidate) => translate("evaluateReplacement", () => model.evaluateReplacement(current, candidate)),
+    verifyMigration: (id) => translate("verifyMigration", () => model.verifyMigration(id)),
+    normalize: () => model.normalized()
+  });
 }
 
 function evaluation(candidate, requirements, claims = []) {

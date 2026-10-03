@@ -7,8 +7,8 @@
     ".": "./src/index.js",
     "./core": "./src/model.js"
   },
-  "files": ["src", "README.md"],
+  "files": ["src", "README.md", "LICENSE"],
   "engines": {"node": ">=20"},
   "scripts": {"test": "node --test test/*.test.js"},
-  "license": "Apache-2.0"
+  "license": "MIT"
 }
