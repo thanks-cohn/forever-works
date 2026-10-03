@@ -1,0 +1,19 @@
+{
+  "foreverVersion": "0.1",
+  "id": "implementation.javascript-binding",
+  "kind": "implementation",
+  "type": "reference-binding",
+  "technology": "plain ECMAScript modules",
+  "version": "0.1.0",
+  "satisfiesCapabilities": ["capability.canonical-model", "capability.binding-conformance"],
+  "constrainedByInvariants": ["invariant.language-neutral-core", "invariant.binding-conformance", "invariant.javascript-independent-proof"],
+  "replaceability": "CAPABILITY",
+  "sourceLocations": ["packages/javascript", "examples/javascript"],
+  "runtimeRequirements": ["ECMAScript runtime; Node.js 20 only for the filesystem adapter and test lane"],
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "docs/CODEX_JAVASCRIPT_FIRST_CLASS_TARGET_REQUEST.md",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

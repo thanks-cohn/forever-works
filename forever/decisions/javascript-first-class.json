@@ -1,0 +1,40 @@
+{
+  "foreverVersion": "0.1",
+  "id": "decision.javascript-first-class",
+  "kind": "decision",
+  "title": "Treat plain JavaScript as an independent proof target",
+  "status": "accepted",
+  "context": "Compiled TypeScript output cannot prove that ordinary JavaScript consumers can use the language-neutral standard independently.",
+  "decision": "Maintain a plain-JavaScript binding with dedicated conformance, tests, examples, packaging evidence, and CI. Plain JavaScript consumption must not require a TypeScript compiler.",
+  "alternativesConsidered": [
+    "Treat the TypeScript compiler output as JavaScript evidence"
+  ],
+  "rationale": "Independent JavaScript evidence demonstrates portability for a major dynamic-language ecosystem while keeping the standard, schemas, and fixtures authoritative.",
+  "assumptions": [
+    "ECMAScript modules and UTF-8 JSON remain adapter choices rather than canonical semantics"
+  ],
+  "mayChange": [
+    "JavaScript API ergonomics",
+    "JavaScript host adapters",
+    "package distribution details"
+  ],
+  "mustSurvive": [
+    "invariant.language-neutral-core",
+    "invariant.binding-conformance",
+    "invariant.javascript-independent-proof"
+  ],
+  "revisitConditions": [
+    "The standard adopts a new binding conformance level"
+  ],
+  "relatedEntities": [
+    "implementation.javascript-binding",
+    "implementation.reference-bindings"
+  ],
+  "dateVersion": "2026-10-03",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "docs/CODEX_JAVASCRIPT_FIRST_CLASS_TARGET_REQUEST.md",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}
