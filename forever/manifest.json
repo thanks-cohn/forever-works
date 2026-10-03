@@ -15,7 +15,8 @@
       "invariants/binding-conformance.json",
       "invariants/language-neutral-core.json",
       "invariants/plain-readable-format.json",
-      "invariants/provenance-preserved.json"
+      "invariants/provenance-preserved.json",
+      "invariants/javascript-independent-proof.json"
     ],
     "constraints": [
       "constraints/transport.json"
@@ -24,7 +25,8 @@
       "dependencies/typescript.json"
     ],
     "decisions": [
-      "decisions/canonical-json.json"
+      "decisions/canonical-json.json",
+      "decisions/javascript-first-class.json"
     ],
     "compatibility": [
       "compatibility/model-v01.json"
@@ -32,6 +34,7 @@
     "migrations": [],
     "implementations": [
       "implementations/bindings.json",
+      "implementations/javascript.json",
       "implementations/schemas.json"
     ],
     "evidence": [

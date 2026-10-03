@@ -1,0 +1,25 @@
+{
+  "foreverVersion": "0.1",
+  "id": "invariant.javascript-independent-proof",
+  "kind": "invariant",
+  "name": "Independent plain JavaScript proof",
+  "statement": "JavaScript conformance must be established independently of TypeScript compilation, and plain JavaScript consumers must not require a TypeScript compiler.",
+  "scope": ["implementation.javascript-binding"],
+  "verification": [
+    {
+      "type": "conformance-suite",
+      "command": "make test-javascript",
+      "expected": "Plain JavaScript unit, conformance, and package-consumer tests pass without tsc.",
+      "evidence": ["evidence.test-suite"]
+    }
+  ],
+  "changePolicy": "May change only through an explicit architectural decision; the canonical standard remains language-neutral.",
+  "severity": "critical",
+  "relatedCapabilities": ["capability.binding-conformance"],
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "docs/CODEX_JAVASCRIPT_FIRST_CLASS_TARGET_REQUEST.md",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}
