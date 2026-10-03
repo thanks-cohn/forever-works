@@ -1,0 +1,26 @@
+{
+  "foreverVersion": "0.1",
+  "id": "implementation.schemas",
+  "kind": "implementation",
+  "type": "schema",
+  "technology": "JSON Schema 2020-12",
+  "version": "0.1",
+  "satisfiesCapabilities": [
+    "capability.canonical-model"
+  ],
+  "constrainedByInvariants": [
+    "invariant.language-neutral-core",
+    "invariant.plain-readable-format"
+  ],
+  "replaceability": "SEMANTIC",
+  "sourceLocations": [
+    "spec/schemas"
+  ],
+  "runtimeRequirements": [],
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "foundational proposal",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

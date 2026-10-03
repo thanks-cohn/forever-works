@@ -1,0 +1,14 @@
+{
+  "foreverVersion": "0.1",
+  "id": "capability.a",
+  "kind": "capability",
+  "name": "A",
+  "statement": "A",
+  "relatedImplementations": [
+    "capability.b"
+  ],
+  "provenance": {
+    "sourceType": "explicit",
+    "confidence": 1
+  }
+}

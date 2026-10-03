@@ -1,0 +1,17 @@
+{
+  "foreverVersion": "0.1",
+  "id": "evidence.resume-test",
+  "kind": "evidence",
+  "type": "integration-test",
+  "source": "tests/resume",
+  "statementSupported": "Candidate resumes.",
+  "confidence": 1,
+  "timestampVersion": "2026-10-03",
+  "immutableReference": "tests/resume",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "project author",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

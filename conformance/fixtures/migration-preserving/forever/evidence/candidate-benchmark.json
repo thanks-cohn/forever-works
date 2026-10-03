@@ -1,0 +1,17 @@
+{
+  "foreverVersion": "0.1",
+  "id": "evidence.candidate-benchmark",
+  "kind": "evidence",
+  "type": "benchmark",
+  "source": "bench/candidate.json",
+  "statementSupported": "Candidate remains below 256 MiB.",
+  "confidence": 1,
+  "timestampVersion": "2026-10-03",
+  "immutableReference": "bench/candidate.json",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "measured benchmark",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

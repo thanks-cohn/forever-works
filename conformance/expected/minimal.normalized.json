@@ -1,0 +1,36 @@
+{
+  "foreverVersion": "0.1",
+  "projectId": "minimal",
+  "records": [
+    {
+      "foreverVersion": "0.1",
+      "id": "intent.minimal",
+      "kind": "intent",
+      "name": "Minimal",
+      "nonGoals": [
+        "vendor lock-in"
+      ],
+      "priorities": [
+        "bounded memory",
+        "resumability",
+        "portability"
+      ],
+      "provenance": {
+        "confidence": 1,
+        "reviewStatus": "accepted",
+        "sourceReference": "project author",
+        "sourceType": "explicit"
+      },
+      "purpose": [
+        "Record intent"
+      ],
+      "relatedCapabilities": [],
+      "relatedConstraints": [],
+      "statement": "Demonstrate progressive adoption.",
+      "status": "active",
+      "supportedEnvironments": [
+        "memory-constrained desktop"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "foreverVersion": "0.1",
+  "id": "intent.forever-works",
+  "kind": "intent",
+  "name": "Forever Works",
+  "statement": "Make software understandable across time.",
+  "purpose": [
+    "Preserve architectural meaning for future maintainers and agents"
+  ],
+  "priorities": [
+    "language neutrality",
+    "plain formats",
+    "conformance"
+  ],
+  "nonGoals": [
+    "preserving obsolete machinery",
+    "requiring a particular agent"
+  ],
+  "supportedEnvironments": [
+    "any environment capable of UTF-8 JSON"
+  ],
+  "status": "active",
+  "relatedCapabilities": [
+    "capability.canonical-model",
+    "capability.cross-language-conformance"
+  ],
+  "relatedConstraints": [
+    "constraint.transport-independent"
+  ],
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "foundational proposal",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

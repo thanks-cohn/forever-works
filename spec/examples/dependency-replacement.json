@@ -1,0 +1,35 @@
+{
+  "foreverVersion": "0.1",
+  "id": "dependency.old-streamer",
+  "kind": "dependency",
+  "dependencyName": "old-streamer",
+  "dependencyType": "library",
+  "currentImplementation": "implementation.old-streamer",
+  "purpose": "Stream remote files with backpressure and restart support.",
+  "reasonSelected": "It provided streaming and resumability with low integration cost.",
+  "requiredCapabilities": [
+    "capability.streaming",
+    "capability.resumability"
+  ],
+  "protectedInvariants": [
+    "invariant.bounded-memory"
+  ],
+  "relatedConstraints": [
+    "constraint.portable"
+  ],
+  "replacementClassification": "CAPABILITY",
+  "replacementRequirements": [
+    "requirement.configuration-compatible"
+  ],
+  "compatibilityObligations": [
+    "compatibility.configuration-v1"
+  ],
+  "historicalContext": "Selected when it was actively maintained.",
+  "deprecationState": "unmaintained",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "project author",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "foreverVersion": "0.1",
+  "id": "invariant.backward-aware",
+  "kind": "invariant",
+  "name": "Backward aware",
+  "statement": "Schema evolution has explicit compatibility rules.",
+  "scope": [
+    "intent.forever-works"
+  ],
+  "verification": [
+    {
+      "type": "external-conformance-suite",
+      "expected": "documented and tested",
+      "command": "make test",
+      "evidence": [
+        "evidence.foundation-tests"
+      ]
+    }
+  ],
+  "changePolicy": "foundational; explicit major decision required",
+  "severity": "critical",
+  "relatedCapabilities": [
+    "capability.canonical-model"
+  ],
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "foundational proposal",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

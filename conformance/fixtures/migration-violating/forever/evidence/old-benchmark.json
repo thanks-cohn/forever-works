@@ -1,0 +1,17 @@
+{
+  "foreverVersion": "0.1",
+  "id": "evidence.old-benchmark",
+  "kind": "evidence",
+  "type": "benchmark",
+  "source": "bench/old.json",
+  "statementSupported": "Old implementation stays below threshold.",
+  "confidence": 1,
+  "timestampVersion": "2026-10-03",
+  "immutableReference": "bench/old.json",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "project author",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

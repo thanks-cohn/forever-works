@@ -1,0 +1,21 @@
+{
+  "foreverVersion": "0.1",
+  "id": "capability.resumability",
+  "kind": "capability",
+  "name": "Resumability",
+  "statement": "Resume interrupted transfers.",
+  "relatedInvariants": [],
+  "relatedImplementations": [
+    "implementation.old-streamer",
+    "implementation.wasm-streamer"
+  ],
+  "verification": [],
+  "criticality": "essential",
+  "status": "active",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "project author",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "foreverVersion": "0.1",
+  "id": "intent.inferred",
+  "kind": "intent",
+  "name": "Case",
+  "statement": "Fixture.",
+  "purpose": [
+    "Test"
+  ],
+  "provenance": {
+    "sourceType": "inferred",
+    "sourceReference": "tests",
+    "confidence": 0.65,
+    "reviewStatus": "unreviewed"
+  }
+}

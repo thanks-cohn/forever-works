@@ -1,0 +1,17 @@
+{
+  "foreverVersion": "0.1",
+  "id": "evidence.streaming-test",
+  "kind": "evidence",
+  "type": "integration-test",
+  "source": "tests/streaming",
+  "statementSupported": "Candidate streams.",
+  "confidence": 1,
+  "timestampVersion": "2026-10-03",
+  "immutableReference": "tests/streaming",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "project author",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

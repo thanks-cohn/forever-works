@@ -1,0 +1,17 @@
+{
+  "foreverVersion": "0.1",
+  "id": "evidence.config-fixture",
+  "kind": "evidence",
+  "type": "compatibility-fixture",
+  "source": "fixtures/config-v1.json",
+  "statementSupported": "Version 1 configuration loads.",
+  "confidence": 1,
+  "timestampVersion": "2026-10-03",
+  "immutableReference": "fixtures/config-v1.json",
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "project author",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}

@@ -1,0 +1,3 @@
+# Data model
+
+The neutral **Forever Model** is a set of records indexed by stable ID plus labeled references. It is a graph, not a class hierarchy or strict tree. Record fields are defined by the JSON Schemas; relationship fields contain IDs rather than file paths. `intent` states why; `capability` what; `invariant` what remains true; `constraint` admissibility limits; `implementation` and `dependency` how; `compatibility` boundary obligations; `decision` rationale; `migration` change evidence; and `evidence` verification material. Verification objects name a neutral type, expected result, and optionally command, tool, environment, or evidence.

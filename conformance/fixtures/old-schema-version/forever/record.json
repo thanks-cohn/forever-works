@@ -1,0 +1,14 @@
+{
+  "foreverVersion": "0.0",
+  "id": "intent.old",
+  "kind": "intent",
+  "name": "Case",
+  "statement": "Fixture.",
+  "purpose": [
+    "Test"
+  ],
+  "provenance": {
+    "sourceType": "explicit",
+    "confidence": 1
+  }
+}

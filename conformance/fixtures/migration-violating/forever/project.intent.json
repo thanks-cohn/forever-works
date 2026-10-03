@@ -1,0 +1,35 @@
+{
+  "foreverVersion": "0.1",
+  "id": "intent.remote-transfer",
+  "kind": "intent",
+  "name": "Remote Transfer",
+  "statement": "Move remote files without local staging.",
+  "purpose": [
+    "Stream remote files directly to destinations"
+  ],
+  "priorities": [
+    "bounded memory",
+    "resumability",
+    "portability"
+  ],
+  "nonGoals": [
+    "vendor lock-in"
+  ],
+  "supportedEnvironments": [
+    "memory-constrained desktop"
+  ],
+  "status": "active",
+  "relatedCapabilities": [
+    "capability.streaming",
+    "capability.resumability"
+  ],
+  "relatedConstraints": [
+    "constraint.portable"
+  ],
+  "provenance": {
+    "sourceType": "explicit",
+    "sourceReference": "project author",
+    "confidence": 1,
+    "reviewStatus": "accepted"
+  }
+}
