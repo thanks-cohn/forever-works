@@ -87,3 +87,7 @@ console.log(forever.listCapabilities());
 The existing CLI maps `validate`, `audit`, `explain`, `trace`, `evaluate-replacement`, `verify-migration`, and `normalize` to equivalent semantics. `inspect` is a legacy discovery-like command, not `describe`; list operations and stable structured operational errors are not yet exposed. Consequently the CLI is useful as a lowest-common-denominator JSON adapter but is not yet a conforming complete Public API v0.1 adapter.
 
 Within API v0.1, new optional discovery fields and new error codes may be added. Operations, required fields, and meanings will not be removed or incompatibly changed. Consumers MUST ignore unknown object fields. An incompatible contract change requires a new API version; model-version support may change independently and must remain discoverable.
+
+## 8. Published schema version strings
+
+The record schemas' `foreverVersion` pattern matches ordinary version strings such as `0.1` and the retained `0.0` fixture (`^0\.[0-9]+$`). A prior overescaped pattern rejected the documented `0.1` values during independent JSON Schema validation even though the JavaScript model validator accepted them. Correcting the pattern aligns schemas with the existing model contract; it does not change Public API versioning, authority, or the supported-major-version rule. `packages/javascript/test/schema-version.test.js` retains the regression separately from reference-library conformance.
