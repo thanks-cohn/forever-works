@@ -61,3 +61,7 @@ The replacement proof passes streaming, resumability, portability, and configura
 * `forever/` — the project describing itself.
 
 Read the [foundational proposal](docs/FOUNDATIONAL_PROPOSAL.md), [standard](docs/STANDARD.md), and [conformance contract](docs/CONFORMANCE.md) before changing semantics.
+
+## Research proposal: Selective Reconstitution
+
+[Selective Reconstitution — Capability Recovery from Entangled Software](docs/PROPOSALS/SELECTIVE_RECONSTITUTION_CAPABILITY_EXTRACTION.md) proposes extracting owner-selected working capabilities from legacy programs, documenting both their framework-neutral semantics and real intermeshed dependency mechanisms, and rebuilding only the selected behavior with independent cold-agent acceptance evidence. This is a **non-normative research proposal**, not an implemented command or a change to Standard 0.1.
