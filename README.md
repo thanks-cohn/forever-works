@@ -65,3 +65,11 @@ Read the [foundational proposal](docs/FOUNDATIONAL_PROPOSAL.md), [standard](docs
 ## Research proposal: Selective Reconstitution
 
 [Selective Reconstitution — Capability Recovery from Entangled Software](docs/PROPOSALS/SELECTIVE_RECONSTITUTION_CAPABILITY_EXTRACTION.md) proposes extracting owner-selected working capabilities from legacy programs, documenting both their framework-neutral semantics and real intermeshed dependency mechanisms, and rebuilding only the selected behavior with independent cold-agent acceptance evidence. This is a **non-normative research proposal**, not an implemented command or a change to Standard 0.1.
+
+## Long-horizon mission and flagship research
+
+**Forever Works aims to be an independent software-continuity standard.** The owner's long-term vision is an ecosystem of approximately **50 inheritable browser applications**, so unfamiliar future agents can upgrade, renew, reform, recover and reconstruct them for new languages, browsers, desktop environments and mediums, with independent verification of behavior, state and real effects. This is a research ambition, not a claim of present universal support.
+
+- [Long-Horizon Vision — The Inheritable Software Ecosystem](docs/VISION/INHERITABLE_SOFTWARE_ECOSYSTEM.md): the enduring standard, inheritance packages and cold-agent acceptance.
+- [50-App Inheritance, SUBSTRATE Mini and Any-Shape Research Program](docs/RESEARCH/FIFTY_APP_INHERITANCE_AND_ANY_SHAPE.md): concrete, linked flagship experiments.
+- [Selective Reconstitution — Capability Recovery from Entangled Software](docs/PROPOSALS/SELECTIVE_RECONSTITUTION_CAPABILITY_EXTRACTION.md): research on documenting, disentangling and rebuilding selected legacy capabilities.
