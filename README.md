@@ -68,6 +68,8 @@ Read the [foundational proposal](docs/FOUNDATIONAL_PROPOSAL.md), [standard](docs
 
 ## Long-horizon mission and flagship research
 
+- [Fifty Projects to Preserve the Widest Possible Capability](docs/VISION/FIFTY_PROJECTS_MAXIMUM_CAPABILITY_PRESERVATION.md): an explicit fifty-project reconstruction portfolio, preserving why/what/when/where/how, human and agent possibilities, and cross-project renewal. Non-normative research; retains the earlier twenty recovery selections.
+
 - [If We Had to Start Again](docs/VISION/IF_WE_HAD_TO_START_AGAIN.md): a reconstruction vision for surviving agents, a twenty-project recovery portfolio, the broader fifty-project catalogue, offline recovery packages, and controlled tests of faster verified reconstruction through Forever Works and Any-Shape. This is non-normative research, not a demonstrated universal recovery capability.
 
 **Forever Works aims to be an independent software-continuity standard.** The owner's long-term vision is an ecosystem of approximately **50 inheritable browser applications**, so unfamiliar future agents can upgrade, renew, reform, recover and reconstruct them for new languages, browsers, desktop environments and mediums, with independent verification of behavior, state and real effects. This is a research ambition, not a claim of present universal support.
