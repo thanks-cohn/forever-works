@@ -73,3 +73,7 @@ Read the [foundational proposal](docs/FOUNDATIONAL_PROPOSAL.md), [standard](docs
 - [Long-Horizon Vision — The Inheritable Software Ecosystem](docs/VISION/INHERITABLE_SOFTWARE_ECOSYSTEM.md): the enduring standard, inheritance packages and cold-agent acceptance.
 - [50-App Inheritance, SUBSTRATE Mini and Any-Shape Research Program](docs/RESEARCH/FIFTY_APP_INHERITANCE_AND_ANY_SHAPE.md): concrete, linked flagship experiments.
 - [Selective Reconstitution — Capability Recovery from Entangled Software](docs/PROPOSALS/SELECTIVE_RECONSTITUTION_CAPABILITY_EXTRACTION.md): research on documenting, disentangling and rebuilding selected legacy capabilities.
+
+## Research proposal: composable software ecosystems
+
+[Composable Software Ecosystems](docs/PROPOSALS/COMPOSABLE_SOFTWARE_ECOSYSTEM_CONTRACT.md) proposes an agent-, runtime-, and language-neutral contract for arbitrary multi-participant suites, interaction graphs, changing deployments, cross-product authority and end-to-end evidence. This is **non-normative**; current Standard 0.1 and Public API v0.1 are unchanged.
