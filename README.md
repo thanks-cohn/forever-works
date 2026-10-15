@@ -77,3 +77,7 @@ Read the [foundational proposal](docs/FOUNDATIONAL_PROPOSAL.md), [standard](docs
 ## Research proposal: composable software ecosystems
 
 [Composable Software Ecosystems](docs/PROPOSALS/COMPOSABLE_SOFTWARE_ECOSYSTEM_CONTRACT.md) proposes an agent-, runtime-, and language-neutral contract for arbitrary multi-participant suites, interaction graphs, changing deployments, cross-product authority and end-to-end evidence. This is **non-normative**; current Standard 0.1 and Public API v0.1 are unchanged.
+
+## Research: contractual fixity and implementation fluidity
+
+[Linux ABI inheritance and cross-language reconstitution](docs/PROPOSALS/CONTRACTUAL_FIXITY_IMPLEMENTATION_FLUIDITY_LINUX_ABI.md) records the general principle of preserving scoped external invariants while permitting internal mechanisms, languages and architectures to evolve. It includes evidence boundaries from the experimental Zig Morphic/Alpz project, a compatibility-envelope proposal, cold-agent reconstruction protocol, and caveats. This is non-normative research, not a declaration of complete Linux ABI compatibility.
