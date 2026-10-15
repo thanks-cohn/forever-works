@@ -1,0 +1,2 @@
+# Independent development-only Draft 2020-12 oracle; not a profile runtime dependency.
+jsonschema==4.26.0

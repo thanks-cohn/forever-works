@@ -1,0 +1,727 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://forever.works/profiles/ecosystem-composition/0.1/composition.schema.json",
+  "title": "Optional Forever Works ecosystem composition profile 0.1",
+  "type": "object",
+  "properties": {
+    "profile": {
+      "const": "https://forever.works/profiles/ecosystem-composition"
+    },
+    "profileVersion": {
+      "const": "0.1"
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "ecosystems": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ecosystem"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "participants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/participant"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "contracts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/contract"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "interactions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/interaction"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "states": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/state"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "configurations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/configuration"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "obligations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/obligation"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "extensions": {
+      "$ref": "#/$defs/extensions"
+    }
+  },
+  "required": [
+    "profile",
+    "profileVersion",
+    "provenance",
+    "ecosystems",
+    "participants",
+    "contracts",
+    "interactions",
+    "states",
+    "configurations",
+    "obligations",
+    "evidence"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+    },
+    "extensions": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+      },
+      "additionalProperties": true
+    },
+    "recordRef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "intent",
+            "capability",
+            "invariant",
+            "constraint",
+            "dependency",
+            "decision",
+            "compatibility",
+            "migration",
+            "implementation",
+            "evidence"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "sourceType": {
+          "enum": [
+            "explicit",
+            "inferred",
+            "imported",
+            "historical",
+            "agent-proposed"
+          ]
+        },
+        "sourceReference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewStatus": {
+          "enum": [
+            "unreviewed",
+            "accepted",
+            "rejected"
+          ]
+        }
+      },
+      "required": [
+        "sourceType",
+        "reviewStatus"
+      ],
+      "additionalProperties": false
+    },
+    "endpoint": {
+      "type": "object",
+      "properties": {
+        "participant": {
+          "$ref": "#/$defs/id"
+        },
+        "port": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "required": [
+        "participant",
+        "port"
+      ],
+      "additionalProperties": false
+    },
+    "port": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "direction": {
+          "enum": [
+            "in",
+            "out",
+            "inout"
+          ]
+        },
+        "providedCapabilities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/recordRef"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "requiredCapabilities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/recordRef"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "contractRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "required": [
+        "id",
+        "direction",
+        "providedCapabilities",
+        "requiredCapabilities",
+        "contractRefs"
+      ],
+      "additionalProperties": false
+    },
+    "participant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "recordRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/recordRef"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "ports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/port"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "ecosystemRef": {
+          "$ref": "#/$defs/id"
+        },
+        "implementationBindings": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "required": [
+        "id",
+        "roles",
+        "recordRefs",
+        "ports"
+      ],
+      "additionalProperties": false
+    },
+    "contract": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requirementRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/recordRef"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "statement",
+        "requirementRefs"
+      ],
+      "additionalProperties": false
+    },
+    "grant": {
+      "type": "object",
+      "properties": {
+        "participant": {
+          "$ref": "#/$defs/id"
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "stateRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "participant",
+        "permissions",
+        "stateRefs"
+      ],
+      "additionalProperties": false
+    },
+    "interaction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "from": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/endpoint"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "to": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/endpoint"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "semantics": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contractRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "stateRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "authority": {
+          "type": "object",
+          "properties": {
+            "inheritPrivileges": {
+              "const": false
+            },
+            "grants": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/grant"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "inheritPrivileges",
+            "grants"
+          ],
+          "additionalProperties": false
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "required": [
+        "id",
+        "from",
+        "to",
+        "semantics",
+        "contractRefs",
+        "stateRefs",
+        "authority"
+      ],
+      "additionalProperties": false
+    },
+    "state": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "owner": {
+          "$ref": "#/$defs/id"
+        },
+        "authorizedWriters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "contractRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "required": [
+        "id",
+        "owner",
+        "authorizedWriters",
+        "contractRefs"
+      ],
+      "additionalProperties": false
+    },
+    "configuration": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "participants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "interactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "obligationRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "bindings": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/id"
+          },
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "required": [
+        "id",
+        "participants",
+        "interactions",
+        "obligationRefs"
+      ],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "ecosystem",
+            "participant",
+            "interaction",
+            "configuration"
+          ]
+        },
+        "ref": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "required": [
+        "kind",
+        "ref"
+      ],
+      "additionalProperties": false
+    },
+    "obligation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "requirementRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/recordRef"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "configurationRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "required": [
+        "id",
+        "scope",
+        "requirementRefs",
+        "configurationRefs",
+        "evidenceRefs"
+      ],
+      "additionalProperties": false
+    },
+    "artifact": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "path",
+        "digest"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "scopeArtifact": {
+          "$ref": "#/$defs/artifact"
+        },
+        "environment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "obligation": {
+          "$ref": "#/$defs/id"
+        },
+        "configuration": {
+          "$ref": "#/$defs/id"
+        },
+        "recordRef": {
+          "$ref": "#/$defs/recordRef"
+        },
+        "claimedStatus": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN",
+            "NOT_RUN"
+          ]
+        },
+        "artifact": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "path",
+            "digest"
+          ],
+          "additionalProperties": false
+        },
+        "subjectDigests": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/id"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          }
+        },
+        "verifier": {
+          "type": "string",
+          "minLength": 1
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "required": [
+        "id",
+        "obligation",
+        "configuration",
+        "recordRef",
+        "claimedStatus",
+        "artifact",
+        "scopeArtifact",
+        "environment",
+        "subjectDigests",
+        "verifier"
+      ],
+      "additionalProperties": false
+    },
+    "ecosystem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "intentRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/recordRef"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "participantRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "obligationRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "required": [
+        "id",
+        "intentRefs",
+        "participantRefs",
+        "obligationRefs"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

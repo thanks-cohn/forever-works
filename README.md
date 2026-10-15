@@ -81,3 +81,16 @@ Read the [foundational proposal](docs/FOUNDATIONAL_PROPOSAL.md), [standard](docs
 ## Research: contractual fixity and implementation fluidity
 
 [Linux ABI inheritance and cross-language reconstitution](docs/PROPOSALS/CONTRACTUAL_FIXITY_IMPLEMENTATION_FLUIDITY_LINUX_ABI.md) records the general principle of preserving scoped external invariants while permitting internal mechanisms, languages and architectures to evolve. It includes evidence boundaries from the experimental Zig Morphic/Alpz project, a compatibility-envelope proposal, cold-agent reconstruction protocol, and caveats. This is non-normative research, not a declaration of complete Linux ABI compatibility.
+
+## Optional ecosystem composition profile
+
+The experimental [ecosystem composition profile 0.1](spec/profiles/ecosystem-composition/v0.1/README.md)
+now has a standalone JSON Schema, dependency-free JavaScript loader/validator,
+and shared valid/invalid fixtures for arbitrary participant graphs, nested suites,
+authority/state declarations and alternate configurations. Canonical Standard 0.1
+and Public API v0.1 remain unchanged. Static validation always reports runtime
+verification as **UNKNOWN**, even when evidence metadata claims PASS.
+
+```sh
+node scripts/validate_composition.mjs conformance/ecosystem-composition/v0.1 valid/four-participant-fan.json conformance/fixtures/complete/forever
+```

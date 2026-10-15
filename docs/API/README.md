@@ -28,3 +28,9 @@ Official API documentation must describe what is actually implemented and must d
 ## Implemented adapters
 
 Public API v0.1 is currently implemented by the dependency-free JavaScript package. Its Node entry point loads a model from a directory and its `./core` export wraps already-parsed JSON without filesystem coupling. The Python CLI exposes most model operations, but does not yet implement Public API discovery and is therefore not a complete v0.1 adapter. TypeScript remains a model-level proof binding; public-facade parity is deferred.
+
+## Optional experimental profile
+
+The separate [ecosystem composition reference adapter](ECOSYSTEM_COMPOSITION_PROFILE_V0_1.md)
+implements static profile validation/loading only. It does not add operations to
+Public API v0.1 discovery or claim authenticated ecosystem verification.

@@ -1,0 +1,21 @@
+{
+  "foreverVersion": "0.1",
+  "id": "dependency.json-schema-validator",
+  "kind": "dependency",
+  "dependencyName": "Independent JSON Schema Draft 2020-12 validator",
+  "dependencyType": "development-tool",
+  "purpose": "Check the optional ecosystem profile schema and structural fixtures independently of its dependency-free JavaScript reference validator.",
+  "reasonSelected": "Python jsonschema supplies an independently implemented Draft 2020-12 oracle; it is used only for development and CI.",
+  "requiredCapabilities": ["capability.cross-language-conformance"],
+  "protectedInvariants": ["invariant.language-neutral-core", "invariant.binding-conformance"],
+  "replacementClassification": "CAPABILITY",
+  "replacementRequirements": [],
+  "compatibilityObligations": [],
+  "historicalContext": "Introduced for optional profile 0.1 conformance. Any independent conforming Draft 2020-12 implementation can replace this test tool; no application or permanent format depends on Python.",
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "sourceReference": "Optional ecosystem composition implementation, 2026-10-15",
+    "confidence": 1,
+    "reviewStatus": "unreviewed"
+  }
+}

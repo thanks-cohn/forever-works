@@ -22,7 +22,8 @@
       "constraints/transport.json"
     ],
     "dependencies": [
-      "dependencies/typescript.json"
+      "dependencies/typescript.json",
+      "dependencies/json-schema-validator.json"
     ],
     "decisions": [
       "decisions/canonical-json.json",

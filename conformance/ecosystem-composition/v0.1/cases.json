@@ -1,0 +1,304 @@
+{
+  "profileVersion": "0.1",
+  "canonicalModel": "conformance/fixtures/complete/forever",
+  "cases": [
+    {
+      "name": "empty-ecosystem",
+      "path": "valid/empty-ecosystem.json",
+      "valid": true,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN"
+    },
+    {
+      "name": "single-component",
+      "path": "valid/single-component.json",
+      "valid": true,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN"
+    },
+    {
+      "name": "four-participant-fan",
+      "path": "valid/four-participant-fan.json",
+      "valid": true,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN"
+    },
+    {
+      "name": "many-to-many-multiedge-cycle",
+      "path": "valid/many-to-many-multiedge-cycle.json",
+      "valid": true,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN"
+    },
+    {
+      "name": "deployment-alternatives",
+      "path": "valid/deployment-alternatives.json",
+      "valid": true,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN"
+    },
+    {
+      "name": "nested-instrument-ecosystem",
+      "path": "valid/nested-instrument-ecosystem.json",
+      "valid": true,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN"
+    },
+    {
+      "name": "unknown-semantics",
+      "path": "valid/unknown-semantics.json",
+      "valid": true,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "warning": "unsupported-semantics"
+    },
+    {
+      "name": "opaque-extension",
+      "path": "valid/opaque-extension.json",
+      "valid": true,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "warning": "unsupported-extension"
+    },
+    {
+      "name": "unverified-pass-claim",
+      "path": "valid/unverified-pass-claim.json",
+      "valid": true,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "warning": "evidence-unverified"
+    },
+    {
+      "name": "dangling-participant",
+      "path": "invalid/dangling-participant.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "dangling-reference"
+    },
+    {
+      "name": "dangling-port",
+      "path": "invalid/dangling-port.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "dangling-port"
+    },
+    {
+      "name": "duplicate-interaction-identical",
+      "path": "invalid/duplicate-interaction-identical.json",
+      "valid": false,
+      "schemaValid": false,
+      "verificationStatus": "UNKNOWN",
+      "error": "schema-unique-items"
+    },
+    {
+      "name": "duplicate-interaction-id",
+      "path": "invalid/duplicate-interaction-id.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "duplicate-id"
+    },
+    {
+      "name": "implicit-privilege-inheritance",
+      "path": "invalid/implicit-privilege-inheritance.json",
+      "valid": false,
+      "schemaValid": false,
+      "verificationStatus": "UNKNOWN",
+      "error": "schema-const"
+    },
+    {
+      "name": "state-authority",
+      "path": "invalid/state-authority.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "state-authority"
+    },
+    {
+      "name": "topology-inactive-participant",
+      "path": "invalid/topology-inactive-participant.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "inactive-endpoint"
+    },
+    {
+      "name": "topology-dangling-interaction",
+      "path": "invalid/topology-dangling-interaction.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "dangling-reference"
+    },
+    {
+      "name": "unexpected-field",
+      "path": "invalid/unexpected-field.json",
+      "valid": false,
+      "schemaValid": false,
+      "verificationStatus": "UNKNOWN",
+      "error": "schema-additional-property"
+    },
+    {
+      "name": "missing-evidence",
+      "path": "invalid/missing-evidence.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "dangling-reference"
+    },
+    {
+      "name": "forged-evidence-scope",
+      "path": "invalid/forged-evidence-scope.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "evidence-scope"
+    },
+    {
+      "name": "unsafe-evidence-path",
+      "path": "invalid/unsafe-evidence-path.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "unsafe-path"
+    },
+    {
+      "name": "nested-cycle",
+      "path": "invalid/nested-cycle.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "nested-cycle"
+    },
+    {
+      "name": "wrong-port-direction",
+      "path": "invalid/wrong-port-direction.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "port-direction"
+    },
+    {
+      "name": "unsupported-profile-version",
+      "path": "invalid/unsupported-profile-version.json",
+      "valid": false,
+      "schemaValid": false,
+      "verificationStatus": "UNKNOWN",
+      "error": "schema-const"
+    },
+    {
+      "name": "forged-evidence-subjects",
+      "path": "invalid/forged-evidence-subjects.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "evidence-subjects"
+    },
+    {
+      "name": "bad-record-kind",
+      "path": "invalid/bad-record-kind.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "record-kind"
+    },
+    {
+      "name": "contradictory-state-owners",
+      "path": "invalid/contradictory-state-owners.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "duplicate-id"
+    },
+    {
+      "name": "duplicate-port-id",
+      "path": "invalid/duplicate-port-id.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "duplicate-port"
+    },
+    {
+      "name": "inactive-binding",
+      "path": "invalid/inactive-binding.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "binding-scope"
+    },
+    {
+      "name": "collective-obligation-wrong-scope",
+      "path": "invalid/collective-obligation-wrong-scope.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "obligation-scope"
+    },
+    {
+      "name": "unsafe-evidence-scope-path",
+      "path": "invalid/unsafe-evidence-scope-path.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "unsafe-path"
+    },
+    {
+      "name": "evidence-without-environment",
+      "path": "invalid/evidence-without-environment.json",
+      "valid": false,
+      "schemaValid": false,
+      "verificationStatus": "UNKNOWN",
+      "error": "schema-required"
+    },
+    {
+      "name": "requirement-is-implementation",
+      "path": "invalid/requirement-is-implementation.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "requirement-kind"
+    },
+    {
+      "name": "inactive-state-owner",
+      "path": "invalid/inactive-state-owner.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "inactive-state-owner"
+    },
+    {
+      "name": "unscoped-state-grant",
+      "path": "invalid/unscoped-state-grant.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "authority-scope"
+    },
+    {
+      "name": "grant-outside-endpoints",
+      "path": "invalid/grant-outside-endpoints.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "authority-scope"
+    },
+    {
+      "name": "grant-outside-interaction-state",
+      "path": "invalid/grant-outside-interaction-state.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "authority-scope"
+    },
+    {
+      "name": "configuration-obligation-outside-applicability",
+      "path": "invalid/configuration-obligation-outside-applicability.json",
+      "valid": false,
+      "schemaValid": true,
+      "verificationStatus": "UNKNOWN",
+      "error": "obligation-scope"
+    }
+  ]
+}

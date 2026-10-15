@@ -1,0 +1,336 @@
+{
+  "profile": "https://forever.works/profiles/ecosystem-composition",
+  "profileVersion": "0.1",
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "reviewStatus": "unreviewed"
+  },
+  "ecosystems": [
+    {
+      "id": "ecosystem.transfer",
+      "intentRefs": [
+        {
+          "id": "intent.remote-transfer",
+          "kind": "intent"
+        }
+      ],
+      "participantRefs": [
+        "participant.operator",
+        "participant.instrument-suite",
+        "participant.sensor",
+        "participant.filter"
+      ],
+      "obligationRefs": [
+        "obligation.suite"
+      ]
+    },
+    {
+      "id": "ecosystem.instruments",
+      "intentRefs": [
+        {
+          "id": "intent.remote-transfer",
+          "kind": "intent"
+        }
+      ],
+      "participantRefs": [
+        "participant.sensor",
+        "participant.filter",
+        "participant.instrument-suite"
+      ],
+      "obligationRefs": [
+        "obligation.instruments"
+      ]
+    }
+  ],
+  "participants": [
+    {
+      "id": "participant.operator",
+      "roles": [
+        "person"
+      ],
+      "recordRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "ports": [
+        {
+          "id": "transfer",
+          "direction": "inout",
+          "providedCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ],
+          "requiredCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ],
+          "contractRefs": [
+            "contract.transfer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "participant.instrument-suite",
+      "roles": [
+        "nested-ecosystem"
+      ],
+      "recordRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "ports": [
+        {
+          "id": "transfer",
+          "direction": "inout",
+          "providedCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ],
+          "requiredCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ],
+          "contractRefs": [
+            "contract.transfer"
+          ]
+        }
+      ],
+      "ecosystemRef": "ecosystem.instruments"
+    },
+    {
+      "id": "participant.sensor",
+      "roles": [
+        "external-system"
+      ],
+      "recordRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "ports": [
+        {
+          "id": "transfer",
+          "direction": "inout",
+          "providedCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ],
+          "requiredCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ],
+          "contractRefs": [
+            "contract.transfer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "participant.filter",
+      "roles": [
+        "library"
+      ],
+      "recordRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "ports": [
+        {
+          "id": "transfer",
+          "direction": "inout",
+          "providedCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ],
+          "requiredCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ],
+          "contractRefs": [
+            "contract.transfer"
+          ]
+        }
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "id": "contract.transfer",
+      "kind": "semantic",
+      "statement": "Preserve streaming without buffering the entire transfer.",
+      "requirementRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        },
+        {
+          "id": "invariant.bounded-memory",
+          "kind": "invariant"
+        }
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "id": "interaction.measure",
+      "from": [
+        {
+          "participant": "participant.sensor",
+          "port": "transfer"
+        }
+      ],
+      "to": [
+        {
+          "participant": "participant.filter",
+          "port": "transfer"
+        }
+      ],
+      "semantics": "stream",
+      "contractRefs": [
+        "contract.transfer"
+      ],
+      "stateRefs": [],
+      "authority": {
+        "inheritPrivileges": false,
+        "grants": []
+      }
+    },
+    {
+      "id": "interaction.observe",
+      "from": [
+        {
+          "participant": "participant.filter",
+          "port": "transfer"
+        }
+      ],
+      "to": [
+        {
+          "participant": "participant.operator",
+          "port": "transfer"
+        }
+      ],
+      "semantics": "stream",
+      "contractRefs": [
+        "contract.transfer"
+      ],
+      "stateRefs": [],
+      "authority": {
+        "inheritPrivileges": false,
+        "grants": []
+      }
+    }
+  ],
+  "states": [],
+  "configurations": [
+    {
+      "id": "configuration.full",
+      "participants": [
+        "participant.operator",
+        "participant.instrument-suite",
+        "participant.sensor",
+        "participant.filter"
+      ],
+      "interactions": [
+        "interaction.measure",
+        "interaction.observe"
+      ],
+      "obligationRefs": [
+        "obligation.suite",
+        "obligation.instruments",
+        "obligation.interaction.measure",
+        "obligation.interaction.observe"
+      ]
+    }
+  ],
+  "obligations": [
+    {
+      "id": "obligation.suite",
+      "scope": {
+        "kind": "ecosystem",
+        "ref": "ecosystem.transfer"
+      },
+      "requirementRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "configurationRefs": [],
+      "evidenceRefs": []
+    },
+    {
+      "id": "obligation.instruments",
+      "scope": {
+        "kind": "ecosystem",
+        "ref": "ecosystem.instruments"
+      },
+      "requirementRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "configurationRefs": [],
+      "evidenceRefs": []
+    },
+    {
+      "id": "obligation.interaction.measure",
+      "scope": {
+        "kind": "interaction",
+        "ref": "interaction.measure"
+      },
+      "requirementRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "configurationRefs": [
+        "configuration.full"
+      ],
+      "evidenceRefs": []
+    },
+    {
+      "id": "obligation.interaction.observe",
+      "scope": {
+        "kind": "interaction",
+        "ref": "interaction.observe"
+      },
+      "requirementRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "configurationRefs": [
+        "configuration.full"
+      ],
+      "evidenceRefs": []
+    }
+  ],
+  "evidence": []
+}

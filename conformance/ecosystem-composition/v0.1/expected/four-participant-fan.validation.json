@@ -1,0 +1,31 @@
+{
+  "issues": [
+    {
+      "code": "authority-unreviewed",
+      "message": "Validation does not approve intent",
+      "path": "/provenance",
+      "severity": "warning"
+    }
+  ],
+  "valid": true,
+  "verification": {
+    "obligations": [
+      {
+        "id": "obligation.interaction.fan-in",
+        "reason": "No independent evidence supplied",
+        "status": "UNKNOWN"
+      },
+      {
+        "id": "obligation.interaction.fan-out",
+        "reason": "No independent evidence supplied",
+        "status": "UNKNOWN"
+      },
+      {
+        "id": "obligation.suite",
+        "reason": "No independent evidence supplied",
+        "status": "UNKNOWN"
+      }
+    ],
+    "status": "UNKNOWN"
+  }
+}

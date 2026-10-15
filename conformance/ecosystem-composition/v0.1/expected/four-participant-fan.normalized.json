@@ -1,0 +1,322 @@
+{
+  "configurations": [
+    {
+      "id": "configuration.full",
+      "interactions": [
+        "interaction.fan-out",
+        "interaction.fan-in"
+      ],
+      "obligationRefs": [
+        "obligation.suite",
+        "obligation.interaction.fan-out",
+        "obligation.interaction.fan-in"
+      ],
+      "participants": [
+        "participant.collector",
+        "participant.helper",
+        "participant.client",
+        "participant.store"
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "id": "contract.transfer",
+      "kind": "semantic",
+      "requirementRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        },
+        {
+          "id": "invariant.bounded-memory",
+          "kind": "invariant"
+        }
+      ],
+      "statement": "Preserve streaming without buffering the entire transfer."
+    }
+  ],
+  "ecosystems": [
+    {
+      "id": "ecosystem.transfer",
+      "intentRefs": [
+        {
+          "id": "intent.remote-transfer",
+          "kind": "intent"
+        }
+      ],
+      "obligationRefs": [
+        "obligation.suite"
+      ],
+      "participantRefs": [
+        "participant.collector",
+        "participant.helper",
+        "participant.client",
+        "participant.store"
+      ]
+    }
+  ],
+  "evidence": [],
+  "interactions": [
+    {
+      "authority": {
+        "grants": [],
+        "inheritPrivileges": false
+      },
+      "contractRefs": [
+        "contract.transfer"
+      ],
+      "from": [
+        {
+          "participant": "participant.collector",
+          "port": "transfer"
+        }
+      ],
+      "id": "interaction.fan-out",
+      "semantics": "stream",
+      "stateRefs": [],
+      "to": [
+        {
+          "participant": "participant.helper",
+          "port": "transfer"
+        },
+        {
+          "participant": "participant.client",
+          "port": "transfer"
+        }
+      ]
+    },
+    {
+      "authority": {
+        "grants": [],
+        "inheritPrivileges": false
+      },
+      "contractRefs": [
+        "contract.transfer"
+      ],
+      "from": [
+        {
+          "participant": "participant.helper",
+          "port": "transfer"
+        },
+        {
+          "participant": "participant.client",
+          "port": "transfer"
+        }
+      ],
+      "id": "interaction.fan-in",
+      "semantics": "stream",
+      "stateRefs": [],
+      "to": [
+        {
+          "participant": "participant.store",
+          "port": "transfer"
+        }
+      ]
+    }
+  ],
+  "obligations": [
+    {
+      "configurationRefs": [],
+      "evidenceRefs": [],
+      "id": "obligation.suite",
+      "requirementRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "scope": {
+        "kind": "ecosystem",
+        "ref": "ecosystem.transfer"
+      }
+    },
+    {
+      "configurationRefs": [
+        "configuration.full"
+      ],
+      "evidenceRefs": [],
+      "id": "obligation.interaction.fan-out",
+      "requirementRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "scope": {
+        "kind": "interaction",
+        "ref": "interaction.fan-out"
+      }
+    },
+    {
+      "configurationRefs": [
+        "configuration.full"
+      ],
+      "evidenceRefs": [],
+      "id": "obligation.interaction.fan-in",
+      "requirementRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "scope": {
+        "kind": "interaction",
+        "ref": "interaction.fan-in"
+      }
+    }
+  ],
+  "participants": [
+    {
+      "id": "participant.collector",
+      "implementationBindings": {
+        "exampleForm": "browser-extension"
+      },
+      "ports": [
+        {
+          "contractRefs": [
+            "contract.transfer"
+          ],
+          "direction": "inout",
+          "id": "transfer",
+          "providedCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ],
+          "requiredCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ]
+        }
+      ],
+      "recordRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "roles": [
+        "participant"
+      ]
+    },
+    {
+      "id": "participant.helper",
+      "implementationBindings": {
+        "exampleForm": "helper"
+      },
+      "ports": [
+        {
+          "contractRefs": [
+            "contract.transfer"
+          ],
+          "direction": "inout",
+          "id": "transfer",
+          "providedCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ],
+          "requiredCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ]
+        }
+      ],
+      "recordRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "roles": [
+        "participant"
+      ]
+    },
+    {
+      "id": "participant.client",
+      "implementationBindings": {
+        "exampleForm": "mobile-client"
+      },
+      "ports": [
+        {
+          "contractRefs": [
+            "contract.transfer"
+          ],
+          "direction": "inout",
+          "id": "transfer",
+          "providedCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ],
+          "requiredCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ]
+        }
+      ],
+      "recordRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "roles": [
+        "participant"
+      ]
+    },
+    {
+      "id": "participant.store",
+      "implementationBindings": {
+        "exampleForm": "shared-service"
+      },
+      "ports": [
+        {
+          "contractRefs": [
+            "contract.transfer"
+          ],
+          "direction": "inout",
+          "id": "transfer",
+          "providedCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ],
+          "requiredCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ]
+        }
+      ],
+      "recordRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "roles": [
+        "participant"
+      ]
+    }
+  ],
+  "profile": "https://forever.works/profiles/ecosystem-composition",
+  "profileVersion": "0.1",
+  "provenance": {
+    "reviewStatus": "unreviewed",
+    "sourceType": "agent-proposed"
+  },
+  "states": []
+}

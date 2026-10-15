@@ -1,0 +1,114 @@
+{
+  "profile": "https://forever.works/profiles/ecosystem-composition",
+  "profileVersion": "0.1",
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "reviewStatus": "unreviewed"
+  },
+  "ecosystems": [
+    {
+      "id": "ecosystem.transfer",
+      "intentRefs": [
+        {
+          "id": "intent.remote-transfer",
+          "kind": "intent"
+        }
+      ],
+      "participantRefs": [
+        "participant.tool"
+      ],
+      "obligationRefs": [
+        "obligation.suite"
+      ]
+    }
+  ],
+  "participants": [
+    {
+      "id": "participant.tool",
+      "roles": [
+        "participant"
+      ],
+      "recordRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "ports": [
+        {
+          "id": "transfer",
+          "direction": "inout",
+          "providedCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ],
+          "requiredCapabilities": [
+            {
+              "id": "capability.streaming",
+              "kind": "capability"
+            }
+          ],
+          "contractRefs": [
+            "contract.transfer"
+          ]
+        }
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "id": "contract.transfer",
+      "kind": "semantic",
+      "statement": "Preserve streaming without buffering the entire transfer.",
+      "requirementRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        },
+        {
+          "id": "invariant.bounded-memory",
+          "kind": "invariant"
+        }
+      ]
+    }
+  ],
+  "interactions": [],
+  "states": [],
+  "configurations": [
+    {
+      "id": "configuration.full",
+      "participants": [
+        "participant.tool"
+      ],
+      "interactions": [],
+      "obligationRefs": [
+        "obligation.suite"
+      ]
+    }
+  ],
+  "obligations": [
+    {
+      "id": "obligation.suite",
+      "scope": {
+        "kind": "ecosystem",
+        "ref": "ecosystem.transfer"
+      },
+      "requirementRefs": [
+        {
+          "id": "capability.streaming",
+          "kind": "capability"
+        }
+      ],
+      "configurationRefs": [],
+      "evidenceRefs": []
+    }
+  ],
+  "evidence": [],
+  "extensions": {
+    "example.org.research": {
+      "claim": "PASS"
+    }
+  }
+}
