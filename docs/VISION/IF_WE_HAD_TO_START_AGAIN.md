@@ -111,6 +111,8 @@ Several candidates carry copyleft or mixed-component obligations. QEMU and Git, 
 
 ## 5. The larger fifty-project portfolio
 
+**Dedicated maximum-coverage selection:** [Fifty Projects to Preserve the Widest Possible Capability](FIFTY_PROJECTS_MAXIMUM_CAPABILITY_PRESERVATION.md) now provides a separate, explicitly selected fifty-project portfolio for the recovery thought experiment. It retains all twenty recovery candidates above and expands scientific, physical, institutional, creative, and knowledge coverage. The historical list below remains the earlier commercially oriented catalogue; the dedicated document is the proposed selection when only fifty primary projects can receive deep preservation.
+
 The earlier fifty-project discussion addressed broader economic and institutional coverage. It remains a complementary candidate catalogue, distinct from the twenty-project recovery selection above.
 
 | Original catalogue range | Candidate projects | Coverage |
