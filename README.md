@@ -62,6 +62,10 @@ The replacement proof passes streaming, resumability, portability, and configura
 
 Read the [foundational proposal](docs/FOUNDATIONAL_PROPOSAL.md), [standard](docs/STANDARD.md), and [conformance contract](docs/CONFORMANCE.md) before changing semantics.
 
+## Research proposition: From Foundation to Intelligence
+
+[From Foundation to Intelligence — A Self-Describing Artificial Intelligence](docs/PROPOSALS/FOUNDATION_TO_INTELLIGENCE_SELF_DESCRIBING_AI.md) proposes building a new AI from an experimental operating-system kernel upward, continuously describing its hardware assumptions, system software, numerical execution, learning architecture, training lineage, runtime, and interaction through Forever Works. It explores evidence-backed engineering introspection and cold-agent reconstruction, explicitly distinguishing architectural self-knowledge from consciousness or complete mechanistic interpretability. **Non-normative and unimplemented; Standard 0.1 and Public API v0.1 are unchanged.**
+
 ## Research proposal: Selective Reconstitution
 
 [Selective Reconstitution — Capability Recovery from Entangled Software](docs/PROPOSALS/SELECTIVE_RECONSTITUTION_CAPABILITY_EXTRACTION.md) proposes extracting owner-selected working capabilities from legacy programs, documenting both their framework-neutral semantics and real intermeshed dependency mechanisms, and rebuilding only the selected behavior with independent cold-agent acceptance evidence. This is a **non-normative research proposal**, not an implemented command or a change to Standard 0.1.
