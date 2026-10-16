@@ -70,6 +70,18 @@ with tempfile.TemporaryDirectory() as d:
  try:(root/'record.json').symlink_to(outside)
  except OSError:print('BLOCKED: platform symlink creation unavailable');raise
  check(root,False,'symlink-escape');total+=1
+# Genuine within-root file symlinks must remain usable, not merely rejected wholesale.
+with tempfile.TemporaryDirectory() as d:
+ root=Path(d);(root/'manifest.json').write_text(json.dumps(base));(root/'inside.json').write_text(json.dumps(good));(root/'record.json').symlink_to(root/'inside.json')
+ check(root,True,'within-root-symlink');total+=1
+# Junctions are a distinct Windows real-target case, not a string simulation.
+if os.name=='nt':
+ for outside in [False,True]:
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d)/'model';root.mkdir();target=Path(d)/'outside' if outside else root/'inside';target.mkdir();(target/'record.json').write_text(json.dumps(good))
+   subprocess.run(['cmd','/c','mklink','/J',str(root/'linked'),str(target)],check=True,capture_output=True)
+   manifest=copy.deepcopy(base);manifest['records']['capabilities']=['linked/record.json'];(root/'manifest.json').write_text(json.dumps(manifest))
+   check(root,not outside,'junction-escape' if outside else 'junction-contained');total+=1
 # Count and aggregate-byte limits with otherwise-valid unique records.
 for name,count,padding in [('record-limit',4097,0),('aggregate-byte-limit',18,950000)]:
  with tempfile.TemporaryDirectory() as d:
