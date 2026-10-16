@@ -23,6 +23,11 @@ class LosslessTests(unittest.TestCase):
         expected='1.'+'1'*3999+'e3999\n'
         self.assertEqual(parse_lossless(coefficient).canonical(),expected)
         self.assertEqual(parse_lossless(expected).canonical(),expected)
+    def test_legacy_large_integer_constraint_does_not_overflow(self):
+        from foreverworks import Model
+        manifest={'foreverVersion':'0.1','projectId':'test','records':{'capabilities':['record.json']}}
+        record={'foreverVersion':'0.1','id':'good','kind':'capability','name':'Good','statement':'Good','provenance':{'sourceType':'explicit','confidence':10**1000}}
+        self.assertTrue(any(e['code']=='invalid-value' for e in Model(manifest,[record]).validate()))
     def test_non_json_host_keys_are_rejected(self):
         with self.assertRaisesRegex(ValueError,'invalid-json-value'):canonical_lossless({1:'value'})
     def test_returned_value_cannot_stale_source(self):

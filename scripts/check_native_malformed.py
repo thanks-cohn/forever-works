@@ -20,4 +20,10 @@ with tempfile.TemporaryDirectory() as d:
   result=subprocess.run(['bindings/c/build/probe',str(root),'serialize','lossless'],capture_output=True,check=True)
   assert raw.encode() in result.stdout
 
-print(f'{len(payloads)*2} malformed-mode checks and 25 lossless serializations: no sanitizer failure or false valid result')
+ for token,valid in [('0',True),('-0',True),('1e-1000000',True),('-1e-400',False),('1.00000000000000000001',False),('1e1000000',False),('0.'+'9'*4000,True),('1.'+'0'*3998+'1',False)]:
+  raw='{"foreverVersion":"0.1","id":"good","kind":"capability","name":"Good","statement":"Good","provenance":{"sourceType":"explicit","confidence":'+token+'}}'
+  (root/'record.json').write_bytes(raw.encode())
+  result=subprocess.run(['bindings/c/build/probe',str(root),'lossless'],capture_output=True,check=True)
+  assert json.loads(result.stdout)['valid']==valid
+
+print(f'{len(payloads)*2} malformed-mode checks and 25 lossless serializations plus 8 exact-constraint cases: no sanitizer failure or false valid result')

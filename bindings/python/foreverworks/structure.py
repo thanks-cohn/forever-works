@@ -13,7 +13,7 @@ def structural(value,schema,path,errors):
         schema=SCHEMAS[file]
         if fragment:
             for part in fragment[1:].split('/'): schema=schema[part]
-    types={'object':lambda v:isinstance(v,dict),'array':lambda v:isinstance(v,list),'string':lambda v:isinstance(v,str),'number':lambda v:isinstance(v,JsonNumber) or (type(v) in (int,float) and __import__('math').isfinite(v))}
+    types={'object':lambda v:isinstance(v,dict),'array':lambda v:isinstance(v,list),'string':lambda v:isinstance(v,str),'number':lambda v:isinstance(v,JsonNumber) or (type(v) is int or (type(v) is float and __import__('math').isfinite(v)))}
     if 'type' in schema and not types[schema['type']](value): issue('invalid-type'); return
     if 'const' in schema and value!=schema['const']: issue('invalid-value')
     if 'enum' in schema and value not in schema['enum']: issue('invalid-classification' if path.endswith('.replacementClassification') else 'invalid-value')
