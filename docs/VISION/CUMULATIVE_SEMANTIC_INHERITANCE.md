@@ -87,3 +87,12 @@ Imported knowledge is untrusted data, never a grant of execution or privileges. 
 First finish the existing foundation-hardening run. Next complete the planned independent two-product-to-third-product reconstruction proof. Then define and validate the optional profile, build a small verified translation example with failure memories and human edits, expand the directional case matrix, add contextual retrieval, and independently measure its benefits. Do not conflate an ambitious proposal with an implemented or certified standard.
 
 > Preserve purpose, required behavior, and the knowledge learned through change. Make the next transformation easier without making it less trustworthy.
+
+
+## Future direction: agent-oriented concept and terminology registry
+
+A later optional capability could maintain a **Concept Registry** (or **Semantic Lexicon**) of unique project terms, architectural concepts, abbreviations, reusable patterns and carefully disambiguated definitions. Instead of every agent repeatedly rediscovering and re-explaining terms, a concise definition would link to stable IDs, examples, provenance, related concepts, applicability and authoritative source records.
+
+An agent encountering a term could resolve its meaning in the project's specific context, retrieve just the necessary explanation, and distinguish it from similar words used differently in other projects. Terms could point to semantic bridges, recorded failures, human corrections and verified implementations. Support aliases, evolution over time, conflicting definitions and scoped namespaces; avoid pretending a definition is universal or permanently true.
+
+This could reduce onboarding effort, repeated explanation and context-window consumption, especially in large projects. Keep it **optional, compact, versioned, machine-readable, human-editable and non-executable**, with safeguards against ambiguous matches and unsupported claims. Test whether it actually improves agent comprehension and work efficiency before promoting it to a formal profile or standard feature.
