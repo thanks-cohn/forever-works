@@ -1,0 +1,2 @@
+# Canonical byte fixtures and generated source must survive Windows checkout unchanged.
+* text=auto eol=lf
