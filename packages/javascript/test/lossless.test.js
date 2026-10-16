@@ -22,6 +22,8 @@ test('explicit resource, Unicode, duplicate and syntax failures do not round',()
   for(const raw of ['1e1000001','1e-1000001','11e1000000','1'.repeat(4001),'1'+'0'.repeat(4096),'['.repeat(66)+'0'+']'.repeat(66)])assert.throws(()=>parseLossless(raw),/resource-limit/);
   for(const raw of ['NaN','Infinity','01','[1,]','{"x":1,"\\u0078":2}','"\\ud800"'])assert.throws(()=>parseLossless(raw));
   assert.throws(()=>parseLossless(new Uint8Array([255])));
+  assert.throws(()=>parseLossless(' '.repeat(1048577)),/resource-limit/);
+  assert.throws(()=>new JsonNumber('x'.repeat(4097)),/resource-limit/);
   assert.equal(parseLossless('0.1').toHost(),0.1);
   assert.throws(()=>parseLossless('1e400').toHost({allowLoss:true}),/unsupported-host-number/);
 });

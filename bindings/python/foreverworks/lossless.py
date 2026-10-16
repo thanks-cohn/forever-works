@@ -10,8 +10,9 @@ NUMBER=re.compile(r'-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?\Z')
 class JsonNumber:
     token: str
     def __post_init__(self):
-        if not isinstance(self.token,str) or not NUMBER.fullmatch(self.token): raise ValueError('invalid-number')
+        if not isinstance(self.token,str): raise ValueError('invalid-number')
         if len(self.token)>4096: raise ValueError('resource-limit: numeric token exceeds 4096 bytes')
+        if not NUMBER.fullmatch(self.token):raise ValueError('invalid-number')
         raw=re.split('[eE]',self.token)[1] if re.search('[eE]',self.token) else '0'
         digits=raw.lstrip('+-').lstrip('0')
         if len(digits)>7 or abs(int(raw))>1000000: raise ValueError('resource-limit: exponent magnitude exceeds 1000000')
@@ -72,6 +73,7 @@ class LosslessDocument:
         return project(self.__value)
 
 def parse_lossless(data):
+    if isinstance(data,str) and len(data)>1048576:raise ValueError('resource-limit: document bytes')
     raw=data.encode('utf-8') if isinstance(data,str) else data
     if not isinstance(raw,bytes): raise TypeError('expected UTF-8 text or bytes')
     if len(raw)>1048576: raise ValueError('resource-limit: document bytes')

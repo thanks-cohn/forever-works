@@ -14,7 +14,7 @@ Token JSON serialization/coercion is deliberately rejected; use the supplied wri
 
 Supported domain: finite mathematical JSON decimals, token length <=4096 ASCII bytes,
 significant coefficient <=4000 digits, explicit and adjusted exponent absolute value
-<=1,000,000 (bounds chosen so canonical output remains in the supported domain); JSON strings are Unicode scalars,
+<=1,000,000 (bounds close canonical numeric tokens under re-ingestion); JSON strings are Unicode scalars,
 duplicate decoded keys are invalid, root depth <=64, document UTF-8 bytes <=1 MiB.
 NaN/Infinity are not JSON numbers; `1e400` and `1e-400` are supported finite decimals.
 Limits fail explicitly, without exponent expansion or silent rounding. Filesystem
@@ -64,3 +64,7 @@ CLI: pass global `--lossless` before an existing command to select this mode, e.
 `packages/cli/bin/forever --lossless --root conformance/lossless/forever normalize`.
 C exposes `fw_load_lossless` and C++ `model(path,true)`; source serialization retains
 original number spellings, while exact min/max checks use an independent comparator.
+
+Text/file byte limits apply at ingestion. Pretty printing or normalized multi-record
+output may be larger than one input file; this does not relax a later ingestion limit.
+Numeric canonicalization never expands a million-place exponent into a million zeros.

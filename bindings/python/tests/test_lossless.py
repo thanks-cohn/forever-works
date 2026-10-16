@@ -19,6 +19,8 @@ class LosslessTests(unittest.TestCase):
             with self.assertRaises(ValueError):parse_lossless(raw)
         for raw in ['NaN','01','[1,]','{"x":1,"\\u0078":2}','"\\ud800"']:
             with self.assertRaises((ValueError,UnicodeError)):parse_lossless(raw)
+        with self.assertRaisesRegex(ValueError,'resource-limit'):parse_lossless(' '*1048577)
+        with self.assertRaisesRegex(ValueError,'resource-limit'):JsonNumber('x'*4097)
         coefficient='1'*4000
         expected='1.'+'1'*3999+'e3999\n'
         self.assertEqual(parse_lossless(coefficient).canonical(),expected)

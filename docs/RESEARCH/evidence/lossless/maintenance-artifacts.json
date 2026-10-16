@@ -1,18 +1,18 @@
 {
   "status": "observed artifact identity, not a certification",
-  "implementationCommit": "bd36e41e4996c344633b552f20c50165d6f9eafa",
+  "implementationCommit": "73ec9a90bcce838ab2e910bdd285b2361e4f6c20",
   "artifacts": [
     {
       "path": "docs/API/LOSSLESS_JSON.md",
-      "sha256": "6acbbf25b2a67111c40aad377f3b9002be92c4c025c2c42d0ab7bdce0540a45a"
+      "sha256": "fd2ca4396d36b9d5114a944946bc7f24d7f35bc802a6c93d775e057c2ef86eaa"
     },
     {
       "path": "packages/javascript/src/lossless-json.js",
-      "sha256": "2a814c51439aa7cdff4f87b6408fbec27feec50aa59cb5fe381d662ec181477d"
+      "sha256": "4d6d8681f6692c334e08110c568ee9f643139785937a65c12c64e2c96c25368d"
     },
     {
       "path": "bindings/python/foreverworks/lossless.py",
-      "sha256": "f324622f890765d1a612cc52f4ab2fb75f9694c180b8b9a36a338bd471da7118"
+      "sha256": "edf2fbd7fc6dc83e8216d2f90fbeddbf7a1dc9118d86ffb568fea1d0c891e32e"
     },
     {
       "path": "bindings/c/src/decimal.h",
@@ -26,5 +26,6 @@
       "path": "conformance/lossless/model.expected.json",
       "sha256": "40f0c8026b29a8ea548b1f7b76d31bfa3e884a45e78779712308f20506e1938e"
     }
-  ]
+  ],
+  "observation": "Selected artifact bytes refreshed in the finishing commit; implementationCommit identifies its verified predecessor."
 }

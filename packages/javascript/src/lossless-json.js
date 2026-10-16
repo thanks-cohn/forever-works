@@ -1,8 +1,9 @@
 import {compare} from './canonical.js';
 const syntax=/^-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?$/;
 function parts(token) {
-  if(typeof token!=='string'||!syntax.test(token))throw new Error('invalid-number');
+  if(typeof token!=='string')throw new Error('invalid-number');
   if(token.length>4096)throw new Error('resource-limit: numeric token exceeds 4096 bytes');
+  if(!syntax.test(token))throw new Error('invalid-number');
   const [mantissa,rawExponent='0']=token.toLowerCase().split('e');
   const exponent=Number(rawExponent);
   if(!Number.isSafeInteger(exponent)||Math.abs(exponent)>1000000)throw new Error('resource-limit: exponent magnitude exceeds 1000000');
@@ -51,7 +52,7 @@ export function canonicalLossless(value){
 }
 export function parseLossless(input){
   let text;
-  if(typeof input==='string'){scalar(input);if(new TextEncoder().encode(input).length>1048576)throw new Error('resource-limit: document bytes');text=input;}
+  if(typeof input==='string'){if(input.length>1048576)throw new Error('resource-limit: document bytes');scalar(input);if(new TextEncoder().encode(input).length>1048576)throw new Error('resource-limit: document bytes');text=input;}
   else {if(!(input instanceof Uint8Array))throw new TypeError('expected UTF-8 text or bytes');if(input.length>1048576)throw new Error('resource-limit: document bytes');text=new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}).decode(input);}
   let i=0;
   const ws=()=>{while(i<text.length&&' \r\n\t'.includes(text[i]))i++;};
