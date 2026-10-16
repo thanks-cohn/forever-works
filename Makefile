@@ -7,7 +7,7 @@ test-python:
 	PYTHONPATH=bindings/python $(PYTHON) -m unittest discover -s bindings/python/tests -v
 
 test-javascript:
-	node --test packages/javascript/test/*.test.js
+	node scripts/run_node_tests.mjs packages/javascript/test
 
 test-typescript:
 	npm test
