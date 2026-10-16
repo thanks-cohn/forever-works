@@ -8,6 +8,12 @@
 
 ---
 
+## Purpose-Preserving Reconstitution: primary differentiation
+
+The dedicated [Purpose-Preserving Reconstitution doctrine](PROPOSALS/PURPOSE_PRESERVING_RECONSTITUTION.md) describes an explicit objective beyond conventional preservation and modernization: **extract enduring, accepted purpose from a convoluted or badly designed implementation, understand why historical decisions arose, then allow all nonessential mechanisms to be replaced with independent verification**. The original source and architecture are evidence, not mandatory blueprints. Crucially, inherited undocumented behavior must be investigated before removal, and competing purposes (for example convenience and privacy) must be reconciled by authorized decisions rather than silent agent assumptions.
+
+This is a difference of **primary objective and integrated methodology**, not a claim that arc42, StrictDoc, OpenSpec or Software Heritage are proprietary or incapable of documenting purpose, rationale, requirements or history. Their complementary contributions should be interoperable with Forever Works. The proposed advantage is **semantic continuity despite implementation discontinuity**, established through reproducible cold-agent benchmarks rather than rhetoric. Standard 0.1 already separates purpose-related records from replaceable mechanisms; the fuller autonomous reconstitution protocol remains non-normative research.
+
 # 1. Executive Summary
 
 Forever Works should aim higher than becoming a useful coding-agent memory tool.
