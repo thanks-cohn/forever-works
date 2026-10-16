@@ -1,0 +1,26 @@
+{
+  "foreverVersion": "0.1",
+  "id": "decision.lossless-interchange",
+  "kind": "decision",
+  "title": "Add exact text interchange alongside host values",
+  "status": "implemented",
+  "context": "Legacy JS binary64 loses 9007199254740993; narrowing Standard 0.1 would break compatibility.",
+  "decision": "Add immutable numeric tokens, original source and versioned decimal-v1 output; retain host APIs.",
+  "rationale": "Separate preservation from native ergonomics and avoid an arithmetic system or mandatory SDK.",
+  "alternativesConsidered": [
+    "Restrict all core numbers: incompatible narrowing",
+    "Raw text only: cannot validate precise confidence bounds",
+    "Arbitrary arithmetic: unnecessary for preservation and comparison"
+  ],
+  "relatedEntities": [
+    "capability.lossless-interchange",
+    "implementation.lossless-adapters",
+    "invariant.backward-aware"
+  ],
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "sourceReference": "codex/NEXT_RUN_LOSSLESS_CORE_AND_INHERITANCE_PROOF.md and implemented f38d0ec",
+    "confidence": 1,
+    "reviewStatus": "unreviewed"
+  }
+}

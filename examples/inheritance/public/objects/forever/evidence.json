@@ -1,0 +1,15 @@
+{
+  "foreverVersion": "0.1",
+  "id": "evidence.objects",
+  "kind": "evidence",
+  "type": "source-aware-reference-tests",
+  "source": "producer-evidence.json",
+  "statementSupported": "Reference producer tests only; independent construction remains NOT_RUN. See observation scope and run identity.",
+  "confidence": 1,
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "sourceReference": "Source-aware producer preparation; independent construction NOT_RUN",
+    "confidence": 1,
+    "reviewStatus": "unreviewed"
+  }
+}

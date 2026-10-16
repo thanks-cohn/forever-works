@@ -1,0 +1,16 @@
+{
+  "create": {
+    "method": "PUT",
+    "path": "/objects/example-asset",
+    "authorization": "Bearer objects-write",
+    "body": {
+      "id": "example-asset",
+      "contentBase64": "aGVsbG8=",
+      "metadata": {
+        "license": "synthetic"
+      }
+    }
+  },
+  "retry": "Identical bytes => 200, same digest",
+  "conflict": "Different document at same identity => 409, unchanged state"
+}

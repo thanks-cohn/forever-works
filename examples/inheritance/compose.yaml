@@ -1,0 +1,63 @@
+name: forever-inheritance-proof
+services:
+  catalog:
+    build:
+      context: ../..
+      dockerfile: examples/inheritance/Producer.Dockerfile
+    command: [python, /app/catalog/server.py, --state, /data/catalog.sqlite, --host, 0.0.0.0, --port, '8080', --read-grant, '${CATALOG_READ_GRANT:?provide a synthetic grant}', --write-grant, '${CATALOG_WRITE_GRANT:?provide a synthetic grant}']
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [reference]
+    volumes: [catalog-state:/data]
+    tmpfs: [/tmp]
+    pids_limit: 128
+    mem_limit: 256m
+  objects:
+    build:
+      context: ../..
+      dockerfile: examples/inheritance/Producer.Dockerfile
+    command: [python, /app/objects/server.py, --state, /data/objects.sqlite, --host, 0.0.0.0, --port, '8080', --read-grant, '${OBJECTS_READ_GRANT:?provide a synthetic grant}', --write-grant, '${OBJECTS_WRITE_GRANT:?provide a synthetic grant}']
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [reference]
+    volumes: [object-state:/data]
+    tmpfs: [/tmp]
+    pids_limit: 128
+    mem_limit: 256m
+  consumer:
+    build:
+      context: .
+      dockerfile: Consumer.Dockerfile
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [reference]
+    volumes:
+      - ./frozen:/packages:ro
+      - consumer-work:/consumer
+    tmpfs: [/tmp]
+    pids_limit: 128
+    mem_limit: 512m
+  evaluator:
+    profiles: [evaluation]
+    build:
+      context: ../..
+      dockerfile: examples/inheritance/Evaluator.Dockerfile
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [reference]
+    volumes: [evaluation-control:/control]
+    tmpfs: [/tmp]
+    pids_limit: 128
+    mem_limit: 256m
+networks:
+  reference:
+    internal: true
+volumes:
+  catalog-state:
+  object-state:
+  consumer-work:
+  evaluation-control:

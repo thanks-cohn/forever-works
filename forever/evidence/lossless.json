@@ -1,0 +1,16 @@
+{
+  "foreverVersion": "0.1",
+  "id": "evidence.lossless-interchange",
+  "kind": "evidence",
+  "type": "conformance",
+  "source": "make test hardening; make sanitizer; scripts/check_lossless.py",
+  "statementSupported": "Reviewed numeric domain tests preserve source and agree on decimal-v1 bytes; legacy goldens remain unchanged. Hosted results are separately identified in the research report.",
+  "confidence": 1,
+  "immutableReference": "docs/RESEARCH/evidence/lossless/maintenance-artifacts.json",
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "sourceReference": "codex/NEXT_RUN_LOSSLESS_CORE_AND_INHERITANCE_PROOF.md and implemented f38d0ec",
+    "confidence": 1,
+    "reviewStatus": "unreviewed"
+  }
+}

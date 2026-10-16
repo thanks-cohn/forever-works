@@ -1,0 +1,30 @@
+{
+  "status": "observed artifact identity, not a certification",
+  "implementationCommit": "8b68d6f plus explicit non-JSON host-key rejection regression",
+  "artifacts": [
+    {
+      "path": "docs/API/LOSSLESS_JSON.md",
+      "sha256": "6acbbf25b2a67111c40aad377f3b9002be92c4c025c2c42d0ab7bdce0540a45a"
+    },
+    {
+      "path": "packages/javascript/src/lossless-json.js",
+      "sha256": "2a814c51439aa7cdff4f87b6408fbec27feec50aa59cb5fe381d662ec181477d"
+    },
+    {
+      "path": "bindings/python/foreverworks/lossless.py",
+      "sha256": "f324622f890765d1a612cc52f4ab2fb75f9694c180b8b9a36a338bd471da7118"
+    },
+    {
+      "path": "bindings/c/src/decimal.h",
+      "sha256": "32e9e4bbe442cadacf13ded05421ffde9ea0089375bcdecc6690c2d18300c0e5"
+    },
+    {
+      "path": "conformance/lossless/numbers.json",
+      "sha256": "4118d46c59dbdbb663531112a447aae7677db56d8afb22c83b7c504e4b4bf7db"
+    },
+    {
+      "path": "conformance/lossless/model.expected.json",
+      "sha256": "40f0c8026b29a8ea548b1f7b76d31bfa3e884a45e78779712308f20506e1938e"
+    }
+  ]
+}

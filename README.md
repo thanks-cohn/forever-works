@@ -4,7 +4,7 @@
 
 Forever Works lets a project carry durable, machine-readable intent, capabilities, invariants, constraints, implementation rationale, replacement requirements, and migration evidence. It preserves purpose rather than obsolete machinery.
 
-See the [verified newcomer path](docs/GETTING_STARTED.md) and [binding coverage](docs/API/OPERATION_COVERAGE.md).
+See the [indexed foundation overview](docs/FOUNDATION_OVERVIEW.md), [worked maintenance change](docs/MAINTENANCE_EXAMPLE.md), and [verified newcomer path](docs/GETTING_STARTED.md) and [binding coverage](docs/API/OPERATION_COVERAGE.md).
 
 ## Five-minute start
 

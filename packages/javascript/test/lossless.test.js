@@ -14,6 +14,7 @@ test('legacy rounding is retained; additive interchange fixes the exact regressi
   const d=parseLossless(raw);assert.equal(d.canonical(),'{\n  "unknown": 9007199254740993\n}\n');
   assert.throws(()=>d.toHost(),/lossy-number-projection/);assert.equal(d.toHost({allowLoss:true}).unknown,9007199254740992);
   assert.throws(()=>canonicalLossless({n:9007199254740993}),/unsafe-host-number/);
+  assert.equal(parseLossless(JSON.stringify({n:9007199254740993})).value.n.token,'9007199254740992'); // Input was rounded before ingestion; do not invent precision.
   assert.throws(()=>JSON.stringify(d.value),/lossless-writer-required/);
   assert.throws(()=>+d.value.unknown,/explicit-number-projection-required/);
 });

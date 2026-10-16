@@ -1,0 +1,7 @@
+**
+!examples/
+!examples/inheritance/
+!examples/inheritance/Evaluator.Dockerfile
+!examples/inheritance/run.py
+!examples/inheritance/evaluator/
+!examples/inheritance/evaluator/evaluate.py

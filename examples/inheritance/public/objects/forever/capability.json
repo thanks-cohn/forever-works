@@ -1,0 +1,19 @@
+{
+  "foreverVersion": "0.1",
+  "id": "capability.objects",
+  "kind": "capability",
+  "name": "Persist and retrieve objects",
+  "statement": "Preserve identity, metadata and authority across retries and restart.",
+  "relatedInvariants": [
+    "invariant.objects"
+  ],
+  "relatedImplementations": [
+    "implementation.objects"
+  ],
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "sourceReference": "Source-aware producer preparation; independent construction NOT_RUN",
+    "confidence": 1,
+    "reviewStatus": "unreviewed"
+  }
+}

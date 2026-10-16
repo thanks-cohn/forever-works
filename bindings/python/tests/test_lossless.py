@@ -23,6 +23,8 @@ class LosslessTests(unittest.TestCase):
         expected='1.'+'1'*3999+'e3999\n'
         self.assertEqual(parse_lossless(coefficient).canonical(),expected)
         self.assertEqual(parse_lossless(expected).canonical(),expected)
+    def test_non_json_host_keys_are_rejected(self):
+        with self.assertRaisesRegex(ValueError,'invalid-json-value'):canonical_lossless({1:'value'})
     def test_returned_value_cannot_stale_source(self):
         d=parse_lossless('{"x":1.00}')
         copy=d.value;copy['x']=JsonNumber('2')

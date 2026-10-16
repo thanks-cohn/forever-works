@@ -1,0 +1,22 @@
+{
+  "create": {
+    "method": "PUT",
+    "path": "/items/example",
+    "ifMatch": "\"0\"",
+    "authorization": "Bearer catalog-write",
+    "body": {
+      "id": "example",
+      "assetId": "example-asset",
+      "title": "Example",
+      "tags": [
+        "one",
+        "two"
+      ],
+      "metadata": {
+        "note": "synthetic"
+      }
+    }
+  },
+  "retry": "Identical bytes/precondition => 200, same ETag",
+  "conflict": "Changed document + stale ETag => 412, unchanged state"
+}

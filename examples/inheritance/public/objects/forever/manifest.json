@@ -1,0 +1,27 @@
+{
+  "foreverVersion": "0.1",
+  "projectId": "objects",
+  "records": {
+    "intent": [
+      "intent.json"
+    ],
+    "capabilities": [
+      "capability.json"
+    ],
+    "invariants": [
+      "invariant.json"
+    ],
+    "dependencies": [
+      "dependency.json"
+    ],
+    "decisions": [
+      "decision.json"
+    ],
+    "implementations": [
+      "implementation.json"
+    ],
+    "evidence": [
+      "evidence.json"
+    ]
+  }
+}

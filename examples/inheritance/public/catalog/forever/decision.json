@@ -1,0 +1,21 @@
+{
+  "foreverVersion": "0.1",
+  "id": "decision.catalog",
+  "kind": "decision",
+  "title": "Keep ownership and commit boundaries explicit",
+  "status": "implemented",
+  "context": "A complementary product may coordinate two independently failing stores.",
+  "decision": "Separate grants/state; preserve original JSON; no inferred distributed transaction.",
+  "rationale": "Expose retries and unknown outcomes without hiding permission or metadata loss.",
+  "relatedEntities": [
+    "capability.catalog",
+    "invariant.catalog",
+    "dependency.catalog"
+  ],
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "sourceReference": "Source-aware producer preparation; independent construction NOT_RUN",
+    "confidence": 1,
+    "reviewStatus": "unreviewed"
+  }
+}

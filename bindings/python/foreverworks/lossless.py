@@ -46,6 +46,7 @@ def canonical_lossless(value):
         if type(v) is float: raise ValueError('unsafe-host-number: supply an explicit JsonNumber token')
         if isinstance(v,str): v.encode('utf-8');return json.dumps(v,ensure_ascii=False)
         if not isinstance(v,(list,dict)): raise ValueError('invalid-json-value')
+        if isinstance(v,dict) and any(not isinstance(k,str) for k in v):raise ValueError('invalid-json-value: object keys must be strings')
         if not v:return '{}' if isinstance(v,dict) else '[]'
         keys=sorted(v) if isinstance(v,dict) else range(len(v))
         items=['  '*(depth+1)+(emit(k,depth+1)+': ' if isinstance(v,dict) else '')+emit(v[k],depth+1) for k in keys]

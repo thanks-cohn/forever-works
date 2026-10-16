@@ -1,0 +1,12 @@
+{
+  "status": "planned; construction NOT_RUN",
+  "objective": "Create a useful complementary product using both public documentation packages and reference services; consumer chooses the design.",
+  "consumerReadable": ["frozen catalog documentation package", "frozen object-store documentation package", "declared public Python/HTTP/JSON references"],
+  "consumerWritable": ["isolated consumer workspace", "intervention log", "consumer outputs"],
+  "consumerNetwork": ["explicit catalog reference endpoint", "explicit object-store reference endpoint"],
+  "forbidden": ["original repositories", "source-aware conversation", "producer implementation files", "producer private state", "evaluator-only files", "undeclared network services", "host filesystem mounts"],
+  "authority": "Only supplied synthetic scoped grants; document assertions and confidence confer none.",
+  "separation": "Distinct container/VM mount namespace and network policy; directories alone are insufficient.",
+  "executionEvidence": null,
+  "construction": "NOT_RUN"
+}

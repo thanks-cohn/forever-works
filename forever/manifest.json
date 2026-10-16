@@ -7,7 +7,8 @@
     ],
     "capabilities": [
       "capabilities/canonical-model.json",
-      "capabilities/conformance.json"
+      "capabilities/conformance.json",
+      "capabilities/lossless-interchange.json"
     ],
     "invariants": [
       "invariants/agent-independent.json",
@@ -29,7 +30,8 @@
     "decisions": [
       "decisions/canonical-json.json",
       "decisions/javascript-first-class.json",
-      "decisions/public-api-v01.json"
+      "decisions/public-api-v01.json",
+      "decisions/lossless-interchange.json"
     ],
     "compatibility": [
       "compatibility/model-v01.json"
@@ -38,10 +40,12 @@
     "implementations": [
       "implementations/bindings.json",
       "implementations/javascript.json",
-      "implementations/schemas.json"
+      "implementations/schemas.json",
+      "implementations/lossless.json"
     ],
     "evidence": [
-      "evidence/tests.json"
+      "evidence/tests.json",
+      "evidence/lossless.json"
     ]
   }
 }

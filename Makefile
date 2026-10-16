@@ -31,3 +31,8 @@ hardening: test-typescript
 sanitizer:
 	$(MAKE) -C bindings/c clean build/probe CFLAGS='-std=c11 -Wall -Wextra -Werror -pedantic -g -O1 -fsanitize=address,undefined -fno-omit-frame-pointer -fno-pie -no-pie'
 	$(PYTHON) scripts/check_native_malformed.py
+
+.PHONY: inheritance
+inheritance:
+	PYTHONPATH=bindings/python $(PYTHON) examples/inheritance/test_producers.py
+	$(PYTHON) scripts/check_maintenance.py

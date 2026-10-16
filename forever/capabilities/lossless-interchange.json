@@ -1,0 +1,30 @@
+{
+  "foreverVersion": "0.1",
+  "id": "capability.lossless-interchange",
+  "kind": "capability",
+  "name": "Exact numeric interchange",
+  "statement": "Opt-in interchange preserves unknown numeric data without changing legacy consumers.",
+  "relatedInvariants": [
+    "invariant.backward-aware",
+    "invariant.plain-readable-format"
+  ],
+  "relatedImplementations": [
+    "implementation.lossless-adapters"
+  ],
+  "verification": [
+    {
+      "type": "external-conformance-suite",
+      "expected": "source, decimal-v1 bytes, exact numeric constraints and legacy goldens pass in supported domain",
+      "command": "make hardening",
+      "evidence": [
+        "evidence.lossless-interchange"
+      ]
+    }
+  ],
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "sourceReference": "codex/NEXT_RUN_LOSSLESS_CORE_AND_INHERITANCE_PROOF.md and implemented f38d0ec",
+    "confidence": 1,
+    "reviewStatus": "unreviewed"
+  }
+}

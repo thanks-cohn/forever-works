@@ -1,0 +1,26 @@
+{
+  "foreverVersion": "0.1",
+  "id": "implementation.lossless-adapters",
+  "kind": "implementation",
+  "type": "reference-binding",
+  "technology": "JS/TS token parser; Python JSON/Decimal; native retained tokens and bounded comparator",
+  "satisfiesCapabilities": [
+    "capability.lossless-interchange"
+  ],
+  "constrainedByInvariants": [
+    "invariant.language-neutral-core",
+    "invariant.backward-aware"
+  ],
+  "sourceLocations": [
+    "packages/javascript/src/lossless-json.js",
+    "bindings/python/foreverworks/lossless.py",
+    "bindings/c/src/decimal.h"
+  ],
+  "claims": [],
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "sourceReference": "codex/NEXT_RUN_LOSSLESS_CORE_AND_INHERITANCE_PROOF.md and implemented f38d0ec",
+    "confidence": 1,
+    "reviewStatus": "unreviewed"
+  }
+}

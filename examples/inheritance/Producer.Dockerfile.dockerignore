@@ -1,0 +1,17 @@
+**
+!LICENSE
+!bindings/
+!bindings/python/
+!bindings/python/foreverworks/
+!bindings/python/foreverworks/**
+!examples/
+!examples/inheritance/
+!examples/inheritance/Producer.Dockerfile
+!examples/inheritance/shared/
+!examples/inheritance/shared/runtime.py
+!examples/inheritance/catalog/
+!examples/inheritance/catalog/server.py
+!examples/inheritance/objects/
+!examples/inheritance/objects/server.py
+**/__pycache__
+**/*.pyc
