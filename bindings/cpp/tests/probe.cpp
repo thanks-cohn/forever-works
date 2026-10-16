@@ -1,6 +1,17 @@
 #include "forever.hpp"
+#include <cstdio>
 #include <iostream>
+#ifdef _WIN32
+#include <fcntl.h>
+#include <io.h>
+#endif
 int main(int argc, char **argv) {
+#ifdef _WIN32
+  /* The library returns UTF-8 source bytes; CRT text stdout would translate LF.
+   */
+  if (_setmode(_fileno(stdout), _O_BINARY) == -1)
+    return 2;
+#endif
   bool lossless = false, serialize = false;
   for (int i = 2; i < argc; i++) {
     if (std::string(argv[i]) == "lossless")

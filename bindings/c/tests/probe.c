@@ -2,7 +2,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifdef _WIN32
+#include <fcntl.h>
+#include <io.h>
+#endif
 int main(int argc, char **argv) {
+#ifdef _WIN32
+  /* The library returns UTF-8 source bytes; CRT text stdout would translate LF.
+   */
+  if (_setmode(_fileno(stdout), _O_BINARY) == -1)
+    return 2;
+#endif
   fw_error e = {{0}, {0}};
   fw_model *m;
   int lossless = 0, serialize = 0, i;
