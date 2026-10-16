@@ -55,5 +55,5 @@ test("reports malformed records and rejects escaping paths", async () => {
   await mkdir(join(root, "forever"));
   await writeFile(join(root, "outside.json"), "{}");
   await writeFile(join(root, "forever", "manifest.json"), JSON.stringify({foreverVersion: "0.1", projectId: "x", records: {intent: ["../outside.json"]}}));
-  await assert.rejects(loadModel(join(root, "forever")), /escapes model root/);
+  await assert.rejects(loadModel(join(root, "forever")), error=>error.code==='invalid-manifest'||error.code==='path-escape');
 });

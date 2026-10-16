@@ -93,7 +93,7 @@
         "type": "string"
       },
       "uniqueItems": true,
-      "description": "Stable entity ID references."
+      "description": "Requirement labels used by claims; may be external to the entity inventory."
     },
     "compatibilityObligations": {
       "type": "array",

@@ -23,7 +23,8 @@
     ],
     "dependencies": [
       "dependencies/typescript.json",
-      "dependencies/json-schema-validator.json"
+      "dependencies/json-schema-validator.json",
+      "dependencies/cjson.json"
     ],
     "decisions": [
       "decisions/canonical-json.json",

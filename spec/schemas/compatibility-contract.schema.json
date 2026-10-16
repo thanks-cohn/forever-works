@@ -60,7 +60,7 @@
         "type": "string"
       },
       "uniqueItems": true,
-      "description": "Stable entity ID references."
+      "description": "Ordered descriptive strings; not entity references."
     },
     "mayChange": {
       "type": "array",
@@ -68,7 +68,7 @@
         "type": "string"
       },
       "uniqueItems": true,
-      "description": "Stable entity ID references."
+      "description": "Ordered descriptive strings; not entity references."
     },
     "migrationPolicy": {
       "type": "string"

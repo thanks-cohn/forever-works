@@ -4,6 +4,8 @@
 
 Forever Works lets a project carry durable, machine-readable intent, capabilities, invariants, constraints, implementation rationale, replacement requirements, and migration evidence. It preserves purpose rather than obsolete machinery.
 
+See the [verified newcomer path](docs/GETTING_STARTED.md) and [binding coverage](docs/API/OPERATION_COVERAGE.md).
+
 ## Five-minute start
 
 Create a deliberately draft model, then validate and audit it before replacing the TODO values with accepted project intent:
@@ -17,7 +19,7 @@ packages/cli/bin/forever --root forever audit
 For an existing complete example:
 
 ```sh
-packages/cli/bin/forever --root examples/file-transfer/forever explain dependency.old-streamer --json
+packages/cli/bin/forever --root examples/file-transfer/forever --json explain dependency.old-streamer
 ```
 
 The initializer labels placeholders as unreviewed drafts; generated text is not accepted architectural truth. See the [official Public API v0.1 reference](docs/API/PUBLIC_API_V0_1.md) for stable operations and adapter status.
@@ -36,13 +38,13 @@ This package is dependency-free plain ESM and does not require a TypeScript comp
 
 ## End-to-end proof
 
-The canonical product is [`docs/STANDARD.md`](docs/STANDARD.md), the JSON Schemas in `spec/schemas`, and shared conformance behavior. JavaScript, TypeScript, C, Python, and the C++ wrapper are separate proof bindings—not the definition. The dependency-free JavaScript package is authored and tested as plain ESM; its evidence does not depend on compiling TypeScript.
+The canonical product is [`docs/STANDARD.md`](docs/STANDARD.md), the JSON Schemas in `spec/schemas`, and shared conformance behavior. JavaScript, TypeScript, C, Python, and the C++ wrapper are proof targets—not the definition; C++ wraps C, and JS/TS share structural and serialization algorithms. The dependency-free JavaScript package is authored and tested as plain ESM; its evidence does not depend on compiling TypeScript.
 
 ```sh
 npm install
 make test
 packages/cli/bin/forever --root examples/file-transfer/forever validate
-packages/cli/bin/forever --root examples/file-transfer/forever explain dependency.old-streamer --json
+packages/cli/bin/forever --root examples/file-transfer/forever --json explain dependency.old-streamer
 packages/cli/bin/forever --root examples/file-transfer/forever evaluate-replacement dependency.old-streamer implementation.wasm-streamer
 packages/cli/bin/forever --root examples/file-transfer/forever verify-migration migration.old-to-wasm
 ```

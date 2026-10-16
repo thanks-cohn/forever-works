@@ -56,7 +56,7 @@
         "type": "string"
       },
       "uniqueItems": true,
-      "description": "Stable entity ID references."
+      "description": "Ordered descriptive strings; not entity references."
     },
     "nonGoals": {
       "type": "array",
@@ -64,7 +64,7 @@
         "type": "string"
       },
       "uniqueItems": true,
-      "description": "Stable entity ID references."
+      "description": "Ordered descriptive strings; not entity references."
     },
     "supportedEnvironments": {
       "type": "array",
@@ -72,7 +72,7 @@
         "type": "string"
       },
       "uniqueItems": true,
-      "description": "Stable entity ID references."
+      "description": "Ordered descriptive strings; not entity references."
     },
     "status": {
       "type": "string"

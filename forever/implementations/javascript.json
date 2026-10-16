@@ -5,7 +5,7 @@
   "type": "reference-binding",
   "technology": "plain ECMAScript modules",
   "version": "0.1.0",
-  "satisfiesCapabilities": ["capability.canonical-model", "capability.binding-conformance"],
+  "satisfiesCapabilities": ["capability.canonical-model", "capability.cross-language-conformance"],
   "constrainedByInvariants": ["invariant.language-neutral-core", "invariant.binding-conformance", "invariant.javascript-independent-proof"],
   "replaceability": "CAPABILITY",
   "sourceLocations": ["packages/javascript", "examples/javascript"],

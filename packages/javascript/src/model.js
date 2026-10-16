@@ -1,6 +1,9 @@
+import {schemas} from './contracts.js';
+import {canonical,compare} from './canonical.js';
+import {validateStructure} from './structure.js';
 const KINDS = new Set(["intent", "capability", "invariant", "constraint", "dependency", "decision", "compatibility", "migration", "implementation", "evidence"]);
 const CLASSIFICATIONS = new Set(["LOCKED", "SEMANTIC", "CAPABILITY", "TRANSITIONAL", "LEGACY", "OPTIONAL"]);
-const REF_FIELDS = new Set(["relatedCapabilities", "relatedConstraints", "relatedInvariants", "relatedImplementations", "requiredCapabilities", "protectedInvariants", "compatibilityObligations", "relatedEntities", "preservedCapabilities", "preservedInvariants", "compatibilityImpact", "verification", "satisfiesCapabilities", "constrainedByInvariants", "satisfiesConstraints", "compatibilityContracts", "evidence", "sourceImplementation", "targetImplementation", "currentImplementation"]);
+const REF_FIELDS = new Set(["relatedCapabilities", "relatedConstraints", "relatedInvariants", "relatedImplementations", "requiredCapabilities", "protectedInvariants", "compatibilityObligations", "relatedEntities", "preservedCapabilities", "preservedInvariants", "compatibilityImpact", "verification", "satisfiesCapabilities", "constrainedByInvariants", "satisfiesConstraints", "compatibilityContracts", "evidence", "sourceImplementation", "targetImplementation", "currentImplementation", "scope", "validationReferences"]);
 const REQUIRED = {
   intent: ["name", "statement", "purpose"], capability: ["name", "statement"], invariant: ["name", "statement", "severity"],
   constraint: ["statement", "category", "classification"], dependency: ["dependencyName", "dependencyType", "purpose", "reasonSelected", "replacementClassification"],
@@ -11,25 +14,24 @@ const REQUIRED = {
 
 function references(record) {
   const result = [];
+  const properties=Object.values(schemas).find(s=>s.properties?.kind?.const===record?.kind)?.properties??{};
   for (const key of REF_FIELDS) {
+    if(!Object.hasOwn(properties,key))continue;
     const value = record?.[key];
-    if (typeof value === "string" && value.includes(".")) result.push(value);
-    else if (Array.isArray(value)) result.push(...value.filter(item => typeof item === "string" && item.includes(".")));
+    if (typeof value === "string" && true) result.push(value);
+    else if (Array.isArray(value)) result.push(...value.filter(item => typeof item === "string" && true));
   }
-  if (Array.isArray(record?.claims)) for (const claim of record.claims) {
+  if (Object.hasOwn(properties,'verification') && Array.isArray(record?.verification)) for (const check of record.verification) {
+    if (check && typeof check === 'object' && Array.isArray(check.evidence)) result.push(...check.evidence.filter(x=>typeof x==='string'));
+  }
+  if (Object.hasOwn(properties,'claims') && Array.isArray(record?.claims)) for (const claim of record.claims) {
     if (claim && Array.isArray(claim.evidence)) result.push(...claim.evidence.filter(item => typeof item === "string"));
   }
   return result;
 }
 
-function sorted(value) {
-  if (Array.isArray(value)) return value.map(sorted);
-  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).sort(([a], [b]) => a.localeCompare(b)).map(([key, item]) => [key, sorted(item)]));
-  return value;
-}
-
-/** Return canonical, deterministic Forever Works JSON. */
-export function normalize(value) { return `${JSON.stringify(sorted(value), null, 2)}\n`; }
+/** Return canonical UTF-8 JSON text, separately from in-memory key enumeration. */
+export const normalize = canonical;
 
 /** Stable public error. Codes, rather than messages, are the compatibility surface. */
 export class ForeverApiError extends Error {
@@ -66,7 +68,7 @@ export function createForeverApiFromModel(model, adapter = {name: "javascript-co
     }
   };
   return Object.freeze({
-    describe: () => ({foreverApiVersion: "0.1", supportedModelVersions: ["0.1"], operations: [...OPERATIONS], implementation: {name: "@forever-works/javascript", version: "0.1.0"}, adapter}),
+    describe: () => ({foreverApiVersion: "0.1", supportedModelVersions: ["0.1"], modelVersionCompatibility: "0.x minor versions with understood required semantics", operations: [...OPERATIONS], implementation: {name: "@forever-works/javascript", version: "0.1.0"}, adapter}),
     getProjectIntent: () => {
       const intents = model.list("intent");
       if (!intents.length) throw new ForeverApiError("project-intent-not-found", "project intent not found", {});
@@ -102,30 +104,17 @@ export class Model {
   constructor(manifest, records) {
     this.manifest = manifest;
     this.records = records;
-    this.entities = new Map(records.filter(record => record && typeof record === "object" && record.id).map(record => [record.id, record]));
+    this.entities = new Map((Array.isArray(records)?records:[]).filter(record => record && typeof record === "object" && record.id).map(record => [record.id, record]));
   }
   validate() {
-    const errors = [];
-    const version = this.manifest?.foreverVersion;
-    if (typeof version !== "string" || version.split(".")[0] !== "0") errors.push({code: "unsupported-version", path: "manifest.foreverVersion", message: `unsupported version ${String(version)}`});
-    const seen = new Set();
-    this.records.forEach((record, index) => {
-      const path = `records[${index}]`;
-      if (!record || typeof record !== "object" || Array.isArray(record)) { errors.push({code: "invalid-record", path, message: "record must be an object"}); return; }
-      for (const key of ["foreverVersion", "id", "kind"]) if (!record[key]) errors.push({code: "missing-required", path: `${path}.${key}`, message: `missing ${key}`});
-      if (!KINDS.has(record.kind)) errors.push({code: "invalid-kind", path: `${path}.kind`, message: `unknown kind ${String(record.kind)}`});
-      for (const key of REQUIRED[record.kind] ?? []) if (!(key in record)) errors.push({code: "missing-required", path: `${path}.${key}`, message: `missing ${key}`});
-      if (seen.has(record.id)) errors.push({code: "duplicate-id", path, message: `duplicate ID ${record.id}`});
-      seen.add(record.id);
-      if (record.kind === "dependency" && !CLASSIFICATIONS.has(record.replacementClassification)) errors.push({code: "invalid-classification", path, message: "invalid dependency classification"});
-    });
-    for (const record of this.records) if (record && typeof record === "object") for (const reference of references(record)) {
+    const errors = validateStructure(this.manifest, this.records);
+    for (const record of (Array.isArray(this.records)?this.records:[])) if (record && typeof record === "object") for (const reference of references(record)) {
       if (!this.entities.has(reference)) errors.push({code: "broken-reference", path: record.id ?? "?", reference, message: `unknown reference ${reference}`});
     }
     return errors.sort((a, b) => `${a.code}\0${a.path}\0${a.reference ?? ""}`.localeCompare(`${b.code}\0${b.path}\0${b.reference ?? ""}`));
   }
   getEntity(id) { return this.entities.get(id); }
-  list(kind) { return this.records.filter(record => record?.kind === kind).sort((a, b) => a.id.localeCompare(b.id)); }
+  list(kind) { return this.records.filter(record => record?.kind === kind).sort((a, b) => compare(a.id,b.id)); }
   traceEntity(id) {
     if (!this.entities.has(id)) throw new Error(`entity not found: ${id}`);
     const adjacency = new Map([...this.entities.keys()].map(key => [key, new Set()]));
@@ -170,5 +159,5 @@ export class Model {
     result.result = overall(result.checks);
     return result;
   }
-  normalized() { return normalize({foreverVersion: this.manifest.foreverVersion, projectId: this.manifest.projectId, records: [...this.records].sort((a, b) => a.id.localeCompare(b.id))}); }
+  normalized() { return normalize({...this.manifest, records: [...this.records].sort((a, b) => compare(a.id,b.id))}); }
 }

@@ -91,3 +91,16 @@ Within API v0.1, new optional discovery fields and new error codes may be added.
 ## 8. Published schema version strings
 
 The record schemas' `foreverVersion` pattern matches ordinary version strings such as `0.1` and the retained `0.0` fixture (`^0\.[0-9]+$`). A prior overescaped pattern rejected the documented `0.1` values during independent JSON Schema validation even though the JavaScript model validator accepted them. Correcting the pattern aligns schemas with the existing model contract; it does not change Public API versioning, authority, or the supported-major-version rule. `packages/javascript/test/schema-version.test.js` retains the regression separately from reference-library conformance.
+
+## 9. Hardened input and evidence boundary
+
+See [core input and normalization](CORE_INPUT_AND_NORMALIZATION.md) for exact reference
+fields, bounded filesystem loading, validation issues, output-byte rules and the
+unresolved numeric-domain limitation. The [operation coverage map](OPERATION_COVERAGE.md)
+is the authoritative implementation-status inventory for the other bindings.
+
+A replacement `pass` is aggregation of supplied declarations under Standard 0.1,
+including claims with optional evidence. It is not an observed execution result.
+Neither replacement nor migration verification executes commands, fetches evidence
+URIs or converts confidence into authority. No stronger evidence policy is added to
+API v0.1 by this hardening change.

@@ -1,0 +1,21 @@
+{
+  "foreverVersion": "0.1",
+  "id": "dependency.cjson",
+  "kind": "dependency",
+  "dependencyName": "cJSON 1.7.19 (vendored, MIT, local parsed-string length patch)",
+  "dependencyType": "C reference binding implementation detail",
+  "purpose": "Parse bounded JSON without silently dropping missing or malformed records.",
+  "reasonSelected": "Small maintained portable C implementation, MIT license, no runtime or hosted service; vendoring keeps offline builds reproducible. Strict lexical preflight and source preservation cover parser-specific limitations.",
+  "requiredCapabilities": ["capability.cross-language-conformance"],
+  "protectedInvariants": ["invariant.language-neutral-core", "invariant.plain-readable-format"],
+  "replacementClassification": "CAPABILITY",
+  "replacementRequirements": [],
+  "compatibilityObligations": ["compatibility.model-v0-1"],
+  "historicalContext": "See bindings/c/vendor/README.md for alternatives, local patch, limits and update obligations. The format and other bindings do not require this parser.",
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "sourceReference": "Foundation hardening implementation 2026-10-16",
+    "confidence": 1,
+    "reviewStatus": "unreviewed"
+  }
+}

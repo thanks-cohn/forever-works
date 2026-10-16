@@ -16,8 +16,9 @@ jobs:
         with: {node-version: 20}
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
-      - run: npm install
+      - run: npm ci
       - run: make test
+      - run: python scripts/check_onboarding.py
   ecosystem-schema:
     runs-on: ubuntu-latest
     steps:
@@ -26,3 +27,40 @@ jobs:
         with: {python-version: '3.12'}
       - run: python -m pip install -r scripts/requirements-schema.txt
       - run: python scripts/check_ecosystem_schema.py
+  core-hardening:
+    env:
+      PYTHONUTF8: "1"
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 20}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: npm ci
+      - run: python -m pip install -r scripts/requirements-schema.txt
+      - uses: msys2/setup-msys2@v2
+        if: runner.os == 'Windows'
+        with:
+          msystem: MINGW64
+          path-type: inherit
+          install: make mingw-w64-x86_64-gcc
+      - run: make hardening
+        if: runner.os != 'Windows'
+      - run: make hardening PYTHON=python CC=gcc CXX=g++
+        if: runner.os == 'Windows'
+        shell: msys2 {0}
+      - run: python scripts/sync_core_contracts.py && git diff --exit-code
+  native-sanitizer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: make sanitizer

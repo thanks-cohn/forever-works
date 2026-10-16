@@ -1,10 +1,11 @@
 from __future__ import annotations
 import json
+from .structure import validate_structure, SCHEMAS
 from pathlib import Path
 from typing import Any
 
 KINDS = {"intent","capability","invariant","constraint","dependency","decision","compatibility","migration","implementation","evidence"}
-REF_FIELDS = {"relatedCapabilities","relatedConstraints","relatedInvariants","relatedImplementations","requiredCapabilities","protectedInvariants","compatibilityObligations","relatedEntities","preservedCapabilities","preservedInvariants","compatibilityImpact","verification","satisfiesCapabilities","constrainedByInvariants","satisfiesConstraints","compatibilityContracts","evidence","sourceImplementation","targetImplementation","currentImplementation"}
+REF_FIELDS = {"relatedCapabilities","relatedConstraints","relatedInvariants","relatedImplementations","requiredCapabilities","protectedInvariants","compatibilityObligations","relatedEntities","preservedCapabilities","preservedInvariants","compatibilityImpact","verification","satisfiesCapabilities","constrainedByInvariants","satisfiesConstraints","compatibilityContracts","evidence","sourceImplementation","targetImplementation","currentImplementation","scope","validationReferences"}
 REQUIRED = {
  "intent":("name","statement","purpose"), "capability":("name","statement"), "invariant":("name","statement","severity"),
  "constraint":("statement","category","classification"), "dependency":("dependencyName","dependencyType","purpose","reasonSelected","replacementClassification"),
@@ -12,47 +13,70 @@ REQUIRED = {
  "migration":("sourceImplementation","targetImplementation","reason","status"), "implementation":("type","technology","satisfiesCapabilities"),
  "evidence":("type","source","statementSupported","confidence")}
 CLASSIFICATIONS={"LOCKED","SEMANTIC","CAPABILITY","TRANSITIONAL","LEGACY","OPTIONAL"}
-class ModelError(ValueError): pass
+class ModelError(ValueError):
+    def __init__(self,message,code=None,path=None,stage=None):
+        super().__init__(message)
+        self.code=code or message.split(':',1)[0]
+        self.path=path
+        self.stage=stage
+
 
 def normalize(value: Any) -> str:
-    """Canonical JSON: sorted keys, two spaces, UTF-8 text, trailing newline."""
-    return json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2, separators=(",", ": ")) + "\n"
+    """Portable two-space JSON for the documented binary64 interchange subset."""
+    import math
+    from decimal import Decimal
+    def emit(v,n=0):
+        if n>64: raise ModelError('resource-limit: JSON nesting exceeds 64')
+        if v is None: return 'null'
+        if isinstance(v,bool): return 'true' if v else 'false'
+        if isinstance(v,str):
+            try: v.encode('utf-8')
+            except UnicodeError as e: raise ModelError('invalid-unicode') from e
+            return json.dumps(v,ensure_ascii=False)
+        if type(v) in (int,float):
+            if type(v) is float and not math.isfinite(v): raise ModelError('unsupported-number')
+            if abs(v)>9007199254740991: return json.dumps(v,allow_nan=False)
+            if v==0: return '0'
+            if v==int(v): return str(int(v))
+            text=repr(v)
+            if 'e' in text:
+                mantissa,exponent=text.split('e'); exponent=int(exponent)
+                if exponent>=-6: return format(Decimal(text),'f')
+                return mantissa.rstrip('0').rstrip('.')+'e'+str(exponent)
+            return text
+        if not isinstance(v,(dict,list)): raise ModelError('invalid-json-value')
+        keys=sorted(v) if isinstance(v,dict) else range(len(v))
+        if not len(v): return '{}' if isinstance(v,dict) else '[]'
+        items=['  '*(n+1)+(emit(k,n+1)+': ' if isinstance(v,dict) else '')+emit(v[k],n+1) for k in keys]
+        return ('{' if isinstance(v,dict) else '[')+'\n'+',\n'.join(items)+'\n'+'  '*n+('}' if isinstance(v,dict) else ']')
+    return emit(value)+'\n'
 
 def _refs(record):
+    properties=next((s['properties'] for s in SCHEMAS.values() if 'kind' in s.get('properties',{}) and s['properties']['kind']['const']==record.get('kind')), {})
     for key in REF_FIELDS:
+        if key not in properties: continue
         value=record.get(key)
-        if isinstance(value,str) and ("." in value): yield value
+        if isinstance(value,str): yield value
         elif isinstance(value,list):
             for item in value:
-                if isinstance(item,str) and "." in item: yield item
-    for claim in record.get("claims",[]):
+                if isinstance(item,str): yield item
+    for check in record.get("verification",[]) if "verification" in properties and isinstance(record.get("verification"),list) else []:
+        if isinstance(check,dict):
+            for evidence in check.get("evidence",[]) if isinstance(check.get("evidence"),list) else []:
+                if isinstance(evidence,str): yield evidence
+    for claim in record.get("claims",[]) if "claims" in properties and isinstance(record.get("claims"),list) else []:
         if isinstance(claim,dict):
-            for evidence in claim.get("evidence",[]): yield evidence
+            for evidence in claim.get("evidence",[]) if isinstance(claim.get("evidence"),list) else []:
+                if isinstance(evidence,str): yield evidence
 
 class Model:
     def __init__(self, manifest, records, root=None):
         self.manifest, self.records, self.root = manifest, records, root
-        self.entities={r.get("id"):r for r in records if isinstance(r,dict) and r.get("id")}
+        self.entities={r.get("id"):r for r in (records if isinstance(records,list) else []) if isinstance(r,dict) and isinstance(r.get("id"),str)}
     def validate(self):
-        errors=[]
-        version=self.manifest.get("foreverVersion")
-        if not isinstance(version,str) or version.split(".")[0] != "0": errors.append({"code":"unsupported-version","path":"manifest.foreverVersion","message":f"unsupported version {version!r}"})
-        seen=set()
-        for i,r in enumerate(self.records):
-            where=f"records[{i}]"
-            if not isinstance(r,dict): errors.append({"code":"invalid-record","path":where,"message":"record must be an object"}); continue
-            for key in ("foreverVersion","id","kind"):
-                if not r.get(key): errors.append({"code":"missing-required","path":f"{where}.{key}","message":f"missing {key}"})
-            kind=r.get("kind")
-            if kind not in KINDS: errors.append({"code":"invalid-kind","path":f"{where}.kind","message":f"unknown kind {kind!r}"})
-            for key in REQUIRED.get(kind,()):
-                if key not in r: errors.append({"code":"missing-required","path":f"{where}.{key}","message":f"missing {key}"})
-            rid=r.get("id")
-            if rid in seen: errors.append({"code":"duplicate-id","path":where,"message":f"duplicate ID {rid}"})
-            seen.add(rid)
-            if kind=="dependency" and r.get("replacementClassification") not in CLASSIFICATIONS: errors.append({"code":"invalid-classification","path":where,"message":"invalid dependency classification"})
-        ids={r.get("id") for r in self.records if isinstance(r,dict)}
-        for r in self.records:
+        errors=validate_structure(self.manifest,self.records)
+        ids=set(self.entities)
+        for r in self.records if isinstance(self.records,list) else []:
             if isinstance(r,dict):
                 for ref in _refs(r):
                     if ref not in ids: errors.append({"code":"broken-reference","path":r.get("id","?"),"reference":ref,"message":f"unknown reference {ref}"})
@@ -108,7 +132,7 @@ class Model:
                 check["status"]="unknown"; check["reason"]="No referenced migration verification evidence"
         result["result"]=_overall(result["checks"])
         return result
-    def normalized(self): return normalize({"foreverVersion":self.manifest["foreverVersion"],"projectId":self.manifest["projectId"],"records":sorted(self.records,key=lambda r:r["id"])})
+    def normalized(self): return normalize({**self.manifest,"records":sorted(self.records,key=lambda r:r["id"])})
 
 def _overall(checks):
     statuses={c["status"] for c in checks}
@@ -121,17 +145,60 @@ def _evaluation(candidate,requirements,claims):
         else: checks.append({"requirement":req,"status":"unknown","reason":"No candidate evidence supplied"})
     return {"candidate":candidate,"result":_overall(checks),"checks":checks}
 
-def load_model(root):
+def _load_model(root):
+    from pathlib import PureWindowsPath
     root=Path(root); root=root.parent if root.name=="manifest.json" else root
-    try: manifest=json.loads((root/"manifest.json").read_text(encoding="utf-8"))
-    except (OSError,json.JSONDecodeError) as e: raise ModelError(str(e)) from e
-    records=[]
-    listed=[]
-    for paths in manifest.get("records",{}).values():
-        if isinstance(paths,list): listed.extend(paths)
-    for rel in listed:
-        path=(root/rel).resolve()
-        if root.resolve() not in path.parents: raise ModelError(f"record path escapes model root: {rel}")
-        try: records.append(json.loads(path.read_text(encoding="utf-8")))
-        except (OSError,json.JSONDecodeError) as e: raise ModelError(f"{rel}: {e}") from e
+    root=root.resolve(strict=True)
+    total=0
+    def pairs(items):
+        result={}
+        for key,value in items:
+            if key in result: raise ModelError("duplicate-member")
+            result[key]=value
+        return result
+    def depth(value,n=0):
+        if n>64: raise ModelError("resource-limit: nesting exceeds 64")
+        if isinstance(value,str):
+            try: value.encode('utf-8')
+            except UnicodeError as e: raise ModelError('invalid-unicode') from e
+        elif type(value) is float and not __import__('math').isfinite(value): raise ModelError('unsupported-number')
+        elif isinstance(value,dict):
+            for key,item in value.items(): depth(key,n+1);depth(item,n+1)
+        elif isinstance(value,list):
+            for item in value: depth(item,n+1)
+    def read(path):
+        nonlocal total
+        try:
+            path=path.resolve(strict=True)
+            if root not in path.parents: raise ModelError("path-escape: target outside model root")
+            size=path.stat().st_size
+            total+=size
+            if size>1048576 or total>16777216: raise ModelError("resource-limit: model byte limit")
+            with path.open('rb') as stream: data=stream.read(1048577)
+            if len(data)>1048576: raise ModelError("resource-limit: file byte limit")
+            value=json.loads(data.decode('utf-8'),object_pairs_hook=pairs,parse_constant=lambda _: (_ for _ in ()).throw(ModelError('invalid-json-number')))
+            depth(value)
+            return value
+        except (OSError,UnicodeError,json.JSONDecodeError,RecursionError) as e: raise ModelError("invalid-input: cannot read bounded UTF-8 JSON") from e
+    manifest=read(root/'manifest.json')
+    issues=[e for e in validate_structure(manifest,[]) if e['path'].startswith('manifest')]
+    if issues: raise ModelError('invalid-manifest: '+issues[0]['path'])
+    records=[]; seen=set()
+    for paths in manifest['records'].values():
+        for rel in paths:
+            if Path(rel).is_absolute() or PureWindowsPath(rel).is_absolute() or "\\" in rel or '..' in rel.split('/'): raise ModelError('path-escape: expected portable relative path')
+            path=root/rel
+            if path in seen: raise ModelError('duplicate-path')
+            seen.add(path)
+            if len(seen)>4096: raise ModelError('resource-limit: record count exceeds 4096')
+            records.append(read(path))
     return Model(manifest,records,root)
+
+def load_model(root):
+    try: return _load_model(root)
+    except ModelError as e:
+        e.stage='load'
+        if e.path is None: e.path=str(root)
+        raise
+    except (OSError,UnicodeError,RecursionError) as e:
+        raise ModelError('io: model input cannot be read',code='io',path=str(root),stage='load') from e

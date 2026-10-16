@@ -4,3 +4,6 @@ bindings/c/build/
 bindings/cpp/build/
 __pycache__/
 *.pyc
+work/
+bindings/python/build/
+bindings/python/*.egg-info/

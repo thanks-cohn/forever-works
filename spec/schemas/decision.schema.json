@@ -56,7 +56,7 @@
         "type": "string"
       },
       "uniqueItems": true,
-      "description": "Stable entity ID references."
+      "description": "Ordered descriptive strings; not entity references."
     },
     "rationale": {
       "type": "string"
@@ -67,7 +67,7 @@
         "type": "string"
       },
       "uniqueItems": true,
-      "description": "Stable entity ID references."
+      "description": "Ordered descriptive strings; not entity references."
     },
     "mayChange": {
       "type": "array",
@@ -75,7 +75,7 @@
         "type": "string"
       },
       "uniqueItems": true,
-      "description": "Stable entity ID references."
+      "description": "Ordered descriptive strings; not entity references."
     },
     "mustSurvive": {
       "type": "array",
@@ -83,7 +83,7 @@
         "type": "string"
       },
       "uniqueItems": true,
-      "description": "Stable entity ID references."
+      "description": "Ordered descriptive strings; not entity references."
     },
     "revisitConditions": {
       "type": "array",
@@ -91,7 +91,7 @@
         "type": "string"
       },
       "uniqueItems": true,
-      "description": "Stable entity ID references."
+      "description": "Ordered descriptive strings; not entity references."
     },
     "relatedEntities": {
       "type": "array",

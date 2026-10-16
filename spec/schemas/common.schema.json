@@ -100,7 +100,8 @@
       ],
       "properties": {
         "requirement": {
-          "type": "string"
+          "type": "string",
+          "description": "Exact requirement label from the evaluated dependency or migration; not necessarily an entity ID."
         },
         "status": {
           "enum": [

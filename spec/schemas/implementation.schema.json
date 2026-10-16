@@ -86,7 +86,7 @@
         "type": "string"
       },
       "uniqueItems": true,
-      "description": "Stable entity ID references."
+      "description": "Ordered descriptive strings; not entity references."
     },
     "runtimeRequirements": {
       "type": "array",
@@ -94,7 +94,7 @@
         "type": "string"
       },
       "uniqueItems": true,
-      "description": "Stable entity ID references."
+      "description": "Ordered descriptive strings; not entity references."
     },
     "claims": {
       "type": "array",

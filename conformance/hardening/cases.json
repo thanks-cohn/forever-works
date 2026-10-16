@@ -1,0 +1,1002 @@
+[
+  {
+    "name": "minimal-undotted",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": true,
+    "structural": true
+  },
+  {
+    "name": "bad-id",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "INVALID ID!",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "unsupported-record-version",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "99.0",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "wrong-name",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": 42,
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "null-statement",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": null
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "bad-provenance",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "provenance": {
+          "sourceType": "made-up",
+          "confidence": 99
+        }
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "bad-verification",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "verification": [
+          {
+            "type": "conformance-suite",
+            "expected": "ok"
+          }
+        ]
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "wrong-array",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "relatedInvariants": "good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "duplicate-reference",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "relatedInvariants": [
+          "good",
+          "good"
+        ]
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "null-provenance",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "provenance": null
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "bad-extension-key",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "extensions": {
+          "no": 1
+        }
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "dangling-undotted",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "relatedInvariants": [
+          "missing"
+        ]
+      }
+    ],
+    "valid": false,
+    "structural": true
+  },
+  {
+    "name": "self-cycle",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "relatedInvariants": [
+          "good"
+        ]
+      }
+    ],
+    "valid": true,
+    "structural": true
+  },
+  {
+    "name": "nested-evidence-dangling",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "verification": [
+          {
+            "type": "manual-review",
+            "expected": "ok",
+            "evidence": [
+              "missing"
+            ]
+          }
+        ]
+      }
+    ],
+    "valid": false,
+    "structural": true
+  },
+  {
+    "name": "opaque-extension",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "extensions": {
+          "example.org": {
+            "A": 1,
+            "2": "two",
+            "unknown": null
+          }
+        },
+        "future": {
+          "permissions": [
+            "execute nothing"
+          ]
+        }
+      }
+    ],
+    "valid": true,
+    "structural": true
+  },
+  {
+    "name": "future-minor",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.9",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": true,
+    "structural": true
+  },
+  {
+    "name": "absent-name",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "absent-id",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "absent-foreverVersion",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "absent-kind",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "wrong-record-None",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      null
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "wrong-record-[]",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      []
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "wrong-record-3",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      3
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "wrong-record-text",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      "text"
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "duplicate-id",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json",
+          "second.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      },
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": true
+  },
+  {
+    "name": "manifest-null",
+    "manifest": null,
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "manifest-array",
+    "manifest": [],
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "manifest-inventory-null",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": null
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "manifest-inventory-wrong-container",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": "record.json"
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "manifest-inventory-unknown",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "surprise": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "unknown-embedded-nul",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "future": "a\u0000b",
+        "future\u0000key": "kept"
+      }
+    ],
+    "valid": true,
+    "structural": true
+  },
+  {
+    "name": "id-embedded-nul",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good\u0000bad",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "enum-embedded-nul",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "criticality": "essential\u0000bad"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "valid-unique-nul-values",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "inputs": [
+          "a\u0000b",
+          "a\u0000c"
+        ]
+      }
+    ],
+    "valid": true,
+    "structural": true
+  },
+  {
+    "name": "prototype-kind",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "toString",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "null-kind",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": null,
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "list-id",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": [],
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": false,
+    "structural": false
+  },
+  {
+    "name": "old-record-new-manifest",
+    "manifest": {
+      "foreverVersion": "0.9",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.0",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": true,
+    "structural": true
+  },
+  {
+    "name": "unknown-manifest-data",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      },
+      "future": {
+        "largeInteger": 9007199254740993,
+        "nul": "a\u0000b"
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good"
+      }
+    ],
+    "valid": true,
+    "structural": true
+  },
+  {
+    "name": "unknown-reference-looking-fields",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "scope": [
+          "opaque"
+        ],
+        "claims": [
+          {
+            "evidence": [
+              "opaque"
+            ]
+          }
+        ],
+        "replacementRequirements": [
+          "external requirement"
+        ]
+      }
+    ],
+    "valid": true,
+    "structural": true
+  },
+  {
+    "name": "digit-extension-owner",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "extensions": {
+          "0.example": null
+        }
+      }
+    ],
+    "valid": true,
+    "structural": true
+  },
+  {
+    "name": "underscore-extension-owner",
+    "manifest": {
+      "foreverVersion": "0.1",
+      "projectId": "test",
+      "records": {
+        "capabilities": [
+          "record.json"
+        ]
+      }
+    },
+    "records": [
+      {
+        "foreverVersion": "0.1",
+        "id": "good",
+        "kind": "capability",
+        "name": "Good",
+        "statement": "Good",
+        "extensions": {
+          "example_org.test": null
+        }
+      }
+    ],
+    "valid": false,
+    "structural": false
+  }
+]

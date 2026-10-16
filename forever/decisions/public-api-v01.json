@@ -29,7 +29,7 @@
   ],
   "relatedEntities": [
     "implementation.javascript-binding",
-    "implementation.reference-bindings"
+    "implementation.bindings"
   ],
   "dateVersion": "2026-10-03",
   "provenance": {

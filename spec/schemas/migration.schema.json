@@ -76,7 +76,7 @@
         "type": "string"
       },
       "uniqueItems": true,
-      "description": "Stable entity ID references."
+      "description": "Ordered descriptive strings; not entity references."
     },
     "verification": {
       "type": "array",
