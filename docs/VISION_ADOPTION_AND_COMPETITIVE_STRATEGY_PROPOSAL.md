@@ -8,6 +8,10 @@
 
 ---
 
+## Temporal Context Preservation: portfolio-scale economics
+
+[Temporal Context Preservation](PROPOSALS/TEMPORAL_CONTEXT_PRESERVATION.md) proposes a second continuity function: **cheap, bounded, evidence-backed periodic observation rather than continuous full reconstruction**. An organization may have millions of repositories but only limited compute, reviewers, and appetite for production changes. Monthly or adaptive inspections can record relevant dependency, security, runtime and API evolution as dated, verifiable, linked deltas while projects remain dormant. Shared ecosystem observations reduce duplicate investigation, and future cold agents can use the accumulated trail to identify why a mechanism was once needed, when conditions shifted, and what must be rechecked before purpose-preserving reconstitution. The economic benefit is a research hypothesis requiring cost-inclusive experiments, not an established scaling result. The proposal does not alter Standard 0.1 or claim to provide a deployed watcher.
+
 ## Purpose-Preserving Reconstitution: primary differentiation
 
 The dedicated [Purpose-Preserving Reconstitution doctrine](PROPOSALS/PURPOSE_PRESERVING_RECONSTITUTION.md) describes an explicit objective beyond conventional preservation and modernization: **extract enduring, accepted purpose from a convoluted or badly designed implementation, understand why historical decisions arose, then allow all nonessential mechanisms to be replaced with independent verification**. The original source and architecture are evidence, not mandatory blueprints. Crucially, inherited undocumented behavior must be investigated before removal, and competing purposes (for example convenience and privacy) must be reconciled by authorized decisions rather than silent agent assumptions.
