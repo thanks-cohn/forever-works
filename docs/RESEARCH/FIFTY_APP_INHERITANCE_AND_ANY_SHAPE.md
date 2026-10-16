@@ -104,3 +104,8 @@ Do not bloat the standard with every application-specific feature. Its core must
 **When our authors are gone and our frameworks obsolete, can an agent unfamiliar with any of our fifty applications inherit one of them, understand what it exists to do, repair or remake it in a current language and platform, and independently demonstrate that its meaning, state and real effects survived?**
 
 That—not module count, export count, raw code generation speed or polished demos—is the long-term research measure.
+
+
+## Complementary product generation from documentation
+
+[Documentation as a Foundation for New Products](../VISION/DOCUMENTATION_AS_A_FOUNDATION_FOR_NEW_PRODUCTS.md) extends this program with a broad-objective experiment: supply portable documentation for multiple products, withhold their source repositories, and ask an unfamiliar agent to design and verify a useful new ecosystem participant. The Atlas/Redown Android example separates technical compatibility, product judgment and measured commercial outcomes. This remains non-normative research; no universal generation or revenue result is claimed.

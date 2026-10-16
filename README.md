@@ -68,6 +68,8 @@ Read the [foundational proposal](docs/FOUNDATIONAL_PROPOSAL.md), [standard](docs
 
 ## Long-horizon mission and flagship research
 
+- [Documentation as a Foundation for New Products](docs/VISION/DOCUMENTATION_AS_A_FOUNDATION_FOR_NEW_PRODUCTS.md): how broad requests and source-independent inheritance packages could enable agents to design complementary products, illustrated by an Atlas/Redown Android app; includes economic reasoning, Any-Shape opportunities and an independent evaluation protocol. Non-normative vision and research.
+
 - [Fifty Projects to Preserve the Widest Possible Capability](docs/VISION/FIFTY_PROJECTS_MAXIMUM_CAPABILITY_PRESERVATION.md): an explicit fifty-project reconstruction portfolio, preserving why/what/when/where/how, human and agent possibilities, and cross-project renewal. Non-normative research; retains the earlier twenty recovery selections.
 
 - [If We Had to Start Again](docs/VISION/IF_WE_HAD_TO_START_AGAIN.md): a reconstruction vision for surviving agents, a twenty-project recovery portfolio, the broader fifty-project catalogue, offline recovery packages, and controlled tests of faster verified reconstruction through Forever Works and Any-Shape. This is non-normative research, not a demonstrated universal recovery capability.
