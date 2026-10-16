@@ -19,5 +19,7 @@ test("a clean JavaScript consumer imports the packed package without TypeScript"
   await writeFile(join(consumer, "proof.js"), `import {loadModel} from "@forever-works/javascript";\nconst m=await loadModel(${JSON.stringify(modelPath)});\nconsole.log(JSON.stringify({valid:m.validate().length===0,explanation:m.explainDependency("dependency.old-streamer").replacementClassification,replacement:m.evaluateReplacement("dependency.old-streamer","implementation.wasm-streamer").result,migration:m.verifyMigration("migration.old-to-wasm").result}));\n`);
   const {stdout} = await exec("node", ["proof.js"], {cwd: consumer});
   assert.deepEqual(JSON.parse(stdout), {valid: true, explanation: "CAPABILITY", replacement: "partial", migration: "pass"});
+  await writeFile(join(consumer,"lossless.js"),`import {parseLossless} from "@forever-works/javascript/lossless";const d=parseLossless('9007199254740993');if(d.canonical()!=="9007199254740993\\n")throw new Error("precision loss");console.log("lossless package passed");`);
+  assert.match((await exec("node",["lossless.js"],{cwd:consumer})).stdout,/lossless package passed/);
   assert.ok((await readFile(join(consumer, "proof.js"), "utf8")).includes("loadModel"));
 });

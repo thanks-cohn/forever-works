@@ -270,6 +270,7 @@ CJSON_PUBLIC(void) cJSON_Delete(cJSON *item)
             global_hooks.deallocate(item->string);
             item->string = NULL;
         }
+        if (!(item->type & cJSON_IsReference) && item->numbertoken) global_hooks.deallocate(item->numbertoken);
         global_hooks.deallocate(item);
         item = next;
     }
@@ -383,6 +384,10 @@ loop_end:
         return false; /* parse_error */
     }
 
+    item->numbertoken=(char*)input_buffer->hooks.allocate(number_string_length+1);
+    if(item->numbertoken==NULL){input_buffer->hooks.deallocate(number_c_string);return false;}
+    memcpy(item->numbertoken,buffer_at_offset(input_buffer),number_string_length);
+    item->numbertoken[number_string_length]=0;
     item->valuedouble = number;
 
     /* use saturation in case of overflow */

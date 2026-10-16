@@ -29,3 +29,16 @@ query/evaluation bodies but share the structural/serialization algorithm. Python
 structural/serialization implementation and the Draft 2020-12 oracle are independent
 of that algorithm, while all consume the same published schema constraints. This
 is fixture-level evidence, not independent implementations of every operation.
+
+## Additive lossless coverage
+
+JS `parseLossless` / `loadModelLossless`, Python `parse_lossless` /
+`load_model_lossless`, and TS equivalents preserve exact original documents and
+provide token-aware queries plus decimal-v1 normalized output. C `fw_load_lossless`
+and C++ `model(path,true)` preserve raw JSON and check numeric schema bounds with
+an independent decimal comparator; native decimal-v1 output remains unsupported.
+Legacy modes remain available. JS/TS share token/parser algorithms; Python uses
+Decimal tuples and its standard JSON parser; C uses retained raw tokens and its own
+bounded comparator. `make hardening` runs reviewed numeric vectors, actual output
+bytes, source round trips, exact-constraint oracle cases and domain failures across
+these paths. `make sanitizer` covers legacy and lossless native parsing.

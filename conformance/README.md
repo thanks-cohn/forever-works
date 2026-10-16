@@ -8,3 +8,9 @@ in the packages and native binding are generated with
 `python3 scripts/sync_core_contracts.py`; changing them must change the published
 schema and oracle coverage coherently. These snapshots are constraints, not an
 independent schema implementation. See docs/API/CORE_INPUT_AND_NORMALIZATION.md.
+
+`lossless/` contains separately reviewed decimal-v1 numeric spellings and expected
+model bytes. They never replace the historical normalization goldens. The independent
+Python Decimal implementation and structural oracle compare exact numeric values;
+JS/TS share one algorithm and C++ wraps C. The native lossless path is tested for raw
+source preservation and constraints, not claimed as a canonical byte implementation.

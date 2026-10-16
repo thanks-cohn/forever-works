@@ -1,6 +1,7 @@
 // @ts-nocheck
+import {isJsonNumber,compareNumbers,canonicalLossless} from './lossless-json.js';
 import {schemas} from './contracts.js';
-const object = v => v !== null && typeof v === 'object' && !Array.isArray(v);
+const object = v => v !== null && typeof v === 'object' && !Array.isArray(v) && !isJsonNumber(v);
 // This is the bounded subset used by the core schemas, not a general JSON Schema implementation.
 export function structural(value, schema, path, errors) {
   const issue = (code, suffix='') => errors.push({code,path:path+suffix,message:`${code} at ${path+suffix}`});
@@ -9,11 +10,12 @@ export function structural(value, schema, path, errors) {
     schema = schemas[file];
     if(fragment) for(const part of fragment.slice(1).split('/')) schema=schema[part];
   }
-  if(schema.type && !({object, array:Array.isArray,string:v=>typeof v==='string',number:v=>typeof v==='number'&&Number.isFinite(v)})[schema.type](value)) {issue('invalid-type');return;}
+  if(schema.type && !({object, array:Array.isArray,string:v=>typeof v==='string',number:v=>isJsonNumber(v)||(typeof v==='number'&&Number.isFinite(v))})[schema.type](value)) {issue('invalid-type');return;}
   if('const' in schema && value!==schema.const) issue('invalid-value');
   if(schema.enum && !schema.enum.includes(value)) issue(path.endsWith('.replacementClassification')?'invalid-classification':'invalid-value');
   if(typeof value==='string' && schema.pattern && !new RegExp(schema.pattern).test(value)) issue('invalid-value');
-  if(typeof value==='number' && (value<schema.minimum || value>schema.maximum)) issue('invalid-value');
+  if(isJsonNumber(value)){if(('minimum' in schema&&compareNumbers(value,schema.minimum)<0)||('maximum' in schema&&compareNumbers(value,schema.maximum)>0))issue('invalid-value');}
+  else if(typeof value==='number' && (value<schema.minimum || value>schema.maximum)) issue('invalid-value');
   if(object(value)) {
     for(const key of schema.required??[]) if(!Object.hasOwn(value,key)) issue('missing-required','.'+key);
     for(const [key,item] of Object.entries(value)) {
@@ -23,7 +25,7 @@ export function structural(value, schema, path, errors) {
     }
   }
   if(Array.isArray(value)) {
-    if(schema.uniqueItems && new Set(value.map(x=>JSON.stringify(x))).size!==value.length) issue('duplicate-value');
+    if(schema.uniqueItems && new Set(value.map(x=>{try{return isJsonNumber(x)?x.canonical():JSON.stringify(x);}catch{return Symbol();}})).size!==value.length) issue('duplicate-value');
     if(schema.items) value.forEach((item,i)=>structural(item,schema.items,`${path}[${i}]`,errors));
   }
 }

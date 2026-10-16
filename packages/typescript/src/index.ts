@@ -23,4 +23,5 @@ export class Model {
 }
 type Claim={requirement:string,status:Status,evidence?:string[],reason?:string};
 function evaluate(candidate:string,requirements:string[],claims:Claim[]){const by=new Map(claims.map(c=>[c.requirement,c]));const checks=requirements.map(requirement=>by.get(requirement)??{requirement,status:"unknown" as Status,reason:"No candidate evidence supplied"});const states=new Set(checks.map(c=>c.status));return {candidate,result:states.has("fail")?"fail":checks.length>0&&states.size===1&&states.has("pass")?"pass":"partial",checks}}
-export {loadModel} from "./node.js";
+export {loadModel,loadModelLossless} from "./node.js";
+export {parseLossless,JsonNumber,canonicalLossless} from "./lossless-json.js";

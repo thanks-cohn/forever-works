@@ -1,3 +1,4 @@
+from .lossless import JsonNumber
 """Core-schema subset evaluator. Independent Draft 2020-12 oracle lives in scripts."""
 import json
 import re
@@ -12,11 +13,12 @@ def structural(value,schema,path,errors):
         schema=SCHEMAS[file]
         if fragment:
             for part in fragment[1:].split('/'): schema=schema[part]
-    types={'object':lambda v:isinstance(v,dict),'array':lambda v:isinstance(v,list),'string':lambda v:isinstance(v,str),'number':lambda v:type(v) in (int,float) and __import__('math').isfinite(v)}
+    types={'object':lambda v:isinstance(v,dict),'array':lambda v:isinstance(v,list),'string':lambda v:isinstance(v,str),'number':lambda v:isinstance(v,JsonNumber) or (type(v) in (int,float) and __import__('math').isfinite(v))}
     if 'type' in schema and not types[schema['type']](value): issue('invalid-type'); return
     if 'const' in schema and value!=schema['const']: issue('invalid-value')
     if 'enum' in schema and value not in schema['enum']: issue('invalid-classification' if path.endswith('.replacementClassification') else 'invalid-value')
     if isinstance(value,str) and 'pattern' in schema and not re.search(schema['pattern'],value): issue('invalid-value')
+    if isinstance(value,JsonNumber) and (('minimum' in schema and value.decimal<schema['minimum']) or ('maximum' in schema and value.decimal>schema['maximum'])): issue('invalid-value')
     if type(value) in (int,float) and (value<schema.get('minimum',float('-inf')) or value>schema.get('maximum',float('inf'))): issue('invalid-value')
     if isinstance(value,dict):
         for key in schema.get('required',[]):
@@ -26,7 +28,7 @@ def structural(value,schema,path,errors):
             if key in schema.get('properties',{}): structural(item,schema['properties'][key],path+'.'+key,errors)
             elif schema.get('additionalProperties') is False: issue('unknown-field','.'+key)
     if isinstance(value,list):
-        if schema.get('uniqueItems') and len({json.dumps(x,sort_keys=True) for x in value})!=len(value): issue('duplicate-value')
+        if schema.get('uniqueItems') and len({x.canonical() if isinstance(x,JsonNumber) else json.dumps(x,sort_keys=True,default=lambda v:v.canonical()) for x in value})!=len(value): issue('duplicate-value')
         if 'items' in schema:
             for i,item in enumerate(value): structural(item,schema['items'],f'{path}[{i}]',errors)
 

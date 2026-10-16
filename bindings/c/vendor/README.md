@@ -20,3 +20,10 @@ unescaped-control syntax), decoded duplicate-member checks, nesting and byte lim
 and real-target containment. Compile with `CJSON_NESTING_LIMIT=64`. Keep the local
 length patch and rerun malformed inputs, sanitizer checks and common fixtures when
 updating upstream. This is bounded validation, not hostile-filesystem race protection.
+
+The local parser also retains owned original numeric tokens. The lossless adapter
+checks token/coefficient/exponent limits and confidence bounds without converting to
+binary64. cJSON's internal double is not used as authority for those comparisons.
+`fw_load` retains the legacy finite-host input policy; `fw_load_lossless` admits the
+explicit bounded decimal domain. Creation/duplication APIs do not generally maintain
+our internal token fields and remain outside the adapter's supported mutation surface.

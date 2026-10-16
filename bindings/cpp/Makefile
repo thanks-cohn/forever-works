@@ -1,7 +1,7 @@
 CXX ?= c++
 CC ?= cc
 CXXFLAGS ?= -std=c++17 -Wall -Wextra -Werror -pedantic -O2
-build/forever.o: ../c/src/forever.c ../c/include/forever.h ../c/src/contracts.inc ../c/src/json_lex.h ../c/vendor/cJSON.h
+build/forever.o: ../c/src/forever.c ../c/include/forever.h ../c/src/contracts.inc ../c/src/json_lex.h ../c/src/decimal.h ../c/vendor/cJSON.h
 	mkdir -p build
 	$(CC) -std=c11 -Wall -Wextra -Werror -pedantic -O2 -I../c/include -c $< -o $@
 build/cjson.o: ../c/vendor/cJSON.c ../c/vendor/cJSON.h

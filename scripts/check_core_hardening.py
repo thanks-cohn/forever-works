@@ -82,6 +82,10 @@ if os.name=='nt':
    subprocess.run(['cmd','/c','mklink','/J',str(root/'linked'),str(target)],check=True,capture_output=True)
    manifest=copy.deepcopy(base);manifest['records']['capabilities']=['linked/record.json'];(root/'manifest.json').write_text(json.dumps(manifest))
    check(root,not outside,'junction-escape' if outside else 'junction-contained');total+=1
+# File names come from UTF-8 JSON too; content-only Unicode coverage is insufficient.
+with tempfile.TemporaryDirectory() as d:
+ root=Path(d);manifest=copy.deepcopy(base);manifest['records']['capabilities']=['réc😀.json'];(root/'manifest.json').write_bytes(json.dumps(manifest,ensure_ascii=False).encode('utf-8'));(root/'réc😀.json').write_bytes(json.dumps(good).encode())
+ check(root,True,'unicode-record-path');total+=1
 # Count and aggregate-byte limits with otherwise-valid unique records.
 for name,count,padding in [('record-limit',4097,0),('aggregate-byte-limit',18,950000)]:
  with tempfile.TemporaryDirectory() as d:

@@ -58,7 +58,8 @@ The filesystem adapters enforce the following bounded input policy:
 
 - UTF-8 with malformed byte sequences rejected; JSON syntax must be valid. Decoded
   strings must contain Unicode scalars (no unpaired surrogates); non-finite decoded
-  numbers are unsupported.
+  host numbers are unsupported in legacy mode; the lossless mode accepts finite
+  mathematical decimals within its documented token/exponent limits.
 - Duplicate decoded JSON member names rejected, including escaped equivalents.
 - Maximum nesting 64 (root at depth zero), 1,048,576 bytes per file,
   16,777,216 bytes including manifest, and 4,096 inventoried records.
@@ -96,14 +97,14 @@ BMP/supplementary Unicode, escaped strings, significant arrays, negative zero (o
 same serializer algorithm; Python supplies a separate implementation. C/C++ serialize
 preserved source documents and do not advertise canonical normalization.
 
-**Unresolved numeric boundary:** the original standard did not specify a JSON number
-precision domain. Current JS loaders use binary64 and can round integers beyond
-`2^53-1`, while Python and native raw serialization can preserve their original value.
-The adapters retain their existing large-number behavior rather than silently narrow
-Standard 0.1. Portable byte agreement is established only over the tested representable
-subset, not all allowed JSON numbers. A lossless JSON-number interface or an explicitly
-versioned restricted numeric profile needs acceptance and implementation before broad
-canonical/round-trip claims. This is a mandatory hardening gap, not a PASS.
+**Numeric modes:** the legacy host-number API retains its existing binary64 behavior
+in JS/TS. For portable preservation, select the additive
+[lossless interchange contract](LOSSLESS_JSON.md): exact original text, immutable
+numeric tokens, exact schema comparisons and separately versioned decimal-v1 output.
+This closes the advertised lossless path within explicit input/resource bounds,
+without narrowing Standard 0.1 or claiming to recover precision lost before ingestion.
+Native bindings expose an additive lossless loader with source-preserving output;
+canonical decimal-v1 is implemented in JS/TS and independently in Python.
 
 RFC 8785/JCS was assessed as an alternative: its compact bytes, UTF-16 ordering and
 ECMAScript number contract differ from the existing two-space/newline contract and

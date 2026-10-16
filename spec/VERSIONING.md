@@ -13,5 +13,7 @@ Deprecation must name the replacement, retained compatibility fixtures and suppo
 transition period before removal in an incompatible edition. Stronger conformance
 claims require operation-level fixtures and independent semantic implementation
 results; wrappers, shared algorithms and structural schema oracles must be labeled.
-Any new governance/acceptance body is a proposal until explicitly adopted. The numeric
-domain question recorded in docs/API/CORE_INPUT_AND_NORMALIZATION.md remains unresolved.
+Any new governance/acceptance body is a proposal until explicitly adopted. The numeric domain is handled through the optional additive decimal-v1 interchange
+contract (docs/API/LOSSLESS_JSON.md); legacy host-number interfaces remain compatible.
+Changing that profile's numeric bounds or canonical bytes incompatibly requires a new
+profile version, not a silent change to existing core records.

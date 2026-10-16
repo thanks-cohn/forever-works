@@ -118,6 +118,7 @@ typedef struct cJSON
     int valueint;
     /* The item's number, if type==cJSON_Number */
     double valuedouble;
+    char *numbertoken; /* Local: original parsed JSON numeric token, owned. */
 
     /* The item's name string, if this item is the child of, or is in the list of subitems of an object. */
     char *string;

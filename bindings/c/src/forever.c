@@ -13,6 +13,7 @@
 #include <unistd.h>
 #endif
 #include "contracts.inc"
+#include "decimal.h"
 #include "json_lex.h"
 typedef struct {
   char *id;
@@ -134,52 +135,86 @@ static int utf8(const unsigned char *p, size_t n) {
   }
   return 1;
 }
-static int bounded(const cJSON *v, int depth) {
+static int bounded(const cJSON *v, int depth, int lossless) {
   const cJSON *a, *b;
   if (depth > 64)
     return 0;
-  if (cJSON_IsNumber(v) && !isfinite(v->valuedouble))
-    return 0;
+  if (cJSON_IsNumber(v)) {
+    if (lossless) {
+      fw_decimal d;
+      if (!decimal_parse(v->numbertoken, &d))
+        return -1;
+    } else if (!isfinite(v->valuedouble))
+      return 0;
+  }
   cJSON_ArrayForEach(a, v) {
     if (cJSON_IsObject(v))
       for (b = a->next; b; b = b->next)
         if (a->string_length == b->string_length &&
             !memcmp(a->string, b->string, a->string_length))
           return 0;
-    if (!bounded(a, depth + 1))
-      return 0;
+    {
+      int result = bounded(a, depth + 1, lossless);
+      if (result <= 0)
+        return result;
+    }
   }
   return 1;
 }
+#ifdef _WIN32
+static wchar_t *wide_path(const char *path) {
+  int n = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, path, -1, NULL, 0);
+  wchar_t *out = n ? malloc((size_t)n * sizeof *out) : NULL;
+  if (out &&
+      !MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, path, -1, out, n)) {
+    free(out);
+    return NULL;
+  }
+  return out;
+}
+#endif
 static char *real_target(const char *path) {
 #ifdef _WIN32
-  HANDLE h = CreateFileA(path, 0,
-                         FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
-                         NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
-  char buf[32768];
+  wchar_t *wide = wide_path(path), buf[32768];
+  HANDLE h;
   DWORD n;
+  int bytes;
   char *out;
+  if (!wide)
+    return NULL;
+  h = CreateFileW(wide, 0,
+                  FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL,
+                  OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
+  free(wide);
   if (h == INVALID_HANDLE_VALUE)
     return NULL;
-  n = GetFinalPathNameByHandleA(h, buf, sizeof buf, FILE_NAME_NORMALIZED);
+  n = GetFinalPathNameByHandleW(h, buf, 32768, FILE_NAME_NORMALIZED);
   CloseHandle(h);
-  if (!n || n >= sizeof buf)
+  if (!n || n >= 32768)
     return NULL;
-  out = malloc(n + 1);
-  if (out)
-    memcpy(out, buf, n + 1);
+  bytes = WideCharToMultiByte(CP_UTF8, 0, buf, -1, NULL, 0, NULL, NULL);
+  out = bytes ? malloc((size_t)bytes) : NULL;
+  if (out &&
+      !WideCharToMultiByte(CP_UTF8, 0, buf, -1, out, bytes, NULL, NULL)) {
+    free(out);
+    return NULL;
+  }
   return out;
 #else
   return realpath(path, NULL);
 #endif
 }
+
 static cJSON *readjson(const char *root, const char *path, size_t *total,
-                       char **raw, fw_error *e) {
+                       char **raw, fw_error *e, int lossless) {
   char *target = real_target(path), *data;
   FILE *f;
   long n;
+  int bound;
   cJSON *v;
+#ifndef _WIN32
   struct stat st;
+#endif
   size_t length = strlen(root);
   if (!target) {
     error(e, "io", path);
@@ -191,12 +226,28 @@ static cJSON *readjson(const char *root, const char *path, size_t *total,
     error(e, "path-escape", path);
     return NULL;
   }
+#ifdef _WIN32
+  {
+    wchar_t *wide = wide_path(target);
+    DWORD attrs = wide ? GetFileAttributesW(wide) : INVALID_FILE_ATTRIBUTES;
+    if (attrs == INVALID_FILE_ATTRIBUTES ||
+        (attrs & FILE_ATTRIBUTE_DIRECTORY)) {
+      free(wide);
+      free(target);
+      error(e, "invalid-path", path);
+      return NULL;
+    }
+    f = _wfopen(wide, L"rb");
+    free(wide);
+  }
+#else
   if (stat(target, &st) || !S_ISREG(st.st_mode)) {
     free(target);
     error(e, "invalid-path", path);
     return NULL;
   }
   f = fopen(target, "rb");
+#endif
   free(target);
   if (!f) {
     error(e, "io", path);
@@ -235,10 +286,11 @@ static cJSON *readjson(const char *root, const char *path, size_t *total,
     return NULL;
   }
   v = cJSON_ParseWithLengthOpts(data, (size_t)n + 1, NULL, 1);
-  if (!v || !bounded(v, 0)) {
+  bound = v ? bounded(v, 0, lossless) : 0;
+  if (bound <= 0) {
     free(data);
     cJSON_Delete(v);
-    error(e, "invalid-json", path);
+    error(e, bound < 0 ? "resource-limit" : "invalid-json", path);
     return NULL;
   }
   if (raw)
@@ -303,9 +355,16 @@ static int structure(const cJSON *v, const cJSON *s, const cJSON *schemas,
   if (cJSON_IsNumber(v)) {
     a = get(s, "minimum");
     b = get(s, "maximum");
-    if (!isfinite(v->valuedouble) || (a && v->valuedouble < a->valuedouble) ||
-        (b && v->valuedouble > b->valuedouble))
-      return error(e, "invalid-value", path);
+    if (a || b) {
+      fw_decimal value, limit;
+      if (!decimal_parse(v->numbertoken, &value))
+        return error(e, "resource-limit", path);
+      if ((a && (!decimal_parse(a->numbertoken, &limit) ||
+                 decimal_compare(&value, &limit) < 0)) ||
+          (b && (!decimal_parse(b->numbertoken, &limit) ||
+                 decimal_compare(&value, &limit) > 0)))
+        return error(e, "invalid-value", path);
+    }
   }
   pattern = str(get(s, "pattern"));
   if (pattern && cJSON_IsString(v)) {
@@ -363,7 +422,7 @@ static int structure(const cJSON *v, const cJSON *s, const cJSON *schemas,
   }
   return 1;
 }
-fw_model *fw_load(const char *dir, fw_error *e) {
+static fw_model *load(const char *dir, fw_error *e, int lossless) {
   char path[32768], *root = real_target(dir);
   size_t total = 0;
   const cJSON *groups, *paths, *entry;
@@ -378,7 +437,7 @@ fw_model *fw_load(const char *dir, fw_error *e) {
     error(e, "resource-limit", "path");
     goto fail;
   }
-  m->manifest = readjson(root, path, &total, &m->manifest_json, e);
+  m->manifest = readjson(root, path, &total, &m->manifest_json, e, lossless);
   if (!m->manifest ||
       !structure(m->manifest, get(schemas, "manifest.schema.json"), schemas,
                  "manifest", e))
@@ -413,7 +472,7 @@ fw_model *fw_load(const char *dir, fw_error *e) {
         goto fail;
       }
     }
-    v = readjson(root, path, &total, &raw, e);
+    v = readjson(root, path, &total, &raw, e, lossless);
     if (!v)
       goto fail;
     next = realloc(m->records, (m->count + 1) * sizeof *next);
@@ -620,4 +679,9 @@ char *fw_serialize(const fw_model *m) {
   strcpy(cursor, (const char *)end);
   free(order);
   return out;
+}
+
+fw_model *fw_load(const char *dir, fw_error *e) { return load(dir, e, 0); }
+fw_model *fw_load_lossless(const char *dir, fw_error *e) {
+  return load(dir, e, 1);
 }

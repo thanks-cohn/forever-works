@@ -11,6 +11,13 @@ with tempfile.TemporaryDirectory() as d:
  payloads += [bytes(rng.randrange(256) for _ in range(rng.randrange(0,512))) for _ in range(128)]
  for i,data in enumerate(payloads):
   (root/'record.json').write_bytes(data)
-  result=subprocess.run(['bindings/c/build/probe',str(root)],capture_output=True,check=True)
-  assert not json.loads(result.stdout)['valid'],i
-print(f'{len(payloads)} deterministic malformed inputs: no sanitizer failure and no false valid result')
+  for mode in [[],['lossless']]:
+   result=subprocess.run(['bindings/c/build/probe',str(root),*mode],capture_output=True,check=True)
+   assert not json.loads(result.stdout)['valid'],i
+ for case in json.loads(Path('conformance/lossless/numbers.json').read_text()):
+  raw='{"foreverVersion":"0.1","id":"good","kind":"capability","name":"Good","statement":"Good","future":'+case['token']+'}'
+  (root/'record.json').write_bytes(raw.encode())
+  result=subprocess.run(['bindings/c/build/probe',str(root),'serialize','lossless'],capture_output=True,check=True)
+  assert raw.encode() in result.stdout
+
+print(f'{len(payloads)*2} malformed-mode checks and 25 lossless serializations: no sanitizer failure or false valid result')

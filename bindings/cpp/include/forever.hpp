@@ -8,7 +8,7 @@ namespace foreverworks {
 class model {
  fw_model *value_{};
 public:
- explicit model(const std::string& path){fw_error e{};value_=fw_load(path.c_str(),&e);if(!value_)throw std::runtime_error(e.message);}
+ explicit model(const std::string& path,bool lossless=false){fw_error e{};value_=lossless?fw_load_lossless(path.c_str(),&e):fw_load(path.c_str(),&e);if(!value_)throw std::runtime_error(e.message);}
  ~model(){fw_free(value_);} model(const model&)=delete; model& operator=(const model&)=delete;
  model(model&&o) noexcept:value_(o.value_){o.value_=nullptr;}
  std::size_t size()const noexcept{return fw_record_count(value_);}

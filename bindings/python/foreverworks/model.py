@@ -1,4 +1,5 @@
 from __future__ import annotations
+from .lossless import parse_lossless, canonical_lossless
 import json
 from .structure import validate_structure, SCHEMAS
 from pathlib import Path
@@ -145,11 +146,11 @@ def _evaluation(candidate,requirements,claims):
         else: checks.append({"requirement":req,"status":"unknown","reason":"No candidate evidence supplied"})
     return {"candidate":candidate,"result":_overall(checks),"checks":checks}
 
-def _load_model(root):
+def _load_model(root,lossless=False):
     from pathlib import PureWindowsPath
     root=Path(root); root=root.parent if root.name=="manifest.json" else root
     root=root.resolve(strict=True)
-    total=0
+    total=0;documents=[]
     def pairs(items):
         result={}
         for key,value in items:
@@ -176,6 +177,10 @@ def _load_model(root):
             if size>1048576 or total>16777216: raise ModelError("resource-limit: model byte limit")
             with path.open('rb') as stream: data=stream.read(1048577)
             if len(data)>1048576: raise ModelError("resource-limit: file byte limit")
+            if lossless:
+                document=parse_lossless(data)
+                documents.append({'path':path.relative_to(root).as_posix(),'document':document})
+                return document.value
             value=json.loads(data.decode('utf-8'),object_pairs_hook=pairs,parse_constant=lambda _: (_ for _ in ()).throw(ModelError('invalid-json-number')))
             depth(value)
             return value
@@ -192,13 +197,27 @@ def _load_model(root):
             seen.add(path)
             if len(seen)>4096: raise ModelError('resource-limit: record count exceeds 4096')
             records.append(read(path))
+    if lossless: return LosslessModel(manifest,records,root,documents)
     return Model(manifest,records,root)
 
-def load_model(root):
-    try: return _load_model(root)
+def _load(root,lossless=False):
+    try: return _load_model(root,lossless)
     except ModelError as e:
         e.stage='load'
         if e.path is None: e.path=str(root)
         raise
-    except (OSError,UnicodeError,RecursionError) as e:
+    except ValueError as e:
+        code=str(e).split(':',1)[0]
+        if code not in {'invalid-number','duplicate-member','resource-limit'}:code='invalid-input'
+        raise ModelError(code+': cannot read lossless JSON',code=code,path=str(root),stage='load') from e
+    except (OSError,RecursionError) as e:
         raise ModelError('io: model input cannot be read',code='io',path=str(root),stage='load') from e
+
+class LosslessModel(Model):
+    def __init__(self,manifest,records,root,documents):
+        super().__init__(manifest,records,root);self.documents=tuple(documents)
+    def normalized(self):return canonical_lossless({**self.manifest,'records':sorted(self.records,key=lambda r:r['id'])})
+    def source_documents(self):return self.documents
+
+def load_model(root):return _load(root)
+def load_model_lossless(root):return _load(root,True)

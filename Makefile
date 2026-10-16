@@ -26,6 +26,7 @@ hardening: test-typescript
 	$(MAKE) -C bindings/c build/probe
 	$(MAKE) -C bindings/cpp build/probe
 	$(PYTHON) scripts/check_core_hardening.py
+	$(PYTHON) scripts/check_lossless.py
 
 sanitizer:
 	$(MAKE) -C bindings/c clean build/probe CFLAGS='-std=c11 -Wall -Wextra -Werror -pedantic -g -O1 -fsanitize=address,undefined -fno-omit-frame-pointer -fno-pie -no-pie'

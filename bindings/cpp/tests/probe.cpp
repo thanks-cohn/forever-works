@@ -1,13 +1,20 @@
 #include "forever.hpp"
 #include <iostream>
 int main(int argc, char **argv) {
-  if (argc < 2 || argc > 3)
+  bool lossless = false, serialize = false;
+  for (int i = 2; i < argc; i++) {
+    if (std::string(argv[i]) == "lossless")
+      lossless = true;
+    if (std::string(argv[i]) == "serialize")
+      serialize = true;
+  }
+  if (argc < 2 || argc > 4)
     return 2;
   try {
-    foreverworks::model m(argv[1]);
+    foreverworks::model m(argv[1], lossless);
     try {
       m.validate();
-      if (argc == 3) {
+      if (serialize) {
         std::cout << m.serialize();
         return 0;
       }

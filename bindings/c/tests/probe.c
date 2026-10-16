@@ -1,17 +1,25 @@
 #include "forever.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 int main(int argc, char **argv) {
   fw_error e = {{0}, {0}};
   fw_model *m;
-  if (argc < 2 || argc > 3)
+  int lossless = 0, serialize = 0, i;
+  for (i = 2; i < argc; i++) {
+    if (!strcmp(argv[i], "lossless"))
+      lossless = 1;
+    if (!strcmp(argv[i], "serialize"))
+      serialize = 1;
+  }
+  if (argc < 2 || argc > 4)
     return 2;
-  m = fw_load(argv[1], &e);
+  m = lossless ? fw_load_lossless(argv[1], &e) : fw_load(argv[1], &e);
   if (!m) {
     printf("{\"loaded\":false,\"valid\":false,\"code\":\"%s\"}\n", e.code);
     return 0;
   }
-  if (argc == 3) {
+  if (serialize) {
     char *serialized = fw_serialize(m);
     if (!serialized) {
       fw_free(m);

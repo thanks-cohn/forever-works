@@ -104,3 +104,22 @@ including claims with optional evidence. It is not an observed execution result.
 Neither replacement nor migration verification executes commands, fetches evidence
 URIs or converts confidence into authority. No stronger evidence policy is added to
 API v0.1 by this hardening change.
+
+## 10. Optional lossless interchange
+
+`loadModelLossless`, `parseLossless`, `JsonNumber` and `canonicalLossless` are additive
+adapter helpers, not new v0.1 discovery operations or a new model edition. See
+[LOSSLESS_JSON.md](LOSSLESS_JSON.md) for the exact supported decimal domain, source
+preservation, token-aware model queries, schema checks and decimal-v1 byte format.
+Existing consumers retain their host-number values and historical normalization.
+Applications must use the lossless writer for token-bearing values; ordinary JSON
+serialization is deliberately rejected rather than silently emitting token objects.
+Parser/profile errors use `invalid-number`, `resource-limit`, `invalid-unicode`,
+`duplicate-member` or `invalid-json`; projections use `unsafe-host-number`,
+`lossy-number-projection`, `unsupported-host-number` and explicit-writer/coercion errors.
+Filesystem loaders retain their existing structured failure stage/path mechanisms.
+
+CLI mapping: global `--lossless` selects token-aware loading and decimal-v1 JSON for
+existing commands; `normalize` remains its existing command name. Without the flag,
+loading/output are unchanged. This optional mode does not make the CLI a complete
+Public API v0.1 adapter. Parse/projection/resource failures remain operational failures.

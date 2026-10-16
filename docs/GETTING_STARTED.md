@@ -30,3 +30,28 @@ Continue to [Public API v0.1](API/PUBLIC_API_V0_1.md), the
 [portable fixture examples](../conformance/fixtures) and
 [conformance support](CONFORMANCE.md). Reading an evidence record never executes its
 command or follows its URI.
+
+## Exact numeric metadata
+
+Plain JavaScript, no TypeScript compiler:
+
+```js
+import {parseLossless} from "@forever-works/javascript/lossless";
+const document = parseLossless('{"revision":9007199254740993}');
+console.log(document.source());       // original token and whitespace
+console.log(document.canonical());    // exact decimal-v1 JSON
+```
+
+Use `loadModelLossless` from the main package for file models. Token values require
+`canonicalLossless`; ordinary `JSON.stringify` deliberately rejects them. Existing
+`loadModel` keeps host-number ergonomics and its documented precision limits.
+
+The existing CLI has the same opt-in mode:
+
+```sh
+packages/cli/bin/forever --lossless --root conformance/lossless/forever validate
+packages/cli/bin/forever --lossless --root conformance/lossless/forever normalize
+```
+
+The fixture includes large integers, precise decimals and tiny/huge finite exponents.
+The lossless mode emits plain UTF-8 JSON, never SDK-specific token objects.

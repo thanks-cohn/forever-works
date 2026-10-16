@@ -7,6 +7,8 @@ extern "C" {
 typedef struct fw_model fw_model;
 typedef struct { char code[40]; char message[256]; } fw_error;
 fw_model *fw_load(const char *model_directory, fw_error *error);
+/* Additive exact-decimal input path; serialized source remains plain JSON. */
+fw_model *fw_load_lossless(const char *model_directory, fw_error *error);
 void fw_free(fw_model *model);
 size_t fw_record_count(const fw_model *model);
 const char *fw_get_entity_json(const fw_model *model, const char *id);

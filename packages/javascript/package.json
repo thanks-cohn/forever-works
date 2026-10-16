@@ -5,10 +5,19 @@
   "type": "module",
   "exports": {
     ".": "./src/index.js",
-    "./core": "./src/model.js"
+    "./core": "./src/model.js",
+    "./lossless": "./src/lossless-model.js"
   },
-  "files": ["src", "README.md", "LICENSE"],
-  "engines": {"node": ">=20"},
-  "scripts": {"test": "node --test test/*.test.js"},
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
   "license": "MIT"
 }

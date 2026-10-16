@@ -16,3 +16,7 @@ evaluation=run(root,'evaluate-replacement','dependency.old-streamer','implementa
 assert evaluation['result']=='partial'
 assert next(c for c in evaluation['checks'] if c['requirement']=='invariant.bounded-memory')['status']=='unknown'
 print('Documented validate, trace, explain and unknown-claim path passed')
+
+raw=subprocess.check_output([cli,'--lossless','--root','conformance/lossless/forever','normalize'],text=True)
+assert raw==Path('conformance/lossless/model.expected.json').read_text()
+print('Documented lossless CLI emits the exact decimal-v1 golden')

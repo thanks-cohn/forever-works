@@ -1,8 +1,10 @@
 import argparse, json, sys
 from pathlib import Path
-from .model import ModelError, load_model
+from .model import ModelError, load_model, load_model_lossless
+from .lossless import canonical_lossless
 DIRS={"capabilities":"capabilities","invariants":"invariants","constraints":"constraints","dependencies":"dependencies","decisions":"decisions","compatibility":"compatibility","migrations":"migrations","implementations":"implementations","evidence":"evidence"}
-def emit(value, structured=True):
+def emit(value, structured=True, lossless=False):
+    if lossless: print(canonical_lossless(value),end=""); return
     if structured: print(json.dumps(value,indent=2,sort_keys=True,ensure_ascii=False))
     elif isinstance(value,list):
         for item in value: print(item.get("id",item))
@@ -18,7 +20,7 @@ def init(path):
     (root/"manifest.json").write_text(json.dumps(manifest,indent=2)+"\n")
     return {"created":str(root),"files":["manifest.json","project.intent.json"],"note":"TODO values are not architectural facts"}
 def main(argv=None):
-    p=argparse.ArgumentParser(prog="forever"); p.add_argument("--root",default="forever"); p.add_argument("--json",action="store_true")
+    p=argparse.ArgumentParser(prog="forever"); p.add_argument("--root",default="forever"); p.add_argument("--json",action="store_true"); p.add_argument("--lossless",action="store_true",help="exact decimal tokens and decimal-v1 JSON")
     sub=p.add_subparsers(dest="command",required=True)
     q=sub.add_parser("init"); q.add_argument("path",nargs="?",default=".")
     for name in ("validate","inspect","audit","normalize"): sub.add_parser(name)
@@ -28,7 +30,7 @@ def main(argv=None):
     try:
         if args.command=="init": out=init(args.path)
         else:
-            model=load_model(args.root)
+            model=(load_model_lossless if args.lossless else load_model)(args.root)
             if args.command=="validate": out={"valid":not model.validate(),"errors":model.validate()}
             elif args.command=="inspect": out={"projectId":model.manifest.get("projectId"),"foreverVersion":model.manifest.get("foreverVersion"),"counts":{k:len(model.list(k)) for k in sorted(__import__('foreverworks.model',fromlist=['KINDS']).KINDS)}}
             elif args.command=="audit": out={"issues":model.audit(),"issueCount":len(model.audit())}
@@ -37,6 +39,6 @@ def main(argv=None):
             elif args.command=="evaluate-replacement": out=model.evaluate_replacement(args.current,args.candidate)
             elif args.command=="verify-migration": out=model.verify_migration(args.id)
             elif args.command=="normalize": sys.stdout.write(model.normalized()); return 0
-        emit(out,args.json or args.command in ("validate","inspect","audit","evaluate-replacement","verify-migration","normalize")); return 0
+        emit(out,args.json or args.command in ("validate","inspect","audit","evaluate-replacement","verify-migration","normalize"),lossless=args.lossless); return 0
     except ModelError as e: print(str(e),file=sys.stderr); return 2
 if __name__=="__main__": raise SystemExit(main())

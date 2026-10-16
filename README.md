@@ -36,6 +36,9 @@ console.log(forever.getProjectIntent());
 
 This package is dependency-free plain ESM and does not require a TypeScript compiler.
 
+For exact large integers and high-precision decimal metadata, use the optional
+[lossless text API](docs/API/LOSSLESS_JSON.md). Existing APIs keep native-number behavior.
+
 ## End-to-end proof
 
 The canonical product is [`docs/STANDARD.md`](docs/STANDARD.md), the JSON Schemas in `spec/schemas`, and shared conformance behavior. JavaScript, TypeScript, C, Python, and the C++ wrapper are proof targets—not the definition; C++ wraps C, and JS/TS share structural and serialization algorithms. The dependency-free JavaScript package is authored and tested as plain ESM; its evidence does not depend on compiling TypeScript.
