@@ -71,6 +71,10 @@ Read the [foundational proposal](docs/FOUNDATIONAL_PROPOSAL.md), [standard](docs
 
 [From Foundation to Intelligence — A Self-Describing Artificial Intelligence](docs/PROPOSALS/FOUNDATION_TO_INTELLIGENCE_SELF_DESCRIBING_AI.md) proposes building a new AI from an experimental operating-system kernel upward, continuously describing its hardware assumptions, system software, numerical execution, learning architecture, training lineage, runtime, and interaction through Forever Works. It explores evidence-backed engineering introspection and cold-agent reconstruction, explicitly distinguishing architectural self-knowledge from consciousness or complete mechanistic interpretability. **Non-normative and unimplemented; Standard 0.1 and Public API v0.1 are unchanged.**
 
+## Foundational doctrine: Purpose-Preserving Reconstitution
+
+[Purpose-Preserving Reconstitution](docs/PROPOSALS/PURPOSE_PRESERVING_RECONSTITUTION.md) explains why the original implementation is evidence of purpose rather than an architectural mandate. It formalizes extracting enduring intent from tangled legacy code, investigating why historical decisions were made, protecting undocumented but valuable behavior, reconciling conflicting purposes, and independently verifying a successor even when its entire architecture changes. It also compares Forever Works with arc42, StrictDoc, OpenSpec, and Software Heritage and proposes a fair cold-reconstruction benchmark. **Non-normative doctrine and research; Standard 0.1 remains unchanged.**
+
 ## Research proposal: Selective Reconstitution
 
 [Selective Reconstitution — Capability Recovery from Entangled Software](docs/PROPOSALS/SELECTIVE_RECONSTITUTION_CAPABILITY_EXTRACTION.md) proposes extracting owner-selected working capabilities from legacy programs, documenting both their framework-neutral semantics and real intermeshed dependency mechanisms, and rebuilding only the selected behavior with independent cold-agent acceptance evidence. This is a **non-normative research proposal**, not an implemented command or a change to Standard 0.1.
