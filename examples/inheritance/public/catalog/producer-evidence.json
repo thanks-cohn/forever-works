@@ -6,6 +6,7 @@
     "byte-identical retry has no extra revision",
     "immutable identity conflict preserves original state",
     "stale catalog revision cannot overwrite state",
+    "partial cross-store denial disclosed; explicit grant recovery preserves identities and data",
     "independent producer restarts preserve committed identities/data",
     "cross-service grant rejected; invalid Base64/duplicate members rejected",
     "clean-store round trip preserves both identities and all document bytes",

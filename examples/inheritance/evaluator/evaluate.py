@@ -85,7 +85,8 @@ def evaluate(endpoints,grants,adapter,proxy_bind="127.0.0.1",proxy_host="127.0.0
         assert json.loads(data,parse_float=Decimal)['metadata']['precision']==9007199254740993
         return headers['ETag']
     # Deliberately deny writes first: no state may appear and no default grant may be guessed.
-    adapter({**case,'objectGrant':grants['objects-read'],'catalogGrant':grants['catalog-read']})
+    denied=adapter({**case,'objectGrant':grants['objects-read'],'catalogGrant':grants['catalog-read']})
+    assert denied.get('outcome')!='complete'
     assert get('objects','/objects/'+objid)[0]==404 and get('catalog','/items/'+itemid)[0]==404
     observations.append('read-only grants cause no writes')
     with DropOneResponse(endpoints['objects'],proxy_bind,proxy_host) as proxy:
@@ -97,6 +98,17 @@ def evaluate(endpoints,grants,adapter,proxy_bind="127.0.0.1",proxy_host="127.0.0
     observations.append('immutable identity conflict preserves original state')
     adapter({**case,'itemDocument':item.replace('Held out','Changed'),'catalogETag':'"0"'})
     assert preserved()==etag;observations.append('stale catalog revision cannot overwrite state')
+    # A denied second store may leave an object behind; never invent atomic rollback.
+    partial_obj=obj.replace(objid,objid+'-partial');partial_item=item.replace(itemid,itemid+'-partial').replace(objid,objid+'-partial')
+    limited={**case,'objectDocument':partial_obj,'itemDocument':partial_item,'catalogGrant':grants['catalog-read']}
+    result=adapter(limited);assert result.get('outcome')!='complete'
+    assert get('catalog','/items/'+itemid+'-partial')[0]==404
+    status,_,data=get('objects','/objects/'+objid+'-partial')
+    assert status==404 or (status==200 and data.decode()==partial_obj)
+    adapter({**limited,'catalogGrant':grants['catalog-write']})
+    assert get('catalog','/items/'+itemid+'-partial')[2].decode()==partial_item
+    assert get('objects','/objects/'+objid+'-partial')[2].decode()==partial_obj
+    observations.append('partial cross-store denial disclosed; explicit grant recovery preserves identities and data')
     # Round-trip via newly addressed IDs is not allowed to silently replace identity.
     # The exported bytes are returned to an outer controller for a clean-store import.
     return {'checks':observations,'exported':{'objectDocument':obj,'itemDocument':item,'catalogETag':'"0"'},'construction':'NOT_RUN' if adapter is reference_adapter else 'consumer execution; isolation must be separately evidenced'}
