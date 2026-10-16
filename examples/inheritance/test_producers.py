@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 ROOT=Path(__file__).resolve().parents[2]
 BASE=Path(__file__).resolve().parent
@@ -61,6 +62,32 @@ def main():
             assert request(fresh.endpoints['catalog'],'/items/'+identity,grant=fresh.grants['catalog-read'])[2].decode()==exported['itemDocument']
             assert request(fresh.endpoints['objects'],'/objects/'+asset,grant=fresh.grants['objects-read'])[2].decode()==exported['objectDocument']
         report['checks'].append('clean-store round trip preserves both identities and all document bytes')
+        # Exercise the delivered external evaluator CLI with a clearly source-aware fixture adapter.
+        # This verifies stdin/result/lifecycle plumbing, not independent construction.
+        with Producers(root/'external-primary') as primary, Producers(root/'external-clean') as clean:
+            control=root/'control';control.mkdir();endpoints=control/'endpoints.json';endpoints.write_text(json.dumps(primary.endpoints))
+            for name,value in [('grants',primary.grants),('clean-endpoints',clean.endpoints),('clean-grants',clean.grants)]: (control/(name+'.json')).write_text(json.dumps(value))
+            driver=control/'reference_driver.py'
+            driver.write_text('import sys,json\nsys.path.insert(0,'+repr(str(BASE/'evaluator'))+')\nfrom evaluate import reference_adapter\nprint(json.dumps(reference_adapter(json.load(sys.stdin))))\n')
+            (control/'adapter.json').write_text(json.dumps([sys.executable,str(driver)]))
+            hook=control/'trusted_hook.py';requested=control/'restart-request';completed=control/'restart-complete'
+            hook.write_text('import pathlib,time\np=pathlib.Path('+repr(str(requested))+');p.write_text("request")\ndeadline=time.monotonic()+15\nwhile not pathlib.Path('+repr(str(completed))+').exists():\n if time.monotonic()>deadline:raise RuntimeError("restart timeout")\n time.sleep(.05)\n')
+            (control/'hook.json').write_text(json.dumps([sys.executable,str(hook)]))
+            stop=threading.Event();errors=[]
+            def restart_control():
+                try:
+                    while not requested.exists():
+                        if stop.wait(.05):return
+                    primary.restart('catalog');primary.restart('objects');endpoints.write_text(json.dumps(primary.endpoints));completed.write_text('ready')
+                except Exception as e:errors.append(e)
+            thread=threading.Thread(target=restart_control);thread.start()
+            try:
+                command=[sys.executable,str(BASE/'evaluator/evaluate.py'),'--endpoints',str(endpoints),'--grants',str(control/'grants.json'),'--adapter-argv',str(control/'adapter.json'),'--clean-endpoints',str(control/'clean-endpoints.json'),'--clean-grants',str(control/'clean-grants.json'),'--restart-argv',str(control/'hook.json')]
+                result=subprocess.run(command,check=True,capture_output=True,text=True,env=ENV,timeout=45)
+                assert 'clean-store import' in result.stdout
+            finally:stop.set();thread.join(timeout=10)
+            assert not errors,errors
+        report['checks'].append('external evaluator CLI, trusted restart hook and clean-store import passed with source-aware fixture adapter')
         # Real CLI lifecycle, synthetic setup and safe bounded reset.
         state=root/'cli-state';ready=root/'ready.json'
         child=subprocess.Popen([sys.executable,str(BASE/'run.py'),'start','--state',str(state),'--ready',str(ready)],env=ENV,stdout=subprocess.DEVNULL)

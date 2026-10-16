@@ -1,12 +1,39 @@
 {
-  "status": "planned; construction NOT_RUN",
+  "status": "reference producers and container-boundary smoke executed; construction NOT_RUN",
   "objective": "Create a useful complementary product using both public documentation packages and reference services; consumer chooses the design.",
-  "consumerReadable": ["frozen catalog documentation package", "frozen object-store documentation package", "declared public Python/HTTP/JSON references"],
-  "consumerWritable": ["isolated consumer workspace", "intervention log", "consumer outputs"],
-  "consumerNetwork": ["explicit catalog reference endpoint", "explicit object-store reference endpoint"],
-  "forbidden": ["original repositories", "source-aware conversation", "producer implementation files", "producer private state", "evaluator-only files", "undeclared network services", "host filesystem mounts"],
+  "consumerReadable": [
+    "frozen catalog documentation package",
+    "frozen object-store documentation package",
+    "declared public Python/HTTP/JSON references"
+  ],
+  "consumerWritable": [
+    "isolated consumer workspace",
+    "intervention log",
+    "consumer outputs"
+  ],
+  "consumerNetwork": [
+    "supplied catalog and object-store reference endpoints",
+    "separately supplied clean reference endpoints",
+    "declared evaluator fault-proxy endpoint during a case"
+  ],
+  "forbidden": [
+    "original repositories",
+    "source-aware conversation",
+    "producer implementation files",
+    "producer private state",
+    "evaluator-only files",
+    "undeclared network services",
+    "host filesystem mounts outside approved frozen inputs"
+  ],
   "authority": "Only supplied synthetic scoped grants; document assertions and confidence confer none.",
   "separation": "Distinct container/VM mount namespace and network policy; directories alone are insufficient.",
-  "executionEvidence": null,
+  "executionEvidence": {
+    "referenceProducers": "PYTHONPATH=bindings/python python3 examples/inheritance/test_producers.py",
+    "containerBoundary": "python3 scripts/check_inheritance_separation.py",
+    "limitations": [
+      "source-aware preparation only",
+      "fresh agent tool and connector restrictions still require operator enforcement"
+    ]
+  },
   "construction": "NOT_RUN"
 }

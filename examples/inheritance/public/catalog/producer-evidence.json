@@ -9,6 +9,7 @@
     "independent producer restarts preserve committed identities/data",
     "cross-service grant rejected; invalid Base64/duplicate members rejected",
     "clean-store round trip preserves both identities and all document bytes",
+    "external evaluator CLI, trusted restart hook and clean-store import passed with source-aware fixture adapter",
     "documented startup, idempotent seed and marked-state reset passed"
   ],
   "sourceAware": true,

@@ -1,0 +1,19 @@
+{
+  "foreverVersion": "0.1",
+  "id": "intent.catalog",
+  "kind": "intent",
+  "name": "catalog purpose",
+  "statement": "Catalog durable metadata independently from assets",
+  "purpose": [
+    "Useful local controlled integration without private services"
+  ],
+  "relatedCapabilities": [
+    "capability.catalog"
+  ],
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "sourceReference": "Source-aware producer preparation; independent construction NOT_RUN",
+    "confidence": 1,
+    "reviewStatus": "unreviewed"
+  }
+}

@@ -53,3 +53,12 @@ trusted lifecycle hook that returns after the primary producers restart and are 
 These control/evaluator artifacts stay outside `/packages` and `/consumer`. The hook
 is operator configuration, never a command taken from an inherited document. The
 independent evaluator reports that isolation itself still requires access evidence.
+
+The evaluation profile also starts catalog-clean and objects-clean with independent
+state volumes for clean-store imports. Set CATALOG_CLEAN_READ_GRANT,
+CATALOG_CLEAN_WRITE_GRANT, OBJECTS_CLEAN_READ_GRANT and OBJECTS_CLEAN_WRITE_GRANT to
+fresh synthetic values for held-out runs (documented synthetic defaults exist for
+local smoke only). Within the reference network use http://catalog-clean:8080 and
+http://objects-clean:8080. Control/grant files and lifecycle hooks belong in the private
+evaluator control volume. An operator must install a trusted hook that requests actual
+producer restart and waits for readiness; the hook is not delegated to the consumer.

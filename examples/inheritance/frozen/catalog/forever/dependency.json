@@ -1,0 +1,23 @@
+{
+  "foreverVersion": "0.1",
+  "id": "dependency.catalog",
+  "kind": "dependency",
+  "dependencyName": "SQLite and HTTP in Python standard library",
+  "dependencyType": "local-example implementation mechanism",
+  "purpose": "Auditable durable state and independent local process boundary",
+  "reasonSelected": "Small standard tooling, transactional persistence, no paid infrastructure",
+  "replacementClassification": "CAPABILITY",
+  "currentImplementation": "implementation.catalog",
+  "requiredCapabilities": [
+    "capability.catalog"
+  ],
+  "protectedInvariants": [
+    "invariant.catalog"
+  ],
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "sourceReference": "Source-aware producer preparation; independent construction NOT_RUN",
+    "confidence": 1,
+    "reviewStatus": "unreviewed"
+  }
+}

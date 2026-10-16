@@ -1,0 +1,19 @@
+{
+  "foreverVersion": "0.1",
+  "id": "intent.objects",
+  "kind": "intent",
+  "name": "objects purpose",
+  "statement": "Preserve immutable assets independently from catalogs",
+  "purpose": [
+    "Useful local controlled integration without private services"
+  ],
+  "relatedCapabilities": [
+    "capability.objects"
+  ],
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "sourceReference": "Source-aware producer preparation; independent construction NOT_RUN",
+    "confidence": 1,
+    "reviewStatus": "unreviewed"
+  }
+}

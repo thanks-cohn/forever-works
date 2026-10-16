@@ -1,0 +1,26 @@
+{
+  "foreverVersion": "0.1",
+  "id": "invariant.catalog",
+  "kind": "invariant",
+  "name": "Preserved state and grants",
+  "statement": "Committed documents preserve exact numeric and opaque fields; read grants cannot write.",
+  "severity": "critical",
+  "scope": [
+    "capability.catalog"
+  ],
+  "verification": [
+    {
+      "type": "integration-test",
+      "expected": "Published state, grant, conflict and retry obligations hold in reference tests",
+      "evidence": [
+        "evidence.catalog"
+      ]
+    }
+  ],
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "sourceReference": "Source-aware producer preparation; independent construction NOT_RUN",
+    "confidence": 1,
+    "reviewStatus": "unreviewed"
+  }
+}

@@ -56,7 +56,9 @@ def validate(root):
     return {'product':manifest['product'],'files':len(manifest['files']),'integrity':'PASS','modelGraph':'PASS','semanticSufficiency':'UNKNOWN','construction':'NOT_RUN'}
 
 def export(out):
-    out=Path(out).resolve();out.mkdir(parents=True,exist_ok=True);index={}
+    out=Path(out).resolve()
+    if out.exists() and any(out.iterdir()):raise ValueError('choose a new empty export destination')
+    out.mkdir(parents=True,exist_ok=True);index={}
     revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     for product in ['catalog','objects']:
         source=PUBLIC/product;model=json.loads((source/'forever/manifest.json').read_text())
@@ -78,6 +80,8 @@ def export(out):
         (target/'package.json').write_bytes((json.dumps(manifest,indent=2)+'\n').encode())
         validate(target);index[product]=digest((target/'package.json').read_bytes())
     (out/'index.json').write_bytes((json.dumps({'packages':index,'construction':'NOT_RUN'},indent=2)+'\n').encode())
+    # Exported material is explicitly public, and must be readable by an unprivileged consumer.
+    for item in [out,*out.rglob('*')]:item.chmod(0o755 if item.is_dir() else 0o644)
     return index
 if __name__=='__main__':
     p=argparse.ArgumentParser();group=p.add_mutually_exclusive_group(required=True);group.add_argument('--out');group.add_argument('--validate');args=p.parse_args()

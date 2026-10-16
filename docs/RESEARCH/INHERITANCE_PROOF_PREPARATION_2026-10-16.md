@@ -1,8 +1,11 @@
 # Bounded independent inheritance proof preparation
 
-Status: preparation for an experimental optional workflow, not a core edition or an
-independent construction result. The source-aware author must not act as the cold
-consumer. Build producer examples only after Stage A's hosted hardening gates pass.
+Status: implemented reference preparation, not a core edition or independent consumer
+result. Stage A passed hosted run 38897739593 before producer implementation began.
+Runnable producers, exporter/validator, frozen packages and a separated evaluator now
+live in examples/inheritance. The source-aware author must not act as the cold consumer;
+construction remains NOT_RUN. The original bounded design below remains contextual;
+use examples/inheritance/HANDOFF.md for the delivered operator setup.
 
 ## Proposed bounded producers
 
@@ -51,7 +54,7 @@ updates, restart producers and round-trip exported state. Test actual effects th
 the running services. A consumer build, valid package or supplied PASS is insufficient.
 
 Producer startup/reset/seed scripts, frozen exports, clean package-consumption smoke,
-separate evaluator and enforceable launch configuration follow only after hardening
-passes. Until those exist and a fresh restricted consumer actually runs, construction
-is NOT_RUN. If restrictions cannot be enforced, downgrade the trial rather than count
+separate evaluator and container launch configuration have been implemented and
+reference-tested after hardening passed. A genuinely fresh restricted consumer has
+not run; construction is NOT_RUN. If restrictions cannot be enforced, downgrade the trial rather than count
 this source-aware preparation as success. No commercial-demand claim follows.

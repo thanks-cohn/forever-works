@@ -1,0 +1,21 @@
+{
+  "referenceProducerTests": "PASS",
+  "checks": [
+    "read-only grants cause no writes",
+    "lost committed response recovered; both real effects and exact metadata verified",
+    "byte-identical retry has no extra revision",
+    "immutable identity conflict preserves original state",
+    "stale catalog revision cannot overwrite state",
+    "independent producer restarts preserve committed identities/data",
+    "cross-service grant rejected; invalid Base64/duplicate members rejected",
+    "clean-store round trip preserves both identities and all document bytes",
+    "documented startup, idempotent seed and marked-state reset passed"
+  ],
+  "sourceAware": true,
+  "construction": "NOT_RUN",
+  "limitations": [
+    "not an independent consumer",
+    "not production authentication",
+    "no commercial evidence"
+  ]
+}

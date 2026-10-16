@@ -53,7 +53,12 @@ jobs:
           install: make mingw-w64-x86_64-gcc
       - run: make hardening
         if: runner.os != 'Windows'
-      - run: make hardening PYTHON=python CC=gcc CXX=g++
+      - run: |
+          node --version
+          python --version
+          gcc --version
+          g++ --version
+          make hardening PYTHON=python CC=gcc CXX=g++
         if: runner.os == 'Windows'
         shell: msys2 {0}
       - run: python scripts/sync_core_contracts.py && git diff --exit-code
@@ -72,3 +77,5 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - run: make inheritance
+      - run: python examples/inheritance/export_packages.py --validate examples/inheritance/frozen/catalog
+      - run: python examples/inheritance/export_packages.py --validate examples/inheritance/frozen/objects

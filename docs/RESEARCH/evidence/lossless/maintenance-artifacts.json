@@ -1,6 +1,6 @@
 {
   "status": "observed artifact identity, not a certification",
-  "implementationCommit": "8b68d6f plus explicit non-JSON host-key rejection regression",
+  "implementationCommit": "bd36e41e4996c344633b552f20c50165d6f9eafa",
   "artifacts": [
     {
       "path": "docs/API/LOSSLESS_JSON.md",

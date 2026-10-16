@@ -1,6 +1,6 @@
 name: forever-inheritance-proof
 services:
-  catalog:
+  catalog: &catalog-service
     build:
       context: ../..
       dockerfile: examples/inheritance/Producer.Dockerfile
@@ -13,7 +13,7 @@ services:
     tmpfs: [/tmp]
     pids_limit: 128
     mem_limit: 256m
-  objects:
+  objects: &objects-service
     build:
       context: ../..
       dockerfile: examples/inheritance/Producer.Dockerfile
@@ -26,7 +26,20 @@ services:
     tmpfs: [/tmp]
     pids_limit: 128
     mem_limit: 256m
+  catalog-clean:
+    <<: *catalog-service
+    profiles: [evaluation]
+    command: [python, /app/catalog/server.py, --state, /data/catalog.sqlite, --host, 0.0.0.0, --port, '8080', --read-grant, '${CATALOG_CLEAN_READ_GRANT:-synthetic-catalog-clean-read}', --write-grant, '${CATALOG_CLEAN_WRITE_GRANT:-synthetic-catalog-clean-write}']
+    volumes: [catalog-clean-state:/data]
+  objects-clean:
+    <<: *objects-service
+    profiles: [evaluation]
+    command: [python, /app/objects/server.py, --state, /data/objects.sqlite, --host, 0.0.0.0, --port, '8080', --read-grant, '${OBJECTS_CLEAN_READ_GRANT:-synthetic-objects-clean-read}', --write-grant, '${OBJECTS_CLEAN_WRITE_GRANT:-synthetic-objects-clean-write}']
+    volumes: [object-clean-state:/data]
   consumer:
+    environment:
+      NO_PROXY: '${NO_PROXY:-localhost,127.0.0.1},catalog,objects,evaluator,consumer,catalog-clean,objects-clean'
+      no_proxy: '${NO_PROXY:-localhost,127.0.0.1},catalog,objects,evaluator,consumer,catalog-clean,objects-clean'
     build:
       context: .
       dockerfile: Consumer.Dockerfile
@@ -41,6 +54,9 @@ services:
     pids_limit: 128
     mem_limit: 512m
   evaluator:
+    environment:
+      NO_PROXY: '${NO_PROXY:-localhost,127.0.0.1},catalog,objects,evaluator,consumer,catalog-clean,objects-clean'
+      no_proxy: '${NO_PROXY:-localhost,127.0.0.1},catalog,objects,evaluator,consumer,catalog-clean,objects-clean'
     profiles: [evaluation]
     build:
       context: ../..
@@ -61,3 +77,5 @@ volumes:
   object-state:
   consumer-work:
   evaluation-control:
+  catalog-clean-state:
+  object-clean-state:

@@ -1,0 +1,23 @@
+{
+  "foreverVersion": "0.1",
+  "id": "implementation.objects",
+  "kind": "implementation",
+  "type": "local-service",
+  "technology": "Independent HTTP process, own SQLite database; shared reference runtime mechanism",
+  "satisfiesCapabilities": [
+    "capability.objects"
+  ],
+  "constrainedByInvariants": [
+    "invariant.objects"
+  ],
+  "sourceLocations": [
+    "CONTRACT.md"
+  ],
+  "claims": [],
+  "provenance": {
+    "sourceType": "agent-proposed",
+    "sourceReference": "Source-aware producer preparation; independent construction NOT_RUN",
+    "confidence": 1,
+    "reviewStatus": "unreviewed"
+  }
+}

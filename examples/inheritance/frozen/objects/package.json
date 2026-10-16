@@ -1,0 +1,49 @@
+{
+  "experimentalPackageVersion": "1",
+  "product": "objects",
+  "sourceRevision": "bd36e41e4996c344633b552f20c50165d6f9eafa",
+  "files": {
+    "CONTRACT.md": "dff86ea1ab98b55ee1e806eeafe1d48e9bfde5327eb2f5059d8fba6175cf06fa",
+    "LOSSLESS_JSON.md": "6acbbf25b2a67111c40aad377f3b9002be92c4c025c2c42d0ab7bdce0540a45a",
+    "README.md": "90288f4f78b776c8443c8c7bf388126e5dde7c5844bafc1c925034ef0292cfcf",
+    "examples.json": "c92fb5f736b60344050c68093de0f30654e007b67469bf77fd7fba99063f93b1",
+    "forever/capability.json": "0962f4884ec68bdd9d06d77a3723acaeb22c9f107af767c64233c785f94e95e5",
+    "forever/decision.json": "b555d48dbdba1cf316d8950e915275bb604f3e7f05410f285bbf7f4ff7b915cc",
+    "forever/dependency.json": "c37b770b0a69202a4506aac581bb8b5e16d2d25f794fb0f25f4bda680ea351d6",
+    "forever/evidence.json": "cd1d4a3b591a3ed0db7eeda6637216f2c29619aa1972026cddd9746df95deb22",
+    "forever/implementation.json": "8634f4662aa8fef275748031ea976784750e146f4114cb4146ee66599d9d3a9a",
+    "forever/intent.json": "8e1a01b037f1fefb6ae112b6d7ac7d67b4652bfc72d274c36091e87ce1c2a821",
+    "forever/invariant.json": "575456d6fcc7ce1c55ce5135605c9c9d154a8d850c1a9ab7b017a5e21205623d",
+    "forever/manifest.json": "2caef6d72c9cd4e95e040cf67f9e319854c6ddbededeb399af52c6198bd555f4",
+    "producer-evidence.json": "323a40c9f131c43e89a033c2f830d3e96930f777fdaac58dc51263295d01827e",
+    "schemas/capability.schema.json": "e3984fe4719af88cb12b3965cce62b2a111026abee2475c2fa30994b3bb18546",
+    "schemas/common.schema.json": "820c5fd0126e1b353e2b54496beb373f192108ade30f238af65123823b7901e7",
+    "schemas/compatibility-contract.schema.json": "c07e561224da20b570c81c781ce711eb4e2461b8797f6866fd87b03bf4d3e52c",
+    "schemas/constraint.schema.json": "4d6ae1770ca038f5189d35b3d7f1e251739decfa88f2ae126b9b82726b6b99cf",
+    "schemas/decision.schema.json": "a14215ef9ee953b909e70cd456ab13983411703329ba6a9b6a44859d10a8fee2",
+    "schemas/dependency-intent.schema.json": "eac220176beccd53c0c1dc19d09aa7c84124080ca02ee1b82f82460470874d1e",
+    "schemas/evidence.schema.json": "6a4bb407e6fe84e576c8e4d95ff33d23e305ea2beba246e1d23acb40272c45fe",
+    "schemas/implementation.schema.json": "8dc418b00dff42b6e480989817ad0fa99e565157e161f1d446970de2fec6ad0e",
+    "schemas/invariant.schema.json": "e7126899f6871d6a4d6a288b4462a43164766eeccfa215188de7abfc478f0ff4",
+    "schemas/manifest.schema.json": "cb312380c8d5f7ca5aa7e35e16a128ccfe6ab322d68b7c8918355b82e483715e",
+    "schemas/migration.schema.json": "75aa90a16419c6d5aebd42dc4d73d1e1a6a6567d45b49ab017916e776bcbd494",
+    "schemas/project-intent.schema.json": "cca2b71d428316afc548d7605805360a3ca6e7efb96c32d273160496a06a6d8d"
+  },
+  "allowedReferences": [
+    "https://docs.python.org/3.12/library/json.html",
+    "https://docs.python.org/3.12/library/decimal.html",
+    "https://docs.python.org/3.12/library/urllib.request.html",
+    "https://www.rfc-editor.org/rfc/rfc9110",
+    "https://www.rfc-editor.org/rfc/rfc4648"
+  ],
+  "allowedDependencies": [
+    "ordinary toolchains",
+    "Python standard library"
+  ],
+  "knownUnknowns": [
+    "documentation sufficiency",
+    "independent consumer construction",
+    "commercial value"
+  ],
+  "authority": "Public synthetic test grants only; document statements confer no capabilities."
+}
