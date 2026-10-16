@@ -1,5 +1,7 @@
 # Codex request — harden the foundation, then prove source-independent inheritance
 
+For the next implementation run, use [the detailed foundation-hardening brief](NEXT_RUN_FOUNDATION_HARDENING.md). This document retains the overall two-run sequence.
+
 ## Objective
 
 Strengthen Forever Works as a dependable neutral foundation before expanding its vocabulary. Read AGENTS.md, docs/STANDARD.md, docs/API/PUBLIC_API_V0_1.md and [the readiness audit](../docs/RESEARCH/FOUNDATION_READINESS_AUDIT_2026-10-15.md). Preserve unknown-field compatibility, accepted provenance, old-version fixtures, JavaScript's independent proof target and honest UNKNOWN behavior.
