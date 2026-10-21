@@ -82,3 +82,7 @@ Measure capability and invariant retention, fidelity of recovered purpose, data 
 Standard 0.1 already distinguishes intent/capability/invariant/constraint from implementation/dependency, retains provenance, and uses conservative PASS/FAIL/UNKNOWN replacement evaluation. This doctrine **interprets and extends their intended use**, but is not an additional normative schema requirement or a claim that fully automated purpose extraction/reconstitution is already implemented. Future evolution should be proposed with versioned schemas, conformance fixtures, interoperable tooling and independent benchmarks rather than silently altering Standard 0.1.
 
 **Design maxim:** Preserve what the software was *for*. Understand why it became what it *is*. Prove that the successor still delivers what matters.
+
+## Adopted maintenance premise
+
+[Simple Design and Traceable Removal](SIMPLE_DESIGN_AND_TRACEABLE_REMOVAL.md) applies this doctrine to ongoing engineering: remove obsolete implementations and unnecessary compensation, preserve a linked account of former locations and effects, and verify the resulting production artifact. It explicitly records suspected residual influence and uncertainty to support later debugging. It is a repository maintenance policy, without changing Standard 0.1 or Public API v0.1.
