@@ -117,3 +117,7 @@ verification as **UNKNOWN**, even when evidence metadata claims PASS.
 ```sh
 node scripts/validate_composition.mjs conformance/ecosystem-composition/v0.1 valid/four-participant-fan.json conformance/fixtures/complete/forever
 ```
+
+## Engineering premise: Simple Design and Traceable Removal
+
+[Simple Design and Traceable Removal](docs/PROPOSALS/SIMPLE_DESIGN_AND_TRACEABLE_REMOVAL.md) adopts XP's Simple Design principles and adds an evidence-backed maintenance obligation: investigate and remove obsolete machinery and its unnecessary residual effects, document where it was and what it did, and verify the current production artifact within an explicit scope. Historical records support future bug investigation without retaining obsolete code in the active application. This is an owner-adopted engineering premise, not a claim of full XP adoption, ISO certification, an already completed repository audit, or new Standard 0.1 schema/API conformance requirements.
