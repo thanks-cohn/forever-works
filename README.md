@@ -6,6 +6,16 @@ Forever Works lets a project carry durable, machine-readable intent, capabilitie
 
 See the [indexed foundation overview](docs/FOUNDATION_OVERVIEW.md), [worked maintenance change](docs/MAINTENANCE_EXAMPLE.md), and [verified newcomer path](docs/GETTING_STARTED.md) and [binding coverage](docs/API/OPERATION_COVERAGE.md).
 
+## Draft: consumer presentation preservation
+
+[Consumer Presentation Preservation](docs/PROPOSALS/CONSUMER_PRESENTATION_PRESERVATION.md)
+and its [project capture template](docs/templates/CONSUMER_PRESENTATION_CAPTURE.md)
+document the proposed preservation of current and intended UX/UI: structure,
+spacing, typography, effects, animation, sound, interaction states, accessibility,
+and a **Most resembles ____** reference section. The draft connects consumer
+experience to implementation evidence while keeping unknowns explicit.
+Standard 0.1, schemas and Public API v0.1 remain unchanged.
+
 ## Five-minute start
 
 Create a deliberately draft model, then validate and audit it before replacing the TODO values with accepted project intent:
